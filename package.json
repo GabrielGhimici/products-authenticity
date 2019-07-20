@@ -2,6 +2,10 @@
   "name": "products-authenticity",
   "version": "0.0.1",
   "scripts": {
+    "android": "tns run android --bundle",
+    "ios": "tns run ios --bundle",
+    "mobile": "tns run --bundle",
+    "preview": "tns preview --bundle",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -18,7 +22,11 @@
     "@angular/platform-browser": "^8.1.2",
     "@angular/platform-browser-dynamic": "^8.1.2",
     "@angular/router": "^8.1.2",
+    "nativescript-angular": "^8.0.2",
+    "nativescript-theme-core": "^1.0.6",
+    "reflect-metadata": "~0.1.12",
     "rxjs": "~6.4.0",
+    "tns-core-modules": "^6.0.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
@@ -27,9 +35,10 @@
     "@angular/cli": "^8.1.2",
     "@angular/compiler-cli": "^8.1.2",
     "@angular/language-service": "^8.1.2",
-    "@types/node": "^10.14.13",
+    "@nativescript/schematics": "^0.6.0",
     "@types/jasmine": "^3.3.14",
     "@types/jasminewd2": "^2.0.6",
+    "@types/node": "^10.14.13",
     "codelyzer": "^5.0.0",
     "jasmine-core": "^3.4.0",
     "jasmine-spec-reporter": "^4.2.1",
@@ -38,9 +47,16 @@
     "karma-coverage-istanbul-reporter": "^2.0.6",
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "nativescript-dev-webpack": "^1.0.1",
     "protractor": "^5.4.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
-    "typescript": "~3.4.3"
+    "typescript": "3.4.5"
+  },
+  "nativescript": {
+    "id": "org.products.authenticity",
+    "tns-android": {
+      "version": "6.0.0"
+    }
   }
 }

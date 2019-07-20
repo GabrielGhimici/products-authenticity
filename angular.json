@@ -6,7 +6,7 @@
     "products-authenticity": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
+        "@nativescript/schematics:component": {
           "style": "scss"
         }
       },
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "products-authenticity"
+    }
+  },
+  "defaultProject": "products-authenticity",
+  "cli": {
+    "defaultCollection": "@nativescript/schematics"
+  }
 }
