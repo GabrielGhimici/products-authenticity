@@ -12,7 +12,10 @@
     "build-server": "rimraf ./dist/server && tsc -p server/tsconfig.json",
     "build": "npm run build-client && npm run build-server",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint-client": "ng lint",
+    "lint-server": "tslint -c ./tslint.json -p ./server",
+    "lint-client:fix": "ng lint --fix",
+    "lint-server:fix": "tslint -c ./tslint.json -p ./server --fix",
     "e2e": "ng e2e"
   },
   "private": true,
