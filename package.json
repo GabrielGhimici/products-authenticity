@@ -6,7 +6,7 @@
     "ios": "tns run ios --bundle",
     "mobile": "tns run --bundle",
     "preview": "tns preview --bundle",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
