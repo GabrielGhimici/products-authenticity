@@ -3,7 +3,7 @@
 node_modules/
 platforms/
 hooks/
-src/**/*.js
+client/**/*.js
 
 # compiled output
 /dist
