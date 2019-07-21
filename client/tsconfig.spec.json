@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
@@ -8,11 +8,11 @@
     ]
   },
   "files": [
-    "client/test.ts",
-    "client/polyfills.ts"
+    "test.ts",
+    "./polyfills.ts"
   ],
   "include": [
-    "client/**/*.spec.ts",
-    "client/**/*.d.ts"
+    "./**/*.spec.ts",
+    "./**/*.d.ts"
   ]
 }

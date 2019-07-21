@@ -1,0 +1,6 @@
+{
+  "verbose": false,
+  "ignore": [],
+  "watch": ["./server", ".env"],
+  "ext": "ts js json sql"
+}
