@@ -13,6 +13,8 @@ import { createLogger } from 'redux-logger';
 import { provideReduxForms } from '@angular-redux/form';
 import { RouterModule } from '@angular/router';
 import { TestComponent } from './test/test.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,14 @@ import { TestComponent } from './test/test.component';
     TestComponent
   ],
   imports: [
+    MatCheckboxModule,
     NgReduxModule,
     BrowserModule,
     RouterModule.forRoot([
       {path: '', redirectTo: '/test', pathMatch: 'full'},
       {path: 'test', component: TestComponent}
     ]),
+    BrowserAnimationsModule
   ],
   providers: [
     NgReduxRouter,
