@@ -3,6 +3,7 @@ import { select } from '@angular-redux/store';
 import { Observable } from 'rxjs';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'test',
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss']
