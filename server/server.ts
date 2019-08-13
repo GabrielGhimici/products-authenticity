@@ -1,10 +1,10 @@
 import { ServerLoader, ServerSettings } from '@tsed/common';
+import { config } from 'dotenv';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as Path from 'path';
-import * as crypto from 'crypto';
 import * as Express from 'express';
-import { config } from 'dotenv';
+import * as session from 'express-session';
 
 config();
 
@@ -12,8 +12,8 @@ config();
   httpPort: 3000,
   rootDir: Path.resolve(__dirname),
   mount: {
-    '/api': '${rootDir}/api/*.js',
-    '/': '${rootDir}/generic/*.js'
+    '/api': '${rootDir}/api/controllers/*.js',
+    '/': '${rootDir}/generic/controllers/*.js'
   },
   typeorm: [{
     name: 'default',
@@ -32,32 +32,26 @@ config();
   }
 })
 export class Server extends ServerLoader {
-  getSalt(length: number = 5) {
-    return crypto.randomBytes(Math.ceil(length / 2))
-      .toString('hex')
-      .slice(0, length)
-      .toUpperCase();
-  }
-
-  sha512(password, salt) {
-    const hash = crypto.createHmac('sha512', salt);
-    hash.update(password);
-    const value = hash.digest('hex');
-    return {
-      salt,
-      passwordHash: value
-    };
-  }
-
   public $onMountingMiddlewares(): void | Promise<any> {
     this
       .use(cookieParser())
-      .use(bodyParser.json())
+      .use(bodyParser.json({
+        limit: '20mb',
+        type: 'application/json'
+      }))
       .use(bodyParser.urlencoded({
         extended: true
+      }))
+      .use(session({
+        secret: 'S3CR37K3Y',
+        saveUninitialized: true,
+        resave: false,
+        cookie: {
+          expires: new Date(Number(new Date())+24*60*60*1000),
+          secure: 'auto',
+        }
       }));
     this.use(Express.static(`${__dirname}/../products-authenticity`));
-    console.log(this.sha512('godAccountPass', this.getSalt(7)));
     return null;
   }
 }
