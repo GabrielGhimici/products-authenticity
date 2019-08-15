@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
-
+@import './palette.scss';
 @include mat-core();
 
-$products-authenticity-primary: mat-palette($mat-blue);
-$products-authenticity-accent: mat-palette($mat-blue, A200, A100, A400);
+$products-authenticity-primary: mat-palette($pa-green);
+$products-authenticity-accent: mat-palette($pa-green, A200, A100, A400);
 $products-authenticity-warn: mat-palette($mat-red);
 
 $theme: mat-light-theme($products-authenticity-primary, $products-authenticity-accent, $products-authenticity-warn);

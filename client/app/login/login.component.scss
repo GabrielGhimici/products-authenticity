@@ -1,0 +1,30 @@
+@import '../../styles/palette';
+@import '../../styles/variables';
+
+.login-container {
+  width: 100%;
+  height: 100%;
+  background-color: $pa-grey;
+  display: flex;
+  .login-card {
+    background-color: $pa-ultra-light-grey;
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: $default-spacing;
+    .login-title {
+      text-align: center;
+      color: map_get($pa-green, 500);
+      font-weight: bold;
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      .spacing-bottom {
+        margin-bottom: $default-spacing;
+      }
+    }
+  }
+}

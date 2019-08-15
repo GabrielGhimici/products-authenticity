@@ -1,0 +1,15 @@
+@import '../../styles/palette';
+@import '../../styles/native-variables';
+
+FlexboxLayout {
+  background-color: $pa-grey;
+  justify-content: center;
+  StackLayout {
+    Label {
+      color: map_get($pa-green, 500);
+    }
+    background-color: $pa-ultra-light-grey;
+    margin: $default-spacing;
+    padding: $x-small-spacing;
+  }
+}

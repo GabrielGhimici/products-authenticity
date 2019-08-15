@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="mat-display-1 login-title">Log in</div>
+    <form #loginForm="ngForm" class="login-form">
+      <mat-form-field class="spacing-bottom" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput ngControl ngModel name='email' placeholder="Email" type="text" required
+               pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error *ngIf="loginForm.controls.email?.errors?.pattern">Provided email is invalid</mat-error>
+        <mat-error *ngIf="loginForm.controls.email?.errors?.required">Email field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="spacing-bottom" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput ngControl ngModel name='password' placeholder="Parola" type="password" required>
+        <mat-icon matSuffix>lock</mat-icon>
+        <mat-error *ngIf="loginForm.controls.password?.errors?.required">Password field is required</mat-error>
+      </mat-form-field>
+      <button mat-flat-button color="primary" [disableRipple]="true">Login</button>
+    </form>
+  </div>
+</div>

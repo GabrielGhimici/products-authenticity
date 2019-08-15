@@ -1,6 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
-import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { AppComponent } from './app.component';
 import { DevToolsExtension, NgRedux, NgReduxModule } from '@angular-redux/store';
 import { AppState } from './store/app-state';
@@ -11,21 +10,19 @@ import { rootReducer } from './store/root.reducer';
 import { environment } from '../environments/environment';
 import { provideReduxForms } from '@angular-redux/form';
 import { createLogger } from 'redux-logger';
-import { TestComponent } from './test/test.component';
+import { LoginComponent } from './login/login.component';
+import { AppRoutingModuleTns } from './app-routing.module.tns';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent
+    LoginComponent
   ],
   imports: [
     NgReduxModule,
-    NativeScriptRouterModule.forRoot([
-      {path: '', redirectTo: '/test', pathMatch: 'full'},
-      {path: 'test', component: TestComponent}
-    ]),
-    NativeScriptModule
+    NativeScriptModule,
+    AppRoutingModuleTns
   ],
   providers: [
     NgReduxRouter,

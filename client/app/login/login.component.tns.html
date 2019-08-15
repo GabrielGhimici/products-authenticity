@@ -1,0 +1,12 @@
+<Page actionBarHidden="true" class="page">
+  <FlexboxLayout flexDirection="column">
+    <StackLayout class="form">
+      <Label text="Log in" textAlignment="center" class="h2"></Label>
+      <TextField  flexGrow="1" hint="Email" keyboardType="email" autocorrect="false"
+                  autocapitalizationType="none" class="input input-border"></TextField>
+      <TextField hint="Password" secure="true"
+                 class="input input-border"></TextField>
+      <Button [text]="'Log in'" class="btn btn-primary"></Button>
+    </StackLayout>
+  </FlexboxLayout>
+</Page>
