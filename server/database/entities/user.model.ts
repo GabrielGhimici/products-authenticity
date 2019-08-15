@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 import { MaxLength, Property } from '@tsed/common';
 
 export type UserStatus = 'enabled' | 'disabled' | 'deleted';
@@ -55,9 +55,9 @@ export class User {
   })
   status: UserStatus;
 
-  @Column()
+  @CreateDateColumn()
   createdAt: Date;
 
-  @Column()
+  @UpdateDateColumn()
   updatedAt: Date;
 }

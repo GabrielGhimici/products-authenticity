@@ -54,6 +54,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.4.0",
     "tns-core-modules": "^6.0.1",
+    "ts-httpexceptions": "^4.1.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
