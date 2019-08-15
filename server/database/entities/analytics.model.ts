@@ -1,4 +1,5 @@
-import { Column, Entity, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { Column, Entity, UpdateDateColumn, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Property } from '@tsed/common';
 
 export type Platform = 'mobile' | 'web';
 export class Platforms {
@@ -8,6 +9,10 @@ export class Platforms {
 
 @Entity()
 export class Analytics {
+  @PrimaryGeneratedColumn()
+  @Property()
+  id: number;
+
   @Column()
   date: Date;
 
