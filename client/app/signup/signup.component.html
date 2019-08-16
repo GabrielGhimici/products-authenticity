@@ -9,13 +9,13 @@
         <mat-form-field appearance="outline">
           <mat-label>First name</mat-label>
           <input matInput ngControl ngModel name='first_name' placeholder="First name" type="text" required>
-          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-icon matSuffix>face</mat-icon>
           <mat-error *ngIf="loginForm.controls.first_name?.errors?.required">First name field is required</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Last name</mat-label>
           <input matInput ngControl ngModel name='last_name' placeholder="Last name" type="text" required>
-          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-icon matSuffix>face</mat-icon>
           <mat-error *ngIf="loginForm.controls.last_name?.errors?.required">Last name field is required</mat-error>
         </mat-form-field>
       </div>
@@ -23,7 +23,7 @@
         <mat-label>Email</mat-label>
         <input matInput ngControl ngModel name='email' placeholder="Email" type="text" required
                pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
-        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-icon matSuffix>email</mat-icon>
         <mat-error *ngIf="loginForm.controls.email?.errors?.pattern">Provided email is invalid</mat-error>
         <mat-error *ngIf="loginForm.controls.email?.errors?.required">Email field is required</mat-error>
       </mat-form-field>

@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToMany } from 'typeorm';
 import { MaxLength, Property } from '@tsed/common';
+import { User } from './user.model';
 
 export type RoleStatus = 'enabled' | 'disabled' | 'deleted';
 export class RoleStatusTypes {
@@ -31,4 +32,6 @@ export class Role {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @OneToMany(() => User, user => user.role)
+  users: User[];
 }

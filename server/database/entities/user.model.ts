@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToOne, JoinColumn } from 'typeorm';
 import { MaxLength, Property } from '@tsed/common';
+import { Role } from './role.model';
+import { EntityModel } from './entity.model';
 
 export type UserStatus = 'enabled' | 'disabled' | 'deleted';
 export class UserStatusTypes {
@@ -39,9 +41,14 @@ export class User {
   salt: string;
 
   @Column({name: 'id_role'})
+  @Property()
   roleId: number;
 
-  @Column({name: 'parent_entity_id'})
+  @Column({
+    name: 'parent_entity_id',
+    nullable: true
+  })
+  @Property()
   parentEntityId: number;
 
   @Column({name: 'blockchain_account'})
@@ -53,11 +60,24 @@ export class User {
     enum: [UserStatusTypes.Enabled, UserStatusTypes.Disabled, UserStatusTypes.Deleted],
     default: UserStatusTypes.Enabled
   })
+  @Property()
   status: UserStatus;
 
   @CreateDateColumn()
+  @Property()
   createdAt: Date;
 
   @UpdateDateColumn()
+  @Property()
   updatedAt: Date;
+
+  @OneToOne(() => Role, role => role.users)
+  @JoinColumn({name: 'id_role'})
+  @Property()
+  role: Role;
+
+  @OneToOne(() => EntityModel, entity => entity.users)
+  @JoinColumn({name: 'parent_entity_id'})
+  @Property()
+  parentEntity: EntityModel;
 }
