@@ -1,0 +1,53 @@
+<div class="sign-up-container">
+  <div class="sign-up-card">
+    <div class="progress-container">
+      <mat-progress-bar [color]="'primary'" [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    <div class="mat-display-1 sign-up-title">Sign up</div>
+    <form #loginForm="ngForm" class="sign-up-form">
+      <div class="inline-container spacing-bottom">
+        <mat-form-field appearance="outline">
+          <mat-label>First name</mat-label>
+          <input matInput ngControl ngModel name='first_name' placeholder="First name" type="text" required>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-error *ngIf="loginForm.controls.first_name?.errors?.required">First name field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Last name</mat-label>
+          <input matInput ngControl ngModel name='last_name' placeholder="Last name" type="text" required>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-error *ngIf="loginForm.controls.last_name?.errors?.required">Last name field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field class="spacing-bottom" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput ngControl ngModel name='email' placeholder="Email" type="text" required
+               pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error *ngIf="loginForm.controls.email?.errors?.pattern">Provided email is invalid</mat-error>
+        <mat-error *ngIf="loginForm.controls.email?.errors?.required">Email field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput ngControl ngModel name='last_name' placeholder="Username" type="text" required>
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error *ngIf="loginForm.controls.last_name?.errors?.required">Username field is required</mat-error>
+      </mat-form-field>
+      <div class="inline-container spacing-bottom">
+        <mat-form-field class="spacing-bottom" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput ngControl ngModel name='password' placeholder="Password" type="password" required>
+          <mat-icon matSuffix>lock</mat-icon>
+          <mat-error *ngIf="loginForm.controls.password?.errors?.required">Password field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="spacing-bottom" appearance="outline">
+          <mat-label>Confirm password</mat-label>
+          <input matInput ngControl ngModel name='confirm_password' placeholder="Confirm password" type="password" required>
+          <mat-icon matSuffix>lock</mat-icon>
+          <mat-error *ngIf="loginForm.controls.confirm_password?.errors?.required">Confirm password field is required</mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-flat-button color="primary" class="action-button">Sign up</button>
+    </form>
+  </div>
+</div>

@@ -12,15 +12,17 @@ import { environment } from '../environments/environment';
 import { createLogger } from 'redux-logger';
 import { provideReduxForms } from '@angular-redux/form';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatProgressBarModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     MatCheckboxModule,
@@ -31,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatProgressBarModule,
     AppRoutingModule,
   ],
   providers: [

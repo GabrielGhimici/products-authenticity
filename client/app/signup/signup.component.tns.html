@@ -1,0 +1,23 @@
+<FlexboxLayout flexDirection="column" class="page-layout">
+  <ScrollView>
+    <StackLayout class="form">
+      <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="center" class="spacing-bottom custom-margin">
+        <Label text="Sign up" textAlignment="center" class="h2"></Label>
+        <ActivityIndicator [busy]="false" class="activity-indicator"></ActivityIndicator>
+      </FlexboxLayout>
+      <TextField flexGrow="1" hint="First name" keyboardType="email" autocorrect="false"
+                 class="input input-border spacing-bottom" required></TextField>
+      <TextField flexGrow="1" hint="Last name" keyboardType="email" autocorrect="false"
+                 class="input input-border spacing-bottom" required></TextField>
+      <TextField flexGrow="1" hint="Email" keyboardType="email" autocorrect="false"
+                 autocapitalizationType="none" class="input input-border spacing-bottom" required></TextField>
+      <TextField flexGrow="1" hint="Username" keyboardType="email" autocorrect="false"
+                 class="input input-border spacing-bottom" required></TextField>
+      <TextField flexGrow="1" hint="Password" secure="true"
+                 class="input input-border spacing-bottom" required></TextField>
+      <TextField flexGrow="1" hint="Confirm password" secure="true"
+                 class="input input-border spacing-bottom" required></TextField>
+      <Button [text]="'Sign up'" class="btn btn-primary"></Button>
+    </StackLayout>
+  </ScrollView>
+</FlexboxLayout>

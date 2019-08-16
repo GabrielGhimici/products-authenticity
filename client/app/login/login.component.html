@@ -1,5 +1,8 @@
 <div class="login-container">
   <div class="login-card">
+    <div class="progress-container">
+      <mat-progress-bar [color]="'primary'" [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
     <div class="mat-display-1 login-title">Log in</div>
     <form #loginForm="ngForm" class="login-form">
       <mat-form-field class="spacing-bottom" appearance="outline">
@@ -16,7 +19,8 @@
         <mat-icon matSuffix>lock</mat-icon>
         <mat-error *ngIf="loginForm.controls.password?.errors?.required">Password field is required</mat-error>
       </mat-form-field>
-      <button mat-flat-button color="primary" [disableRipple]="true">Login</button>
+      <button mat-flat-button color="primary" class="action-button">Log in</button>
     </form>
+    <button mat-stroked-button color="primary" class="action-button" routerLink="/sign-up">Sign up</button>
   </div>
 </div>

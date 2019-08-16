@@ -11,18 +11,22 @@ import { environment } from '../environments/environment';
 import { provideReduxForms } from '@angular-redux/form';
 import { createLogger } from 'redux-logger';
 import { LoginComponent } from './login/login.component';
-import { AppRoutingModuleTns } from './app-routing.module.tns';
+import { AppRoutingModule } from './app-routing.module.tns';
+import { NativeScriptFormsModule } from 'nativescript-angular';
+import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     NgReduxModule,
     NativeScriptModule,
-    AppRoutingModuleTns
+    NativeScriptFormsModule,
+    AppRoutingModule
   ],
   providers: [
     NgReduxRouter,
