@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import { UserLoginData } from '../../../authentication/store/authentication.data';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable()
+export class LoginServiceCommon {
+  constructor(
+    private http: HttpClient
+  ) {}
+  public logIn(bodyValue: UserLoginData, url: string, params?: {[key: string]: string}) {
+    if (params) {
+      return this.http.post(url, bodyValue, {params});
+    }
+    return this.http.post(url, bodyValue);
+  }
+
+  public logOut(url: string) {
+    return this.http.post(url, {});
+  }
+
+  public isLoggedIn(url: string) {
+    return this.http.get(url).pipe(
+      map((_: {valid: boolean}) => {
+        return _.valid === true;
+      })
+    );
+  }
+}

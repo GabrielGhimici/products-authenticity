@@ -6,7 +6,7 @@
     "ios": "tns run ios --bundle",
     "mobile": "tns run --bundle",
     "preview": "tns preview --bundle",
-    "start-client": "ng serve --open",
+    "start-client": "ng serve --open --host products-auth.local.net --proxy-config ./client/proxy.conf.json",
     "start-server": "nodemon  --config ./server/nodemon.json --exec \"tsc -p server/tsconfig.json && node ./dist/server/index.js\"",
     "build-client": "rimraf ./dist/products-authenticity && ng build --prod",
     "build-server": "rimraf ./dist/server && tsc -p server/tsconfig.json",

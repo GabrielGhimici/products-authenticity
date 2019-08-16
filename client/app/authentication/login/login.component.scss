@@ -1,5 +1,5 @@
-@import '../../styles/palette';
-@import '../../styles/variables';
+@import '../../../styles/palette';
+@import '../../../styles/variables';
 
 .login-container {
   width: 100%;
@@ -9,7 +9,7 @@
   .login-card {
     background-color: $pa-ultra-light-grey;
     width: 400px;
-    height: 400px;
+    height: 375px;
     margin: auto;
     display: flex;
     flex-direction: column;

@@ -10,26 +10,41 @@ import { rootReducer } from './store/root.reducer';
 import { environment } from '../environments/environment';
 import { provideReduxForms } from '@angular-redux/form';
 import { createLogger } from 'redux-logger';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './authentication/login/login.component';
 import { AppRoutingModule } from './app-routing.module.tns';
 import { NativeScriptFormsModule } from 'nativescript-angular';
-import { SignupComponent } from './signup/signup.component';
-
+import { SignupComponent } from './authentication/signup/signup.component';
+import { AuthenticationEpic } from './authentication/store/authentication.epic';
+import { RootComponent } from './root/root.component';
+import { LoginService } from './core/login/service/login.service';
+import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
+import { AuthenticationActions } from './authentication/store/authentication.actions';
+import { LoginGuard } from './core/login/login.guard.tns';
+import { HttpConfigService } from './core/http-config/http-config.service';
+import { LoginServiceCommon } from './core/login/service/login.service.common';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    RootComponent
   ],
   imports: [
     NgReduxModule,
     NativeScriptModule,
     NativeScriptFormsModule,
+    NativeScriptHttpClientModule,
     AppRoutingModule
   ],
   providers: [
     NgReduxRouter,
+    HttpConfigService,
+    AuthenticationActions,
+    AuthenticationEpic,
+    LoginServiceCommon,
+    LoginService,
+    LoginGuard,
     RootEpics
   ],
   bootstrap: [AppComponent],

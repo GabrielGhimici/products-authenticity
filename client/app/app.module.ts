@@ -11,29 +11,28 @@ import { rootReducer } from './store/root.reducer';
 import { environment } from '../environments/environment';
 import { createLogger } from 'redux-logger';
 import { provideReduxForms } from '@angular-redux/form';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatIconModule, MatInputModule, MatProgressBarModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './login/login.component';
-import { FormsModule } from '@angular/forms';
-import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignupComponent } from './authentication/signup/signup.component';
+import { RootComponent } from './root/root.component';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    RootComponent
   ],
   imports: [
-    MatCheckboxModule,
     NgReduxModule,
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    MatProgressBarModule,
+    ReactiveFormsModule,
+    SharedModule,
+    CoreModule,
     AppRoutingModule,
   ],
   providers: [
