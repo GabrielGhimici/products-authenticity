@@ -14,10 +14,9 @@ export class LoginGuard implements CanActivate {
   canActivate() {
     return this.loginService.isLoggedIn
       .pipe(
-        filter(value => !isUndefined(value))
-      ).pipe(
+        filter(value => !isUndefined(value)),
         map(value => {
-          alert(`${value} - ${getString('ProdToken')}`)
+          alert(`${value} - ${getString('ProdToken')}`);
           if (!value || getString('ProdToken')) {
             this.router.navigate(['/login']);
             return false;

@@ -22,8 +22,7 @@ export class LoginGuard implements CanActivate {
   canActivate() {
     return this.loginService.isLoggedIn
       .pipe(
-        filter(value => !!value)
-      ).pipe(
+        filter(value => !!value),
         map(value => {
           const cookies = this.getCookies();
           // tslint:disable-next-line:no-string-literal
