@@ -24,12 +24,15 @@ export class Role {
     enum: [RoleStatusTypes.Enabled, RoleStatusTypes.Disabled, RoleStatusTypes.Deleted],
     default: RoleStatusTypes.Enabled
   })
+  @Property()
   status: RoleStatus;
 
   @CreateDateColumn()
+  @Property()
   createdAt: Date;
 
   @UpdateDateColumn()
+  @Property()
   updatedAt: Date;
 
   @OneToMany(() => User, user => user.role)
