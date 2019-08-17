@@ -44,14 +44,12 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   doSignUp(formValue: UserSignUpData, formValidity: boolean) {
     if (formValidity) {
-      // tslint:disable-next-line:no-string-literal
-      delete formValue['confirmPassword'];
+      delete formValue.confirmPassword;
       this.startSignUp(formValue);
       this.signedUp$
         .pipe(
           filter((data) => !!data)
         ).subscribe((data) => {
-          console.log(data);
           if (data === true) {
             this.router.navigate(['/login']);
           }

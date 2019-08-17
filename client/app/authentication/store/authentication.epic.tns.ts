@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginService } from '../../core/login/service/login.service.tns';
 import { AuthenticationActions } from './authentication.actions';
 import { combineEpics, ofType } from 'redux-observable';
-import { catchError, map, switchMap, delay } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { PayloadAction } from '../../store/payload-action';
 import { of } from 'rxjs';
 import { setString } from 'tns-core-modules/application-settings';
@@ -14,7 +14,25 @@ export class AuthenticationEpic {
               private authenticationActions: AuthenticationActions) {}
 
   public createEpic() {
-    return combineEpics(this.loginEpic());
+    return combineEpics(
+      this.loginEpic(),
+      this.signUpEpic()
+    );
+  }
+
+  private signUpEpic() {
+    return action$ => action$
+      .pipe(
+        ofType(AuthenticationActions.SIGN_UP_STARTED),
+        switchMap((action: PayloadAction) => this.loginService.signUp(action.payload)
+          .pipe(
+            map((data: any) => {
+              return this.authenticationActions.signUpSucceeded(!!data);
+            }),
+            catchError(data => of(this.authenticationActions.signUpFailed(data)))
+          )
+        )
+      );
   }
 
   private loginEpic() {
@@ -23,7 +41,6 @@ export class AuthenticationEpic {
         ofType(AuthenticationActions.LOGIN_STARTED),
         switchMap((action: PayloadAction) => this.loginService.logIn(action.payload)
           .pipe(
-            delay(5000),
             map((data: {OK: boolean, token: string}) => {
               if (data.token) {
                 setString('ProdToken', data.token);

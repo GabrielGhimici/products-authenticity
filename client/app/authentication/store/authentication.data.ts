@@ -17,5 +17,6 @@ export interface UserSignUpData {
   email: string;
   username: string;
   password: string;
+  confirmPassword?: string;
   parentEntity?: number;
 }
