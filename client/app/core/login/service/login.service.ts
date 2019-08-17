@@ -16,7 +16,7 @@ export class LoginService {
     return this.loginCommon.logOut('auth/logout');
   }
 
-  get isLoggedIn() {
+  public isLoggedIn() {
     return this.loginCommon.isLoggedIn('auth/token_info');
   }
 }

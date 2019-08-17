@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { LoginService } from './service/login.service';
-import { filter, map } from 'rxjs/operators';
-import { isUndefined } from 'tns-core-modules/utils/types';
+import { map } from 'rxjs/operators';
 import { getString } from 'tns-core-modules/application-settings';
+import { LoginService } from './service/login.service.tns';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
@@ -12,9 +11,8 @@ export class LoginGuard implements CanActivate {
   }
 
   canActivate() {
-    return this.loginService.isLoggedIn
+    return this.loginService.isLoggedIn()
       .pipe(
-        filter(value => !isUndefined(value)),
         map(value => {
           alert(`${value} - ${getString('ProdToken')}`);
           if (!value || getString('ProdToken')) {

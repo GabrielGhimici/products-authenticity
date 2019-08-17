@@ -16,6 +16,7 @@ export class AuthenticationController {
     @Request() request,
     @Response() response,
   ) {
+    console.log(request.session);
     if (request.headers &&
       request.headers.authorization &&
       request.session &&

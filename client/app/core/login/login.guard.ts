@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { LoginService } from './service/login.service';
-import { filter, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
@@ -20,9 +20,8 @@ export class LoginGuard implements CanActivate {
   }
 
   canActivate() {
-    return this.loginService.isLoggedIn
+    return this.loginService.isLoggedIn()
       .pipe(
-        filter(value => !!value),
         map(value => {
           const cookies = this.getCookies();
           // tslint:disable-next-line:no-string-literal

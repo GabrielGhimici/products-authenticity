@@ -7,10 +7,10 @@ import { RootComponent } from './root/root.component';
 import { LoginGuard } from './core/login/login.guard.tns';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'main', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
   { path: 'sign-up', component: SignupComponent},
-  { path: 'main', component: RootComponent, canActivate: [LoginGuard]}
+  { path: 'main', component: RootComponent, canActivate: [LoginGuard]},
+  { path: '', redirectTo: 'main', pathMatch: 'full'}
 ];
 
 @NgModule({
