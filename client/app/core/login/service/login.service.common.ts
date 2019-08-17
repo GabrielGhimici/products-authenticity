@@ -19,8 +19,8 @@ export class LoginServiceCommon {
     return this.http.post(url, {});
   }
 
-  public isLoggedIn(url: string) {
-    return this.http.get(url).pipe(
+  public isLoggedIn(url: string, options?: {[key: string]: any}) {
+    return this.http.get(url, options ? options : {}).pipe(
       map((_: {valid: boolean}) => {
         return _.valid === true;
       })

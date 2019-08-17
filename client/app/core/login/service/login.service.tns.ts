@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpConfigService } from '../../http-config/http-config.service';
 import { UserLoginData } from '../../../authentication/store/authentication.data';
 import { LoginServiceCommon } from './login.service.common';
+import { getString } from 'tns-core-modules/application-settings';
 
 @Injectable()
 export class LoginService {
@@ -19,6 +20,11 @@ export class LoginService {
   }
 
   public isLoggedIn() {
-    return this.loginCommon.isLoggedIn(`${this.httpConfig.getApiConfig()}/auth/token_info`);
+    const options = {
+      headers: {
+        Authorization: getString('ProdToken')
+      }
+    };
+    return this.loginCommon.isLoggedIn(`${this.httpConfig.getApiConfig()}/auth/token_info`, options);
   }
 }

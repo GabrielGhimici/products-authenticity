@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { DevToolsExtension, NgRedux, NgReduxModule } from '@angular-redux/store';
 import { AppState } from './store/app-state';
 import { NgReduxRouter } from '@angular-redux/router';
-import { RootEpics } from './store/root.epics';
+import { RootEpics } from './store/root.epics.tns';
 import { createEpicMiddleware } from 'redux-observable-es6-compat';
 import { rootReducer } from './store/root.reducer';
 import { environment } from '../environments/environment';
@@ -14,14 +14,14 @@ import { LoginComponent } from './authentication/login/login.component';
 import { AppRoutingModule } from './app-routing.module.tns';
 import { NativeScriptFormsModule } from 'nativescript-angular';
 import { SignupComponent } from './authentication/signup/signup.component';
-import { AuthenticationEpic } from './authentication/store/authentication.epic';
+import { AuthenticationEpic } from './authentication/store/authentication.epic.tns';
 import { RootComponent } from './root/root.component';
-import { LoginService } from './core/login/service/login.service';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 import { AuthenticationActions } from './authentication/store/authentication.actions';
 import { LoginGuard } from './core/login/login.guard.tns';
 import { HttpConfigService } from './core/http-config/http-config.service';
 import { LoginServiceCommon } from './core/login/service/login.service.common';
+import { LoginService } from './core/login/service/login.service.tns';
 
 @NgModule({
   declarations: [

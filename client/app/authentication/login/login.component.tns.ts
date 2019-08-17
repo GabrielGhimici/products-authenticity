@@ -11,7 +11,7 @@ import { AuthenticationActions } from '../store/authentication.actions';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy{
+export class LoginComponent implements OnInit, OnDestroy {
   @select(['authentication', 'loading']) public authenticationLoading$: Observable<any>;
   @select(['authentication', 'error']) public authenticationError$: Observable<any>;
   @select(['authentication', 'loggedIn']) public loggedIn$: Observable<any>;
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy{
     }
     const emailRegex = /[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
     if (!emailRegex.test(formValue.email)) {
-      alert('Invalid email')
+      alert('Invalid email');
       formValidity = false;
     }
     if (formValidity) {
@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit, OnDestroy{
           filter((data) => !!data)
         ).subscribe((data) => {
         if (data === true) {
-          alert('Success')
           this.router.navigate(['/main']);
         }
       });
