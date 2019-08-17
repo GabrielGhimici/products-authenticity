@@ -9,9 +9,12 @@ import {
   MatSnackBarModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CompareValidatorDirective } from './validators/compare-validator/compare-validator.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CompareValidatorDirective
+  ],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -25,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   exports: [
     CommonModule,
     BrowserAnimationsModule,
+    CompareValidatorDirective,
     MatInputModule,
     MatIconModule,
     MatButtonModule,

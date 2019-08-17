@@ -13,7 +13,10 @@ export class AuthenticationEpic {
               private authenticationActions: AuthenticationActions) {}
 
   public createEpic() {
-    return combineEpics(this.loginEpic());
+    return combineEpics(
+      this.loginEpic(),
+      this.signUpEpic()
+    );
   }
 
   private loginEpic() {
@@ -26,6 +29,21 @@ export class AuthenticationEpic {
               return this.authenticationActions.loginSucceeded(data.OK);
             }),
             catchError(data => of(this.authenticationActions.loginFailed(data)))
+          )
+        )
+      );
+  }
+
+  private signUpEpic() {
+    return action$ => action$
+      .pipe(
+        ofType(AuthenticationActions.SIGN_UP_STARTED),
+        switchMap((action: PayloadAction) => this.loginService.signUp(action.payload)
+          .pipe(
+            map((data: any) => {
+              return this.authenticationActions.signUpSucceeded(!!data);
+            }),
+            catchError(data => of(this.authenticationActions.signUpFailed(data)))
           )
         )
       );

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { dispatch, select } from '@angular-redux/store';
 import { filter, takeUntil } from 'rxjs/operators';
+import { UserLoginData } from '../store/authentication.data';
 
 @Component({
   selector: 'log-in',
@@ -12,7 +13,7 @@ import { filter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  @select(['authentication', 'loading']) public authenticationLoading$: Observable<any>;
+  @select(['authentication', 'loggingIn']) public authenticationLoading$: Observable<any>;
   @select(['authentication', 'error']) public authenticationError$: Observable<any>;
   @select(['authentication', 'loggedIn']) public loggedIn$: Observable<any>;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -37,11 +38,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   @dispatch()
-  startLogin(formValue: any) {
+  startLogin(formValue: UserLoginData) {
     return this.loginActions.startLogin(formValue);
   }
 
-  doLogin(formValue: any, formValidity: boolean) {
+  doLogin(formValue: UserLoginData, formValidity: boolean) {
     if (formValidity) {
       this.startLogin(formValue);
       this.loggedIn$

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserLoginData } from '../../../authentication/store/authentication.data';
+import { UserLoginData, UserSignUpData } from '../../../authentication/store/authentication.data';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -8,6 +8,11 @@ export class LoginServiceCommon {
   constructor(
     private http: HttpClient
   ) {}
+
+  public signUp(bodyValue: UserSignUpData, url: string, options?: {[key: string]: any}) {
+    return this.http.post(url, bodyValue, options ? options : {});
+  }
+
   public logIn(bodyValue: UserLoginData, url: string, params?: {[key: string]: string}) {
     if (params) {
       return this.http.post(url, bodyValue, {params});

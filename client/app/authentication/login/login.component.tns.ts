@@ -12,7 +12,7 @@ import { AuthenticationActions } from '../store/authentication.actions';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  @select(['authentication', 'loading']) public authenticationLoading$: Observable<any>;
+  @select(['authentication', 'loggingIn']) public authenticationLoading$: Observable<any>;
   @select(['authentication', 'error']) public authenticationError$: Observable<any>;
   @select(['authentication', 'loggedIn']) public loggedIn$: Observable<any>;
   private ngUnsubscribe: Subject<void> = new Subject<void>();

@@ -4,6 +4,7 @@ import { AuthenticationData } from './authentication.data';
 
 const INITIAL_STATE: AuthenticationData = {
   loggedIn: false,
+  signedUp: false,
   loggingIn : false,
   signingUp: false,
   error: null
@@ -45,6 +46,7 @@ export function authenticationReducer(state: AuthenticationData = INITIAL_STATE,
       return {
         ...state,
         ...{
+          signedUp: false,
           signingUp: true,
           error: null,
         }
@@ -54,6 +56,7 @@ export function authenticationReducer(state: AuthenticationData = INITIAL_STATE,
       return {
         ...state,
         ...{
+          signedUp: action.payload,
           signingUp: false,
           error: null,
         }
@@ -63,6 +66,7 @@ export function authenticationReducer(state: AuthenticationData = INITIAL_STATE,
       return {
         ...state,
         ...{
+          signedUp: false,
           signingUp: false,
           error: action.error,
         }

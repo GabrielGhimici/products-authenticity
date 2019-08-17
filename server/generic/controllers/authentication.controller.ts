@@ -34,7 +34,6 @@ export class AuthenticationController {
                   @Required() @BodyParams('email') email: string,
                   @Required() @BodyParams('password') password: string,) {
     return this.authenticationService.checkUser(email, password).then((user) => {
-      console.log(params);
       if (user) {
         request.session.user = user;
         request.session.token = crypto.randomBytes(20).toString('hex');

@@ -22,6 +22,7 @@ export class LoginService {
     const options = {
       headers: this.httpConfig.getAuthorizationConfig()
     };
+    console.log(options);
     return this.loginCommon.isLoggedIn(`${this.httpConfig.getApiConfig()}/auth/token_info`, options);
   }
 }

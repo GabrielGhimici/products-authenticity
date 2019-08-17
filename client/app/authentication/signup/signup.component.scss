@@ -18,6 +18,7 @@
     padding: $default-spacing;
     .progress-container {
       margin: (-$default-spacing) (-$default-spacing) $default-spacing;
+      height: $default-spacing/4;
       mat-progress-bar {
         height: $default-spacing/4;
       }

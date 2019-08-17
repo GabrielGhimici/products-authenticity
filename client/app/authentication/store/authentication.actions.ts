@@ -40,10 +40,10 @@ export class AuthenticationActions {
     };
   }
 
-  signUpSucceeded(loginData: boolean) {
+  signUpSucceeded(signedUpData: boolean) {
     return {
       type: AuthenticationActions.SIGN_UP_SUCCEEDED,
-      payload: loginData
+      payload: signedUpData
     };
   }
 

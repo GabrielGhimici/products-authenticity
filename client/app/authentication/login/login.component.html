@@ -1,7 +1,7 @@
 <div class="login-container">
   <div class="login-card">
-    <div class="progress-container" [hidden]="!authenticationLoading">
-      <mat-progress-bar [color]="'primary'" [mode]="'indeterminate'"></mat-progress-bar>
+    <div class="progress-container">
+      <mat-progress-bar [color]="'primary'" [mode]="'indeterminate'" *ngIf="authenticationLoading"></mat-progress-bar>
     </div>
     <div class="mat-display-1 login-title">Log in</div>
     <form #loginForm="ngForm" class="login-form" (ngSubmit)="doLogin(loginForm.value, loginForm.valid)">

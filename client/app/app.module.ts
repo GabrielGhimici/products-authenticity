@@ -29,9 +29,9 @@ import { CoreModule } from './core/core.module';
   imports: [
     NgReduxModule,
     BrowserModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule,
     CoreModule,
     AppRoutingModule,
   ],

@@ -20,7 +20,6 @@ export class UserController {
   }
 
   @Post('/sign-up')
-  @Use(AuthMiddleware)
   public createProfile(
     @BodyParams() user: User
   ): Promise<User> {

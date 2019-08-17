@@ -4,6 +4,7 @@
 .page-layout {
   background-color: $pa-grey;
   justify-content: center;
+  min-height: 400;
   StackLayout {
     background-color: $pa-ultra-light-grey;
     margin: $default-spacing;

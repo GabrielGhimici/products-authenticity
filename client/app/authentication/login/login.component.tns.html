@@ -1,14 +1,16 @@
-<FlexboxLayout flexDirection="column" class="page-layout">
-  <StackLayout class="form">
-    <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="center" class="spacing-bottom custom-margin">
-      <Label text="Log in" textAlignment="center" class="h2"></Label>
-      <ActivityIndicator [busy]="false" class="activity-indicator"></ActivityIndicator>
-    </FlexboxLayout>
-    <TextField flexGrow="1" hint="Email" keyboardType="email" autocorrect="false" [(ngModel)]="email"
-               autocapitalizationType="none" class="input input-border spacing-bottom" required></TextField>
-    <TextField hint="Password" secure="true" [(ngModel)]="password"
-               class="input input-border spacing-bottom" required></TextField>
-    <Button [text]="'Log in'" class="btn btn-primary" (tap)="doLogin()"></Button>
-    <Button [text]="'Sign up'" class="btn btn-outline" (tap)="goToSignUp()"></Button>
-  </StackLayout>
-</FlexboxLayout>
+<ScrollView>
+  <FlexboxLayout flexDirection="column" class="page-layout">
+    <StackLayout class="form">
+      <FlexboxLayout flexDirection="row" alignItems="center" justifyContent="center" class="spacing-bottom custom-margin">
+        <Label text="Log in" textAlignment="center" class="h2"></Label>
+        <ActivityIndicator [busy]="authenticationLoading" class="activity-indicator"></ActivityIndicator>
+      </FlexboxLayout>
+      <TextField flexGrow="1" hint="Email" keyboardType="email" autocorrect="false" [(ngModel)]="email"
+                 autocapitalizationType="none" class="input input-border spacing-bottom" required></TextField>
+      <TextField hint="Password" secure="true" [(ngModel)]="password"
+                 class="input input-border spacing-bottom" required></TextField>
+      <Button [text]="'Log in'" class="btn btn-primary" (tap)="doLogin()"></Button>
+      <Button [text]="'Sign up'" class="btn btn-outline" (tap)="goToSignUp()"></Button>
+    </StackLayout>
+  </FlexboxLayout>
+</ScrollView>

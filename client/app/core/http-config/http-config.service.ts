@@ -11,8 +11,9 @@ export class HttpConfigService {
   }
 
   getAuthorizationConfig() {
+    const token = getString('ProdToken');
     return {
-      Authorization: getString('ProdToken')
+      Authorization: token ? token : ''
     };
   }
 }
