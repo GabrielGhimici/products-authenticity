@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
+import { AuthenticationEpic } from '../authentication/store/authentication.epic';
 
 @Injectable()
 export class RootEpics {
-  constructor() {}
+  constructor(
+    private authEpic: AuthenticationEpic
+  ) {}
 
   public createEpics() {
-    return [];
+    return [
+      this.authEpic.createEpic()
+    ];
   }
 }

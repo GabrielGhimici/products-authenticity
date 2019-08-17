@@ -1,0 +1,42 @@
+@import '../../../styles/palette';
+@import '../../../styles/variables';
+
+.login-container {
+  width: 100%;
+  height: 100%;
+  background-color: $pa-grey;
+  display: flex;
+  .login-card {
+    background-color: $pa-ultra-light-grey;
+    width: 400px;
+    height: 375px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: $default-spacing;
+    .progress-container {
+      margin: (-$default-spacing) (-$default-spacing) $default-spacing;
+      height: $default-spacing/4;
+      mat-progress-bar {
+        height: $default-spacing/4;
+      }
+    }
+    .login-title {
+      text-align: center;
+      color: map_get($pa-green, 500);
+      font-weight: bold;
+      margin-bottom: $default-spacing;
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      .spacing-bottom {
+        margin-bottom: $small-spacing / 2;
+      }
+    }
+    .action-button {
+      width: 40%;
+      margin: $small-spacing / 2 auto;
+    }
+  }
+}

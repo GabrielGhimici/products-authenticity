@@ -1,8 +1,9 @@
-import { BodyParams, Controller, Get, Post, Request, Required, Response, Use } from '@tsed/common';
+import { BodyParams, Controller, Get, Post, QueryParams, Request, Required, Response, Use } from '@tsed/common';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { InternalServerError, Unauthorized } from 'ts-httpexceptions';
 import { AuthMiddleware } from '../../middlewares/auth.middleware';
 import * as crypto from 'crypto';
+import { QueryParameters } from '../../api/query-params.model';
 
 @Controller('/auth')
 export class AuthenticationController {
@@ -20,15 +21,16 @@ export class AuthenticationController {
       request.session &&
       request.session.token &&
       request.session.token === request.headers.authorization) {
-      response.status(200).send({OK: true});
+      response.status(200).send({valid: true});
     } else {
-      response.status(200).send({OK: false});
+      response.status(200).send({valid: false});
     }
   }
 
   @Post('/login')
   public doLogin( @Request() request,
                   @Response() response,
+                  @QueryParams() params: QueryParameters,
                   @Required() @BodyParams('email') email: string,
                   @Required() @BodyParams('password') password: string,) {
     return this.authenticationService.checkUser(email, password).then((user) => {
@@ -39,9 +41,13 @@ export class AuthenticationController {
           expires: new Date(Number(new Date())+24*60*60*1000),
           httpOnly: false
         });
-        return {
+        const resp: {OK: boolean, token?: string} = {
           OK: true
         };
+        if (params && params.include && params.include === 'token') {
+          resp.token = request.session.token;
+        }
+        return resp;
       } else {
         throw new Unauthorized('Unauthorized');
       }

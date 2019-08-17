@@ -17,7 +17,7 @@ export class AuthenticationService implements AfterRoutesInit {
     return null;
   }
 
-  getSalt(length: number = 5) {
+  getSalt(length: number = 7) {
     return crypto.randomBytes(Math.ceil(length / 2))
       .toString('hex')
       .slice(0, length)

@@ -1,0 +1,37 @@
+$pa-green: (
+  50: #f1f8e7,
+  100: #dbedc3,
+  200: #c4e09c,
+  300: #abd474,
+  400: #98cb54,
+  500: #86c232,
+  600: #77b22a,
+  700: #629e20,
+  800: #4d8b16,
+  900: #266900,
+  A100: #c2d4aa,
+  A200: #abc783,
+  A400: #b2e56e,
+  A700: #7cb83a,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: rgba(black, 0.87),
+    400: rgba(black, 0.87),
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: rgba(black, 0.87),
+    A200: rgba(black, 0.87),
+    A400: rgba(black, 0.87),
+    A700: rgba(black, 0.87),
+  )
+);
+
+$pa-dark-grey: #222629;
+$pa-grey: #474b4f;
+$pa-light-grey: #6b6e70;
+$pa-ultra-light-grey: #dcdcdc;

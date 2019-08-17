@@ -11,25 +11,29 @@ import { rootReducer } from './store/root.reducer';
 import { environment } from '../environments/environment';
 import { createLogger } from 'redux-logger';
 import { provideReduxForms } from '@angular-redux/form';
-import { RouterModule } from '@angular/router';
-import { TestComponent } from './test/test.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCheckboxModule } from '@angular/material';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './authentication/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SignupComponent } from './authentication/signup/signup.component';
+import { RootComponent } from './root/root.component';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent
+    LoginComponent,
+    SignupComponent,
+    RootComponent
   ],
   imports: [
-    MatCheckboxModule,
     NgReduxModule,
     BrowserModule,
-    RouterModule.forRoot([
-      {path: '', redirectTo: '/test', pathMatch: 'full'},
-      {path: 'test', component: TestComponent}
-    ]),
-    BrowserAnimationsModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CoreModule,
+    AppRoutingModule,
   ],
   providers: [
     NgReduxRouter,
