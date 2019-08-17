@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { getString } from 'tns-core-modules/application-settings';
 
 @Injectable()
 export class HttpConfigService {
@@ -7,5 +8,11 @@ export class HttpConfigService {
 
   getApiConfig() {
     return `${environment.apiScheme}://${environment.apiHost}:${environment.apiPort}`;
+  }
+
+  getAuthorizationConfig() {
+    return {
+      Authorization: getString('ProdToken')
+    };
   }
 }
