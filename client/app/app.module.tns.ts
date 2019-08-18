@@ -28,6 +28,7 @@ import { UserService } from './core/user/service/user.service.tns';
 import { UserEpic } from './store/user/user.epic.tns';
 import { IfAndroidDirective } from './shared/directives/if-android.directive';
 import { IfIosDirective } from './shared/directives/if-ios.directive';
+import { NativeScriptCommonModule } from 'nativescript-angular/common';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { IfIosDirective } from './shared/directives/if-ios.directive';
   imports: [
     NgReduxModule,
     NativeScriptModule,
+    NativeScriptCommonModule,
     NativeScriptFormsModule,
     NativeScriptHttpClientModule,
     NativeScriptUISideDrawerModule,

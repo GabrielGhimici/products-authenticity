@@ -1,34 +1,62 @@
 @import '../../styles/palette';
-@import '../../styles/variables';
+@import '../../styles/native-variables';
 
 .main-container {
   background-color: darken($pa-ultra-light-grey, 5);
 }
 
-.drawerContentText {
-  font-size: 13;
-  padding: 10;
-}
+.drawer-content {
+  background-color: darken($pa-ultra-light-grey, 5);
+  .user-info {
+    background-color: lighten($pa-dark-grey, 5);
+    .user-badge {
+      font-size: $large-spacing;
+      color: map_get($pa-green, 500);
+      margin: 0 $x-small-spacing;
+    }
+    .user-main-info {
+      font-size: $small-spacing + 2;
+      color: $pa-ultra-light-grey;
+      font-weight: bold;
+    }
+    .user-metadata {
+      font-size: $x-small-spacing;
+      color: map_get($pa-green, 600);
+    }
+  }
 
-.drawerContentButton {
-  margin: 10;
-  horizontal-align: left;
+  .drawer-button {
+    font-size: $small-spacing + 2;
+    color: $pa-dark-grey;
+    padding: $small-spacing $x-small-spacing;
+    &.separator {
+      border-bottom-width: 1;
+      border-bottom-color: map_get($pa-green, 600);
+    }
+    &.selected {
+      color: $pa-ultra-light-grey;
+      background-color: map_get($pa-green, 600);
+      .button-icon {
+        color: $pa-ultra-light-grey;
+      }
+    }
+    &.profile-details {
+      background-color:  darken($pa-ultra-light-grey, 10);
+    }
+    .button-icon {
+      font-size: $small-spacing + 2;
+      color: $pa_light-grey;
+      margin-right: $x-small-spacing + ($x-small-spacing / 2);
+      margin-left: $x-small-spacing / 2;
+    }
+    .profile-label {
+      color: $pa_light-grey;
+      text-transform: uppercase;
+      font-size: $x-small-spacing;
+    }
+    .profile-info {
+      color: $pa-dark-grey;
+      font-size: $small-spacing;
+    }
+  }
 }
-
-.sideStackLayout {
-  background-color: gray;
-}
-
-.sideTitleStackLayout {
-  text-align: center;
-  vertical-align: center;
-}
-
-.sideLabel {
-  padding: 10;
-}
-
-.sideLightGrayLabel {
-  background-color: lightgray;
-}
-

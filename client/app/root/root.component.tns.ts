@@ -21,6 +21,7 @@ export class RootComponent implements OnInit, OnDestroy, AfterViewInit {
   public userLoading = true;
   @ViewChild(RadSideDrawerComponent, { static: false }) public drawerComponent: RadSideDrawerComponent;
   private drawer: RadSideDrawer;
+  public showProfile = false;
 
   constructor(
     private authenticationActions: AuthenticationActions,
@@ -54,6 +55,15 @@ export class RootComponent implements OnInit, OnDestroy, AfterViewInit {
 
   openDrawer() {
     this.drawer.toggleDrawerState();
+  }
+
+  toggleProfile() {
+    this.showProfile = !this.showProfile;
+  }
+
+  onDrawerClosed(event) {
+    console.log(event);
+    this.showProfile = false;
   }
 
   @dispatch()
