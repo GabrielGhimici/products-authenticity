@@ -1,1 +1,21 @@
-<Label text="Root works"></Label>
+<ActionBar title="Products authenticity" class="action-bar">
+  <NavigationButton icon="res://menu_green" (tap)="openDrawer()" *ifAndroid></NavigationButton>
+  <ActionItem icon="res://menu_green" ios.position="left" (tap)="openDrawer()" *ifIos></ActionItem>
+</ActionBar>
+<RadSideDrawer>
+  <StackLayout tkDrawerContent class="sideStackLayout">
+    <StackLayout class="sideTitleStackLayout">
+      <Label text="Navigation menu"></Label>
+    </StackLayout>
+    <ScrollView>
+      <StackLayout class="sideStackLayout">
+        <Label text="test stuuff"></Label>
+      </StackLayout>
+    </ScrollView>
+  </StackLayout>
+  <ScrollView tkMainContent class="main-container">
+    <FlexboxLayout flexDirection="column">
+      <page-router-outlet></page-router-outlet>
+    </FlexboxLayout>
+  </ScrollView>
+</RadSideDrawer>
