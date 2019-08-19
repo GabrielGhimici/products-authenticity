@@ -5,11 +5,15 @@ import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { RootComponent } from './root/root.component';
 import { LoginGuard } from './core/login/login.guard';
+import { SearchProductComponent } from './root/search-product/search-product.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'sign-up', component: SignupComponent},
-  { path: 'main', component: RootComponent, canActivate: [LoginGuard]},
+  { path: 'main', component: RootComponent, canActivate: [LoginGuard], children: [
+    {path: 'search-product', component: SearchProductComponent},
+    {path: '', redirectTo: 'search-product', pathMatch: 'full'}
+  ]},
   { path: '', redirectTo: 'main', pathMatch: 'full'}
 ];
 
