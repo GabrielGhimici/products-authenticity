@@ -15,7 +15,10 @@ export class LoginService {
   }
 
   public logOut() {
-    return this.loginCommon.logOut(`${this.httpConfig.getApiConfig()}/auth/logout`);
+    const options = {
+      headers: this.httpConfig.getAuthorizationConfig()
+    };
+    return this.loginCommon.logOut(`${this.httpConfig.getApiConfig()}/auth/logout`, options);
   }
 
   public isLoggedIn() {

@@ -62,7 +62,7 @@ export class RootComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onDrawerClosed(event) {
-    console.log(event);
+    console.log(event.eventName);
     this.showProfile = false;
   }
 
@@ -73,6 +73,7 @@ export class RootComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @dispatch()
   logOutUser() {
+    console.log('LOG OUT');
     return this.authenticationActions.startLogOut();
   }
 }

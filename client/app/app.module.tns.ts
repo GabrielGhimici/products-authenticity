@@ -1,6 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app.component.tns';
 import { DevToolsExtension, NgRedux, NgReduxModule } from '@angular-redux/store';
 import { AppState } from './store/app-state';
 import { NgReduxRouter } from '@angular-redux/router';
