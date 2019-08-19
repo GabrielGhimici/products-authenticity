@@ -3,10 +3,12 @@ import { AuthenticationActions } from './authentication.actions';
 import { AuthenticationData } from './authentication.data';
 
 const INITIAL_STATE: AuthenticationData = {
+  loggedOut: false,
   loggedIn: false,
   signedUp: false,
   loggingIn : false,
   signingUp: false,
+  loggingOut: false,
   error: null
 };
 
@@ -68,6 +70,36 @@ export function authenticationReducer(state: AuthenticationData = INITIAL_STATE,
         ...{
           signedUp: false,
           signingUp: false,
+          error: action.error,
+        }
+      };
+    }
+    case AuthenticationActions.LOG_OUT_STARTED : {
+      return {
+        ...state,
+        ...{
+          loggedOut: false,
+          loggingOut: true,
+          error: null,
+        }
+      };
+    }
+    case AuthenticationActions.LOG_OUT_SUCCEEDED: {
+      return {
+        ...state,
+        ...{
+          loggedOut: action.payload,
+          loggingOut: true,
+          error: null,
+        }
+      };
+    }
+    case AuthenticationActions.LOG_OUT_FAILED: {
+      return {
+        ...state,
+        ...{
+          loggedOut: false,
+          loggingOut: true,
           error: action.error,
         }
       };

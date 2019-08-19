@@ -9,6 +9,9 @@ export class AuthenticationActions {
   public static readonly SIGN_UP_STARTED = '[AUTH_ACTIONS]SIGN_UP_STARTED';
   public static readonly SIGN_UP_SUCCEEDED = '[AUTH_ACTIONS]SIGN_UP_SUCCEEDED';
   public static readonly SIGN_UP_FAILED = '[LOGIN_ACTIONS]SIGN_UP_FAILED';
+  public static readonly LOG_OUT_STARTED = '[AUTH_ACTIONS]LOG_OUT_STARTED';
+  public static readonly LOG_OUT_SUCCEEDED = '[AUTH_ACTIONS]LOG_OUT_SUCCEEDED';
+  public static readonly LOG_OUT_FAILED = '[LOGIN_ACTIONS]LOG_OUT_FAILED';
 
   constructor() {}
 
@@ -53,4 +56,25 @@ export class AuthenticationActions {
       error
     };
   }
+
+  startLogOut() {
+    return {
+      type: AuthenticationActions.LOG_OUT_STARTED
+    };
+  }
+
+  logOutSucceeded(loggedOut: boolean) {
+    return {
+      type: AuthenticationActions.LOG_OUT_SUCCEEDED,
+      payload: loggedOut
+    };
+  }
+
+  logOutFailed(error: any) {
+    return {
+      type: AuthenticationActions.LOG_OUT_FAILED,
+      error
+    };
+  }
+
 }

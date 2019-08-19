@@ -1,6 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app.component.tns';
 import { DevToolsExtension, NgRedux, NgReduxModule } from '@angular-redux/store';
 import { AppState } from './store/app-state';
 import { NgReduxRouter } from '@angular-redux/router';
@@ -22,19 +22,30 @@ import { LoginGuard } from './core/login/login.guard.tns';
 import { HttpConfigService } from './core/http-config/http-config.service';
 import { LoginServiceCommon } from './core/login/service/login.service.common';
 import { LoginService } from './core/login/service/login.service.tns';
+import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
+import { UserActions } from './store/user/user.actions';
+import { UserService } from './core/user/service/user.service.tns';
+import { UserEpic } from './store/user/user.epic.tns';
+import { IfAndroidDirective } from './shared/directives/if-android.directive';
+import { IfIosDirective } from './shared/directives/if-ios.directive';
+import { NativeScriptCommonModule } from 'nativescript-angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    RootComponent
+    RootComponent,
+    IfAndroidDirective,
+    IfIosDirective
   ],
   imports: [
     NgReduxModule,
     NativeScriptModule,
+    NativeScriptCommonModule,
     NativeScriptFormsModule,
     NativeScriptHttpClientModule,
+    NativeScriptUISideDrawerModule,
     AppRoutingModule
   ],
   providers: [
@@ -45,6 +56,9 @@ import { LoginService } from './core/login/service/login.service.tns';
     LoginServiceCommon,
     LoginService,
     LoginGuard,
+    UserActions,
+    UserService,
+    UserEpic,
     RootEpics
   ],
   bootstrap: [AppComponent],

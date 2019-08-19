@@ -1,8 +1,10 @@
 export interface AuthenticationData {
   loggedIn: boolean;
   signedUp: boolean;
+  loggedOut: boolean;
   loggingIn: boolean;
   signingUp: boolean;
+  loggingOut: boolean;
   error: any;
 }
 

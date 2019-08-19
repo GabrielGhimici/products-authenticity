@@ -20,8 +20,8 @@ export class LoginServiceCommon {
     return this.http.post(url, bodyValue);
   }
 
-  public logOut(url: string) {
-    return this.http.post(url, {});
+  public logOut(url: string, options?: {[key: string]: any}) {
+    return this.http.post(url, {}, options ? options : {});
   }
 
   public isLoggedIn(url: string, options?: {[key: string]: any}) {

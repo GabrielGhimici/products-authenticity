@@ -4,6 +4,7 @@ node_modules/
 platforms/
 hooks/
 client/**/*.js
+.cloud/*
 
 # compiled output
 /dist

@@ -1,1 +1,58 @@
-<Label text="Root works"></Label>
+<ActionBar title="Products authenticity" class="action-bar">
+  <NavigationButton icon="res://menu_green" (tap)="openDrawer()" *ifAndroid></NavigationButton>
+  <ActionItem icon="res://menu_green" ios.position="left" (tap)="openDrawer()" *ifIos></ActionItem>
+</ActionBar>
+<RadSideDrawer (drawerClosed)="onDrawerClosed($event)">
+  <GridLayout rows="72, *" tkDrawerContent class="drawer-content">
+    <FlexboxLayout row="0" class="user-info" flexDirection="row" alignItems="center">
+      <Label text="&#xf2bd;" class="fas user-badge"></Label>
+      <FlexboxLayout flexDirection="column" alignItems="flex-start">
+        <Label text="{{user?.firstName}} {{user?.lastName}}" class="user-main-info"></Label>
+        <Label text="{{user?.username}}" class="user-metadata"> </Label>
+      </FlexboxLayout>
+    </FlexboxLayout>
+    <ScrollView row="1">
+      <FlexboxLayout flexDirection="column" alignItems="stretch">
+        <FlexboxLayout flexDirection="row" alignItems="center" class="drawer-button separator"
+                       [ngClass]="{'selected': showProfile}" (tap)="toggleProfile()">
+          <Label text="&#xf2c2;" class="fas button-icon"></Label>
+          <Label text="Profile"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout flexDirection="column" alignItems="stretch" *ngIf="showProfile">
+          <FlexboxLayout flexDirection="row" alignItems="center" class="drawer-button profile-details separator">
+            <Label text="&#xf0e0;" class="fas button-icon"></Label>
+            <FlexboxLayout flexDirection="column" alignItems="flex-start">
+              <Label text="Email: " class="profile-label"></Label>
+              <Label text="{{user?.email}}" class="profile-info"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+          <FlexboxLayout flexDirection="row" alignItems="center" class="drawer-button profile-details separator">
+            <Label text="&#xf555;" class="fas button-icon"></Label>
+            <FlexboxLayout flexDirection="column" alignItems="flex-start">
+              <Label text="Blockchain Account: " class="profile-label"></Label>
+              <Label text="{{user?.blockChainAccount ? user?.blockChainAccount : '-'}}" class="profile-info"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+          <FlexboxLayout flexDirection="row" alignItems="center" class="drawer-button profile-details separator">
+            <Label text="&#xf66f;" class="fas button-icon"></Label>
+            <FlexboxLayout flexDirection="column" alignItems="flex-start">
+              <Label text="Parent Entity: " class="profile-label"></Label>
+              <Label
+                text="{{user?.parentEntityId && user?.parentEntity ? user?.parentEntityId + ' - ' + user?.parentEntity?.name : '-'}}"
+                class="profile-info"></Label>
+            </FlexboxLayout>
+          </FlexboxLayout>
+        </FlexboxLayout>
+        <FlexboxLayout flexDirection="row" alignItems="center" class="drawer-button separator" (tap)="logOutUser()">
+          <Label text="&#xf2f5;" class="fas button-icon"></Label>
+          <Label text="Log out"></Label>
+        </FlexboxLayout>
+      </FlexboxLayout>
+    </ScrollView>
+  </GridLayout>
+  <ScrollView tkMainContent class="main-container">
+    <FlexboxLayout flexDirection="column">
+      <page-router-outlet></page-router-outlet>
+    </FlexboxLayout>
+  </ScrollView>
+</RadSideDrawer>

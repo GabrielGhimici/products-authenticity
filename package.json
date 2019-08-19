@@ -2,9 +2,12 @@
   "name": "products-authenticity",
   "version": "0.0.1",
   "scripts": {
-    "android": "tns run android --bundle",
-    "ios": "tns run ios --bundle",
-    "mobile": "tns run --bundle",
+    "build:android": "tns build android",
+    "build:ios": "tns build ios",
+    "build:mobile": "tns build",
+    "run:android": "tns run android --bundle",
+    "run:ios": "tns run ios --bundle",
+    "run:mobile": "tns run --bundle",
     "preview": "tns preview --bundle",
     "start-client": "ng serve --open --host products-auth.local.net --proxy-config ./client/proxy.conf.json",
     "start-server": "nodemon  --config ./server/nodemon.json --exec \"tsc -p server/tsconfig.json && node ./dist/server/index.js\"",
@@ -49,6 +52,7 @@
     "mysql": "^2.17.1",
     "nativescript-angular": "^8.1.0",
     "nativescript-theme-core": "^1.0.6",
+    "nativescript-ui-sidedrawer": "^7.0.0",
     "redux": "4.0.1",
     "redux-observable": "^1.1.0",
     "redux-observable-es6-compat": "^1.2.0",
@@ -89,7 +93,7 @@
     "typescript": "3.4.5"
   },
   "nativescript": {
-    "id": "org.products.authenticity",
+    "id": "org.nativescript.ProductsAuthenticity",
     "tns-android": {
       "version": "6.0.0"
     }
