@@ -1,3 +1,23 @@
 <div class="search-product-container">
-  <img src="/assets/main_illustration.svg" alt="main-illustration">
+  <div class="align-container">
+    <div class="mat-h2 message">Search the product using his unique identifier or upload a QR code</div>
+    <div class="search-container">
+      <mat-form-field floatLabel="never">
+        <input matInput placeholder="Product identifier">
+      </mat-form-field>
+      <button mat-flat-button [color]="'primary'" class="search-button" [disableRipple]="true">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+    <div class="upload-container">
+      <input type="file" #uploadTrigger accept=".png, .jpg, .jpeg" hidden/>
+      <button mat-flat-button [color]="'primary'" class="choose-button" [disableRipple]="true" (click)="upload()">
+        Choose from computer
+      </button>
+      <div class="mat-h4 drop-label">or, drop below</div>
+      <div class="drop-container" [ngClass]="{'active': active}">
+        <img src="/assets/upload.svg" alt="upload-illustration" class="upload-illustration">
+      </div>
+    </div>
+  </div>
 </div>
