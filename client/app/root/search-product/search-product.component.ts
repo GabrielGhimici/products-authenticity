@@ -10,11 +10,7 @@ export class SearchProductComponent implements OnInit {
   public active = false;
   constructor() { }
 
-  ngOnInit() {
-    window.addEventListener('drop', (event) => {
-      event.preventDefault();
-    });
-  }
+  ngOnInit() { }
 
   upload() {
     this.uploadTrigger.nativeElement.click();

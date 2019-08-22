@@ -29,6 +29,8 @@ import { UserEpic } from './store/user/user.epic.tns';
 import { IfAndroidDirective } from './shared/directives/if-android.directive.tns';
 import { IfIosDirective } from './shared/directives/if-ios.directive.tns';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { SearchProductComponent } from './root/search-product/search-product.component.tns';
+import { ScanQrComponent } from './root/scan-qr/scan-qr.component.tns';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
     SignupComponent,
     RootComponent,
     IfAndroidDirective,
-    IfIosDirective
+    IfIosDirective,
+    SearchProductComponent,
+    ScanQrComponent
   ],
   imports: [
     NgReduxModule,

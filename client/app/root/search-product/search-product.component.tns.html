@@ -1,0 +1,12 @@
+<ScrollView>
+  <GridLayout [rows]="'230, *, *, *, *'" [columns]="'*'" class="search-product-container">
+    <Image [row]="0" class="search-illustration" src="res://main_illustration"></Image>
+    <Label [row]="1" [text]="'Search the product using his unique identifier'" class="information"></Label>
+    <FlexboxLayout [row]="2" class="form" [flexDirection]="'row'" [alignItems]="'center'">
+      <TextField [flexGrow]="1" hint="Product identifier" class="input input-border"></TextField>
+      <Button [text]="'&#xf002;'" class="btn btn-primary fas search-button"></Button>
+    </FlexboxLayout>
+    <Label [row]="3"  [text]="'or'" class="additional-information"></Label>
+    <Button [row]="4" [text]="'Scan a QR code'" class="btn btn-outline scan-button" (tap)="switchToScan()"></Button>
+  </GridLayout>
+</ScrollView>
