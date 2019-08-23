@@ -51,6 +51,7 @@
     "moment-timezone": "^0.5.26",
     "mysql": "^2.17.1",
     "nativescript-angular": "^8.1.0",
+    "nativescript-barcodescanner": "^3.2.2",
     "nativescript-theme-core": "^1.0.6",
     "nativescript-ui-sidedrawer": "^7.0.0",
     "redux": "4.0.1",

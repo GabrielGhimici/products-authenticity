@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page';
-import { Router } from '@angular/router';
+import { BarcodeScanner } from 'nativescript-barcodescanner';
 
 @Component({
   selector: 'search-product',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class SearchProductComponent implements OnInit {
   constructor(
     private page: Page,
-    private router: Router
+    private barcodeScanner: BarcodeScanner
   ) {}
 
   ngOnInit() {
@@ -18,7 +18,20 @@ export class SearchProductComponent implements OnInit {
     this.page.className = 'page-style';
   }
 
-  switchToScan() {
-    this.router.navigate(['/main/scan-qr']);
+  public onScan() {
+    this.barcodeScanner.scan({
+      formats: 'QR_CODE, EAN_13',
+      preferFrontCamera: false,
+      beepOnScan: true,
+      torchOn: false,
+      resultDisplayDuration: 500,
+      openSettingsIfPermissionWasPreviouslyDenied: true // ios only
+    }).then((result) => {
+        console.log(result);
+      }, (errorMessage) => {
+        console.log('Error when scanning ' + errorMessage);
+      }
+    );
   }
+
 }

@@ -30,7 +30,7 @@ import { IfAndroidDirective } from './shared/directives/if-android.directive.tns
 import { IfIosDirective } from './shared/directives/if-ios.directive.tns';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { SearchProductComponent } from './root/search-product/search-product.component.tns';
-import { ScanQrComponent } from './root/scan-qr/scan-qr.component.tns';
+import { BarcodeScanner } from 'nativescript-barcodescanner';
 
 @NgModule({
   declarations: [
@@ -40,8 +40,7 @@ import { ScanQrComponent } from './root/scan-qr/scan-qr.component.tns';
     RootComponent,
     IfAndroidDirective,
     IfIosDirective,
-    SearchProductComponent,
-    ScanQrComponent
+    SearchProductComponent
   ],
   imports: [
     NgReduxModule,
@@ -55,6 +54,7 @@ import { ScanQrComponent } from './root/scan-qr/scan-qr.component.tns';
   providers: [
     NgReduxRouter,
     HttpConfigService,
+    BarcodeScanner,
     AuthenticationActions,
     AuthenticationEpic,
     LoginServiceCommon,
