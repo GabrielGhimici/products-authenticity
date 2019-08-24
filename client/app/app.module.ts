@@ -18,13 +18,17 @@ import { SignupComponent } from './authentication/signup/signup.component';
 import { RootComponent } from './root/root.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { SearchProductComponent } from './root/search-product/search-product.component';
+import { ProductDetailsComponent } from './root/product-details/product-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    RootComponent
+    RootComponent,
+    SearchProductComponent,
+    ProductDetailsComponent
   ],
   imports: [
     NgReduxModule,

@@ -26,9 +26,11 @@ import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angul
 import { UserActions } from './store/user/user.actions';
 import { UserService } from './core/user/service/user.service.tns';
 import { UserEpic } from './store/user/user.epic.tns';
-import { IfAndroidDirective } from './shared/directives/if-android.directive';
-import { IfIosDirective } from './shared/directives/if-ios.directive';
+import { IfAndroidDirective } from './shared/directives/if-android.directive.tns';
+import { IfIosDirective } from './shared/directives/if-ios.directive.tns';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
+import { SearchProductComponent } from './root/search-product/search-product.component.tns';
+import { BarcodeScanner } from 'nativescript-barcodescanner';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
     SignupComponent,
     RootComponent,
     IfAndroidDirective,
-    IfIosDirective
+    IfIosDirective,
+    SearchProductComponent
   ],
   imports: [
     NgReduxModule,
@@ -51,6 +54,7 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
   providers: [
     NgReduxRouter,
     HttpConfigService,
+    BarcodeScanner,
     AuthenticationActions,
     AuthenticationEpic,
     LoginServiceCommon,
