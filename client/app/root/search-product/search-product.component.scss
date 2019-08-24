@@ -71,11 +71,18 @@
         margin-bottom: $small-spacing;
         color: $pa-dark-grey;
       }
+      .message {
+        margin-top: $small-spacing;
+        font-weight: 500;
+        color: map_get($pa-green, 500);
+      }
       .drop-container {
         padding: $small-spacing / 4;
         height: 100%;
+        min-height: 170px;
+        border: 2px solid transparent;
         &.active {
-          border: 2px dashed map_get($pa-green, 600),
+          border: 2px dashed map_get($pa-green, 600);
         }
         .upload-illustration {
           height: 100%

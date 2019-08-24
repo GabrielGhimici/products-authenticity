@@ -54,6 +54,8 @@
     "nativescript-barcodescanner": "^3.2.2",
     "nativescript-theme-core": "^1.0.6",
     "nativescript-ui-sidedrawer": "^7.0.0",
+    "qr-scanner": "^1.1.1",
+    "qrcode": "^1.4.1",
     "redux": "4.0.1",
     "redux-observable": "^1.1.0",
     "redux-observable-es6-compat": "^1.2.0",

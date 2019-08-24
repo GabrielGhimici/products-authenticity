@@ -3,21 +3,24 @@
     <div class="mat-h2 message">Search the product using his unique identifier or upload a QR code</div>
     <div class="search-container">
       <mat-form-field floatLabel="never">
-        <input matInput placeholder="Product identifier">
+        <input [(ngModel)]="productCode" matInput placeholder="Product identifier">
       </mat-form-field>
-      <button mat-flat-button [color]="'primary'" class="search-button" [disableRipple]="true">
+      <button mat-flat-button [color]="'primary'" class="search-button" [disableRipple]="true" (click)="gotToProductPage()">
         <mat-icon>search</mat-icon>
       </button>
     </div>
     <div class="upload-container">
-      <input type="file" #uploadTrigger accept=".png, .jpg, .jpeg" hidden/>
+      <input type="file" #uploadTrigger accept=".png" (change)="onInputChange($event)" hidden/>
       <button mat-flat-button [color]="'primary'" class="choose-button" [disableRipple]="true" (click)="upload()">
         Choose from computer
       </button>
       <div class="mat-h4 drop-label">or, drop below</div>
-      <div class="drop-container" [ngClass]="{'active': active}">
+      <div class="drop-container" [ngClass]="{'active': active}" (dragover)="onDragOver($event)"
+           (dragleave)="onDragLeave()" (drop)="onDrop($event)">
         <img src="/assets/upload.svg" alt="upload-illustration" class="upload-illustration">
       </div>
+      <div class="mat-h3 message" *ngIf="showMessage">Unsupported file provided. Please drop a <i>.png</i> image.</div>
+      <div class="mat-h3 message" *ngIf="showInvalidCodeMessage">Please provide a image that contains a valid QR code.</div>
     </div>
   </div>
 </div>

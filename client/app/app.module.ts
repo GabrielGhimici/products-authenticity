@@ -19,6 +19,7 @@ import { RootComponent } from './root/root.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { SearchProductComponent } from './root/search-product/search-product.component';
+import { ProductDetailsComponent } from './root/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SearchProductComponent } from './root/search-product/search-product.com
     LoginComponent,
     SignupComponent,
     RootComponent,
-    SearchProductComponent
+    SearchProductComponent,
+    ProductDetailsComponent
   ],
   imports: [
     NgReduxModule,
