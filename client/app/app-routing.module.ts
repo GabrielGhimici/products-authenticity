@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'sign-up', component: SignupComponent},
   { path: 'main', component: RootComponent, canActivate: [LoginGuard], children: [
     {path: 'search-product', component: SearchProductComponent},
-    {path: 'product-details', component: ProductDetailsComponent},
+    {path: 'product-details/:identifier', component: ProductDetailsComponent},
     {path: '', redirectTo: 'search-product', pathMatch: 'full'}
   ]},
   { path: '', redirectTo: 'main', pathMatch: 'full'}

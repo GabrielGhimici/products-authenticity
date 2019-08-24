@@ -1,1 +1,5 @@
 <p>product-details works!</p>
+<mat-spinner [color]="'primary'" [diameter]="40" *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading && !errorNotFound">{{product | json}}</div>
+<img src="/assets/not_found.svg" alt="Not found" height="400" *ngIf="!loading && errorNotFound">
+

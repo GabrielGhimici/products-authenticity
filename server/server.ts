@@ -25,7 +25,8 @@ config();
     database: process.env.DB_DATABASE,
     entities: [
       `${__dirname}/database/entities/*{.ts,.js}`
-    ]
+    ],
+    logging: true
   }],
   logger: {
     logRequest: true
