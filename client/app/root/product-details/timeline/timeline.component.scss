@@ -1,0 +1,49 @@
+@import '../../../../styles/palette';
+@import '../../../../styles/variables';
+
+.timeline-container {
+  width: 100%;
+  .step-item {
+    dispaly: flex;
+    flex-direction: column;
+    user-select: none;
+    .step-indicator {
+      position: relative;
+      left: 5%;
+      width: 25%;
+      padding: $small-spacing;
+      background-color: $pa-ultra-light-grey;
+      border: 1px solid darken($pa-ultra-light-grey, 12);
+      border-radius: $small-spacing / 4;
+      cursor: pointer;
+      &.finished {
+        background-color: map_get($pa-green, 200);
+        border: 1px solid map_get($pa-green, 500);
+      }
+      &.in-progress {
+        background-color: map_get($pa-blue, 500);
+        border: 1px solid map_get($pa-blue, 900);
+      }
+    }
+    .step-link {
+      position: relative;
+      left: 20%;
+      border-left: 1px solid darken($pa-ultra-light-grey, 12);
+      width: 80%;
+      min-height: 2 * $large-spacing;
+      &.no-link {
+        display: none;
+      }
+      &.no-link-soft {
+        border-left: 1px solid transparent;
+      }
+      &.finished {
+        border-color: map_get($pa-green, 600);
+      }
+      .step-description {
+        padding: $small-spacing;
+        width: 100%;
+      }
+    }
+  }
+}

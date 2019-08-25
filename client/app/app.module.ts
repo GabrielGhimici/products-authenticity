@@ -20,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { SearchProductComponent } from './root/search-product/search-product.component';
 import { ProductDetailsComponent } from './root/product-details/product-details.component';
+import { TimelineComponent } from './root/product-details/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProductDetailsComponent } from './root/product-details/product-details.
     SignupComponent,
     RootComponent,
     SearchProductComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    TimelineComponent
   ],
   imports: [
     NgReduxModule,

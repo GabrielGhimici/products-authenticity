@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="right">
-        {{product | json}}
+        <timeline [stepList]="product.productionSteps ? product.productionSteps : []"></timeline>
       </div>
     </div>
   </div>
