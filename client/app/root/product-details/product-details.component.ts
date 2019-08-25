@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { ProductActions } from '../../store/product/product.actions';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Product } from '../../core/product/product';
+import * as moment from 'moment';
 
 @Component({
   selector: 'product-details',
@@ -12,10 +14,10 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   @select(['productData', 'loading']) productLoading$: Observable<boolean>;
-  @select(['productData', 'product']) productData$: Observable<any>;
+  @select(['productData', 'product']) productData$: Observable<Product>;
   @select(['productData', 'error']) productError$: Observable<any>;
   public loading = true;
-  public product: any;
+  public product: Product;
   public errorNotFound = false;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(
@@ -50,6 +52,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  formatDate(date: Date) {
+    return moment.utc(date).format('DD MMM YYYY HH:mm:ss');
+  }
+
+  formatValidity(quantity: number, unit: string) {
+    if (unit === 'all') {
+      return 'Forever';
+    } else {
+      const adjustedUnit = quantity === 1 ? unit : `${unit}s`;
+      return `${quantity} ${adjustedUnit}`;
+    }
+   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();

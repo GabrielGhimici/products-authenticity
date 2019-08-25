@@ -1,6 +1,7 @@
-import { MaxLength, Property } from '@tsed/common';
-import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToOne, Entity, JoinColumn } from 'typeorm';
-import { ProductType } from './product-type.model';
+import { Property } from '@tsed/common';
+import { PrimaryGeneratedColumn, Entity, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Product } from './product.model';
+import { DefaultProductionStep } from './default-production-step.model';
 
 export type StepStatus = 'waiting_goods' | 'producing' | 'finished' | 'deleted';
 
@@ -17,13 +18,13 @@ export class ProductionStep {
   @Property()
   id: number;
 
-  @Column({name: 'id_type'})
+  @Column({name: 'id_product'})
   @Property()
-  productTypeId: number;
+  productId: number;
 
-  @Column()
-  @MaxLength(100)
-  name: string;
+  @Column({name: 'id_default_step'})
+  @Property()
+  defaultProductionStepId: number;
 
   @Column({
     type: 'enum',
@@ -40,9 +41,13 @@ export class ProductionStep {
   @Property()
   updatedAt: Date;
 
-  @OneToOne(() => ProductType, productType => productType.productionSteps)
-  @JoinColumn({name: 'id_type'})
+  @OneToOne(() => Product, product => product.productionSteps)
+  @JoinColumn({name: 'id_product'})
   @Property()
-  productType: ProductType;
+  product: Product;
 
+  @OneToOne(() => DefaultProductionStep, defaultProductionStep => defaultProductionStep.productionSteps)
+  @JoinColumn({name: 'id_default_step'})
+  @Property()
+  defaultProductionStep: DefaultProductionStep;
 }

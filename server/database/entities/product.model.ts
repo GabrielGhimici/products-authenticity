@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { MaxLength, Property } from '@tsed/common';
 import { ProductType } from './product-type.model';
+import { ProductionStep } from './production-step.model';
 
 export type ValidityUnit = 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
 export class ValidityUnits {
@@ -76,4 +77,7 @@ export class Product {
   @JoinColumn({name: 'id_type'})
   @Property()
   productType: ProductType;
+
+  @OneToMany(() => ProductionStep, productionStep => productionStep.product)
+  productionSteps: ProductionStep[];
 }
