@@ -1,5 +1,5 @@
 import { Product } from './product';
-import { ProductionStep } from './production-step';
+import { DefaultProductionStep } from './default-production-step';
 
 export class ProductType {
   id: number;
@@ -9,7 +9,7 @@ export class ProductType {
   createdAt: Date;
   updatedAt: Date;
   products: Product[];
-  productionSteps: ProductionStep[];
+  defaultProductionSteps: DefaultProductionStep[];
 
   constructor(source: { [key: string]: any } = {}) {
     this.id = source.hasOwnProperty('id') ? source.id : null;
@@ -19,8 +19,8 @@ export class ProductType {
     this.createdAt = source.hasOwnProperty('createdAt') ? source.createdAt : null;
     this.updatedAt = source.hasOwnProperty('updatedAt') ? source.updatedAt : null;
     this.products = source.hasOwnProperty('products') ? source.products.map(product => new Product(product)) : null;
-    this.productionSteps = source.hasOwnProperty('productionSteps')
-      ? source.productionSteps.map(productionStep => new ProductionStep(productionStep))
+    this.defaultProductionSteps = source.hasOwnProperty('defaultProductionSteps')
+      ? source.defaultProductionSteps.map(productionStep => new DefaultProductionStep(productionStep))
       : null;
   }
 }

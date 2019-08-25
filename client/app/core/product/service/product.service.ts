@@ -10,7 +10,7 @@ export class ProductService {
   getProductByIdentifier(identifier: string) {
     return this.http.get(`/api/product/identifier/${identifier}`, {
       params: {
-        include: 'productType,productType.productionSteps'
+        include: 'productType,productionSteps,productionSteps.defaultProductionStep'
       }
     });
   }

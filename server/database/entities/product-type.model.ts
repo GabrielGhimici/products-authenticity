@@ -44,7 +44,7 @@ export class ProductType {
   @Property()
   products: Product[];
 
-  @OneToMany(() => DefaultProductionStep, productionStep => productionStep.productType)
+  @OneToMany(() => DefaultProductionStep, defaultProductionStep => defaultProductionStep.productType)
   @Property()
-  productionSteps: DefaultProductionStep[];
+  defaultProductionSteps: DefaultProductionStep[];
 }

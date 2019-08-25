@@ -3,9 +3,10 @@ import { PrimaryGeneratedColumn, Entity, Column, CreateDateColumn, UpdateDateCol
 import { Product } from './product.model';
 import { DefaultProductionStep } from './default-production-step.model';
 
-export type StepStatus = 'waiting_goods' | 'producing' | 'finished' | 'deleted';
+export type StepStatus = 'inactive' | 'waiting_goods' | 'producing' | 'finished' | 'deleted';
 
 export class StepStatusTypes {
+  static readonly Inactive: StepStatus = 'inactive';
   static readonly WaitingGoods: StepStatus = 'waiting_goods';
   static readonly Producing: StepStatus = 'producing';
   static readonly Finished: StepStatus = 'finished';
@@ -28,7 +29,13 @@ export class ProductionStep {
 
   @Column({
     type: 'enum',
-    enum: [StepStatusTypes.WaitingGoods, StepStatusTypes.Producing, StepStatusTypes.Finished, StepStatusTypes.Deleted]
+    enum: [
+      StepStatusTypes.Inactive,
+      StepStatusTypes.WaitingGoods,
+      StepStatusTypes.Producing,
+      StepStatusTypes.Finished,
+      StepStatusTypes.Deleted
+    ]
   })
   @Property()
   status: StepStatus;

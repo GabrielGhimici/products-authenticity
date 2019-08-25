@@ -13,10 +13,11 @@ export class ValidityUnits {
   static readonly All: ValidityUnit = 'all';
 }
 
-export type ProductStatus = 'in-stock' | 'delivered' | 'deleted';
+export type ProductStatus = 'in-stock' | 'delivered' | 'producing' | 'deleted';
 export class ProductStatusTypes {
   static readonly InStock: ProductStatus = 'in-stock';
   static readonly Delivered: ProductStatus = 'delivered';
+  static readonly Producing: ProductStatus = 'producing';
   static readonly Deleted: ProductStatus = 'deleted';
 }
 
@@ -60,7 +61,7 @@ export class Product {
 
   @Column({
     type: 'enum',
-    enum: [ProductStatusTypes.InStock, ProductStatusTypes.Delivered, ProductStatusTypes.Deleted]
+    enum: [ProductStatusTypes.InStock, ProductStatusTypes.Delivered, ProductStatusTypes.Producing, ProductStatusTypes.Deleted]
   })
   @Property()
   status: ProductStatus;
@@ -79,5 +80,6 @@ export class Product {
   productType: ProductType;
 
   @OneToMany(() => ProductionStep, productionStep => productionStep.product)
+  @Property()
   productionSteps: ProductionStep[];
 }

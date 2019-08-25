@@ -39,12 +39,13 @@ export class DefaultProductionStep {
   @Property()
   updatedAt: Date;
 
-  @OneToOne(() => ProductType, productType => productType.productionSteps)
+  @OneToOne(() => ProductType, productType => productType.defaultProductionSteps)
   @JoinColumn({name: 'id_type'})
   @Property()
   productType: ProductType;
 
   @OneToMany( () => ProductionStep, productionStep => productionStep.defaultProductionStep)
+  @Property()
   productionSteps: ProductionStep[];
 
 }

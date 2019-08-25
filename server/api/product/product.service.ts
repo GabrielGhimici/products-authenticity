@@ -8,13 +8,18 @@ import { NotFound } from 'ts-httpexceptions';
 
 @Service()
 export class ProductService implements AfterRoutesInit {
-  private readonly allIncludeValues = ['productType', 'productType.productionSteps'];
+  private readonly allIncludeValues = [
+    'productType',
+    'productType.defaultProductionSteps',
+    'productType.products',
+    'productionSteps',
+    'productionSteps.defaultProductionStep'
+  ];
   public connection: Connection;
 
   constructor(
     private typeORMService: TypeORMService
-  ) {
-  }
+  ) {}
 
   $afterRoutesInit(): void | Promise<any> {
     this.connection = this.typeORMService.get();
