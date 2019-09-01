@@ -1,21 +1,28 @@
 <div class="timeline-container">
   <div class="step-item"
        *ngFor="let step of stepList;let i=index">
-    <div class="step-indicator"
-         (click)="toggleInfo(step.id)"
-         [ngClass]="{
-           'finished': step.status === 'finished',
-           'in-progress': step.status === 'producing' || step.status === 'waiting_goods'
-         }">
-      {{step.defaultProductionStep.name}}
+    <div class="timeline-element">
+      <div class="step-link"
+           [ngClass]="{
+             'no-link-soft': i === 0,
+             'finished': step.status === 'finished' && i !== 0
+           }"></div>
+      <div class="step-indicator"
+           (click)="toggleInfo(step.id)"
+           [ngClass]="{
+             'finished': step.status === 'finished',
+             'in-progress': step.status === 'producing' || step.status === 'waiting_goods'
+           }">
+        {{i}}
+      </div>
+      <div class="step-link"
+           [ngClass]="{
+             'no-link-soft': i === stepList.length - 1,
+             'finished': step.status === 'finished'
+           }"></div>
     </div>
-    <div class="step-link"
-         [ngClass]="{
-           'no-link': i === stepList.length - 1 && !additionalInfo[step.id]['displayInfo'],
-           'no-link-soft': i === stepList.length - 1 && additionalInfo[step.id]['displayInfo'],
-           'finished': step.status === 'finished'
-         }">
-      <div class="step-description" *ngIf="additionalInfo[step.id]['displayInfo']">{{step | json}}</div>
+    <div class="step-description">
+     <div class="step-description-content" *ngIf="additionalInfo[step.id]['displayInfo']">{{step | json}}</div>
     </div>
   </div>
 </div>

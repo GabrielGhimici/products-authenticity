@@ -4,45 +4,76 @@
 .timeline-container {
   width: 100%;
   .step-item {
-    dispaly: flex;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     user-select: none;
-    .step-indicator {
-      position: relative;
-      left: 5%;
-      width: 25%;
-      padding: $small-spacing;
-      background-color: $pa-ultra-light-grey;
-      border: 1px solid darken($pa-ultra-light-grey, 12);
-      border-radius: $small-spacing / 4;
-      cursor: pointer;
-      &.finished {
-        background-color: map_get($pa-green, 200);
-        border: 1px solid map_get($pa-green, 500);
+    .timeline-element {
+      margin-left: 5%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: fit-content;
+      .step-indicator {
+        width: $large-spacing;
+        height: $large-spacing;
+        border-radius: 50%;
+        padding: $small-spacing / 4;
+        background-color: $pa-ultra-light-grey;
+        border: 1px solid darken($pa-ultra-light-grey, 12);
+        cursor: pointer;
+
+        &.finished {
+          background-color: map_get($pa-green, 200);
+          border: 1px solid map_get($pa-green, 500);
+        }
+
+        &.in-progress {
+          background-color: map_get($pa-green, 400);
+          border: 1px solid map_get($pa-green, 700);
+        }
       }
-      &.in-progress {
-        background-color: map_get($pa-blue, 500);
-        border: 1px solid map_get($pa-blue, 900);
+
+      .step-link {
+        background-color: darken($pa-ultra-light-grey, 12);
+        width: 1px;
+        min-height: $large-spacing;
+        flex: 1;
+
+        &.no-link {
+          display: none;
+        }
+
+        &.no-link-soft {
+          background-color: transparent;
+        }
+
+        &.finished {
+          background-color: map_get($pa-green, 500);
+        }
       }
     }
-    .step-link {
-      position: relative;
-      left: 20%;
-      border-left: 1px solid darken($pa-ultra-light-grey, 12);
-      width: 80%;
-      min-height: 2 * $large-spacing;
-      &.no-link {
-        display: none;
-      }
-      &.no-link-soft {
-        border-left: 1px solid transparent;
-      }
-      &.finished {
-        border-color: map_get($pa-green, 600);
-      }
-      .step-description {
-        padding: $small-spacing;
-        width: 100%;
+    .step-description {
+      min-height: calc(#{3 * $large-spacing} + #{$small-spacing / 4});
+      width: calc(95% - #{$large-spacing} - 2 * #{$small-spacing / 4} - 2px);
+      padding: $small-spacing / 2 $small-spacing / 2 $small-spacing / 2 $small-spacing;
+      .step-description-content {
+        position: relative;
+        border: 1px solid $pa-light-grey;
+        border-radius: $small-spacing / 4;
+        width: calc(100% - #{$small-spacing});
+        padding: $small-spacing / 2;
+        &:before {
+          position: absolute;
+          content:'';
+          top: calc(50% - #{$small-spacing / 2});
+          left: calc(-1 * (#{$small-spacing / 2} + 1px));
+          width: $small-spacing;
+          height: $small-spacing;
+          transform: rotate(45deg);
+          border-left: 1px solid $pa-light-grey;
+          border-bottom: 1px solid $pa-light-grey;
+          background-color: lighten($pa-ultra-light-grey, 5);
+        }
       }
     }
   }
