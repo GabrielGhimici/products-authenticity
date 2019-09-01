@@ -21,11 +21,7 @@ export class TimelineComponent implements OnInit, OnChanges {
     if ('stepList' in changes) {
       changes.stepList.currentValue.forEach((step: ProductionStep) => {
         this.additionalInfo[step.id] = {};
-        if (step.status === 'producing') {
-          this.additionalInfo[step.id].displayInfo = true;
-        } else {
-          this.additionalInfo[step.id].displayInfo = false;
-        }
+        this.additionalInfo[step.id].displayInfo = step.status === 'producing' || step.status === 'waiting_goods';
       });
     }
   }
