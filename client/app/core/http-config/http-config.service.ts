@@ -7,7 +7,7 @@ export class HttpConfigService {
   constructor() { }
 
   getApiConfig() {
-    return `${environment.apiScheme}://${environment.apiHost}:${environment.apiPort}`;
+    return `${environment.apiScheme}://${environment.apiHost}${environment.apiPort ? ':' + environment.apiPort : ''}`;
   }
 
   getAuthorizationConfig() {
