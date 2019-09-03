@@ -13,7 +13,7 @@ export class ProductService {
     return this.http.get(`${this.httpConfig.getApiConfig()}/api/product/identifier/${identifier}`, {
       headers: this.httpConfig.getAuthorizationConfig(),
       params: {
-        include: 'role,entity'
+        include: 'productType,productionSteps,productionSteps.defaultProductionStep'
       }
     });
   }

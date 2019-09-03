@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { dispatch, select } from '@angular-redux/store';
 import { Observable, Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-import { ProductActions } from '../../store/product/product.actions';
-import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Product } from '../../core/product/product';
+import { ProductActions } from '../../store/product/product.actions';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Page } from 'tns-core-modules/ui/page';
 import * as moment from 'moment';
 
 @Component({
@@ -20,12 +21,17 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public product: Product;
   public errorNotFound = false;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+
   constructor(
+    private page: Page,
     private productActions: ProductActions,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.page.actionBarHidden = true;
+    this.page.className = 'page-style';
     this.route.paramMap.subscribe((map: ParamMap) => {
       if (map.has('identifier')) {
         this.loadProduct(map.get('identifier'));
@@ -52,6 +58,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   formatDate(date: Date) {
     return moment.utc(date).format('DD MMM YYYY HH:mm:ss');
   }
@@ -65,9 +76,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+  goToSearch() {
+    this.router.navigate(['main', 'search-product']);
   }
 
   @dispatch()

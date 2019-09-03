@@ -31,6 +31,10 @@ import { IfIosDirective } from './shared/directives/if-ios.directive.tns';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { SearchProductComponent } from './root/search-product/search-product.component.tns';
 import { BarcodeScanner } from 'nativescript-barcodescanner';
+import { ProductDetailsComponent } from './root/product-details/product-details.component.tns';
+import { ProductActions } from './store/product/product.actions';
+import { ProductEpic } from './store/product/product.epic.tns';
+import { ProductService } from './core/product/service/product.service.tns';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,8 @@ import { BarcodeScanner } from 'nativescript-barcodescanner';
     RootComponent,
     IfAndroidDirective,
     IfIosDirective,
-    SearchProductComponent
+    SearchProductComponent,
+    ProductDetailsComponent
   ],
   imports: [
     NgReduxModule,
@@ -63,6 +68,9 @@ import { BarcodeScanner } from 'nativescript-barcodescanner';
     UserActions,
     UserService,
     UserEpic,
+    ProductActions,
+    ProductEpic,
+    ProductService,
     RootEpics
   ],
   bootstrap: [AppComponent],
