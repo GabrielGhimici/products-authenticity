@@ -20,7 +20,7 @@
       <FlexboxLayout class="step-link"
                      [ngClass]="{
                        'no-link-soft': i === stepList.length - 1,
-                       'finished': step.status === 'finished'
+                       'finished': step.status === 'finished' && i !== stepList.length - 1
                      }"></FlexboxLayout>
     </FlexboxLayout>
     <FlexboxLayout [flexDirection]="'column'"
