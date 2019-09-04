@@ -96,7 +96,7 @@ export class SearchProductComponent implements OnInit, OnDestroy {
 
   gotToProductPage() {
     if (this.productCode) {
-      this.router.navigate(['main', 'product-details']);
+      this.router.navigate(['main', 'product-details', this.productCode]);
     }
   }
 

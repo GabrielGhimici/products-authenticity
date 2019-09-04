@@ -19,8 +19,8 @@
            (dragleave)="onDragLeave()" (drop)="onDrop($event)">
         <img src="/assets/upload.svg" alt="upload-illustration" class="upload-illustration">
       </div>
-      <div class="mat-h3 message" *ngIf="showMessage">Unsupported file provided. Please drop a <i>.png</i> image.</div>
-      <div class="mat-h3 message" *ngIf="showInvalidCodeMessage">Please provide a image that contains a valid QR code.</div>
+      <div class="mat-h3 warning-message" *ngIf="showMessage">Unsupported file provided. Please drop a <i>.png</i> image.</div>
+      <div class="mat-h3 warning-message" *ngIf="showInvalidCodeMessage">Please provide a image that contains a valid QR code.</div>
     </div>
   </div>
 </div>

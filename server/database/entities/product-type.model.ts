@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToMany } from 'typeorm';
 import { MaxLength, Property } from '@tsed/common';
+import { Product } from './product.model';
+import { DefaultProductionStep } from './default-production-step.model';
 
 export type ProductTypeStatus = 'enabled' | 'disabled' | 'deleted';
 export class ProductTypeStatusTypes {
@@ -27,11 +29,22 @@ export class ProductType {
     enum: [ProductTypeStatusTypes.Enabled, ProductTypeStatusTypes.Disabled, ProductTypeStatusTypes.Deleted],
     default: ProductTypeStatusTypes.Enabled
   })
+  @Property()
   status: ProductTypeStatus;
 
   @CreateDateColumn()
+  @Property()
   createdAt: Date;
 
   @UpdateDateColumn()
+  @Property()
   updatedAt: Date;
+
+  @OneToMany(() => Product, product => product.productType)
+  @Property()
+  products: Product[];
+
+  @OneToMany(() => DefaultProductionStep, defaultProductionStep => defaultProductionStep.productType)
+  @Property()
+  defaultProductionSteps: DefaultProductionStep[];
 }

@@ -71,10 +71,10 @@
         margin-bottom: $small-spacing;
         color: $pa-dark-grey;
       }
-      .message {
+      .warning-message {
         margin-top: $small-spacing;
         font-weight: 500;
-        color: map_get($pa-green, 500);
+        color: $pa-grey;
       }
       .drop-container {
         padding: $small-spacing / 4;

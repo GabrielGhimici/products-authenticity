@@ -1,0 +1,34 @@
+<FlexboxLayout [flexDirection]="'column'">
+  <FlexboxLayout [flexDirection]="'row'"
+                 class="step-item" *ngFor="let step of stepList;let i=index">
+    <FlexboxLayout [flexDirection]="'column'"
+                   [alignItems]="'center'"
+                   class="timeline-element">
+      <FlexboxLayout class="step-link"
+                     [ngClass]="{
+                       'no-link-soft': i === 0,
+                       'finished': (step.status === 'finished' && i !== 0) ||
+                                   (i !== 0 && stepList[i-1].status === 'finished')
+                     }"></FlexboxLayout>
+      <Label [text]="i"
+             class="step-indicator"
+             (tap)="toggleInfo(step.id)"
+             [ngClass]="{
+               'finished': step.status === 'finished',
+               'in-progress': step.status === 'producing' || step.status === 'waiting_goods'
+             }"></Label>
+      <FlexboxLayout class="step-link"
+                     [ngClass]="{
+                       'no-link-soft': i === stepList.length - 1,
+                       'finished': step.status === 'finished'
+                     }"></FlexboxLayout>
+    </FlexboxLayout>
+    <FlexboxLayout [flexDirection]="'column'"
+                   class="step-description">
+      <Label class="step-description-content"
+             *ngIf="additionalInfo[step.id]['displayInfo']"
+             text="{{step | json}}"
+             [textWrap]="true"></Label>
+    </FlexboxLayout>
+  </FlexboxLayout>
+</FlexboxLayout>

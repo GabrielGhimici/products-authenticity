@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { MaxLength, Property } from '@tsed/common';
+import { ProductType } from './product-type.model';
+import { ProductionStep } from './production-step.model';
 
 export type ValidityUnit = 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
 export class ValidityUnits {
@@ -11,10 +13,11 @@ export class ValidityUnits {
   static readonly All: ValidityUnit = 'all';
 }
 
-export type ProductStatus = 'in-stock' | 'delivered' | 'deleted';
+export type ProductStatus = 'in-stock' | 'delivered' | 'producing' | 'deleted';
 export class ProductStatusTypes {
   static readonly InStock: ProductStatus = 'in-stock';
   static readonly Delivered: ProductStatus = 'delivered';
+  static readonly Producing: ProductStatus = 'producing';
   static readonly Deleted: ProductStatus = 'deleted';
 }
 
@@ -25,6 +28,7 @@ export class Product {
   id: number;
 
   @Column({name: 'id_type'})
+  @Property()
   productTypeId: number;
 
   @Column()
@@ -35,13 +39,16 @@ export class Product {
     name: 'public_identifier',
     unique: true
   })
+  @Property()
   @MaxLength(100)
   publicIdentifier: string;
 
   @Column({name: 'production_date'})
+  @Property()
   productionDate: Date;
 
   @Column({name: 'validity_term_quantity'})
+  @Property()
   validityTermQuantity: number;
 
   @Column({
@@ -49,17 +56,30 @@ export class Product {
     type: 'enum',
     enum: [ValidityUnits.Hour, ValidityUnits.Day, ValidityUnits.Week, ValidityUnits.Month, ValidityUnits.Year, ValidityUnits.All]
   })
+  @Property()
   validityTermUnit: ValidityUnit;
 
   @Column({
     type: 'enum',
-    enum: [ProductStatusTypes.InStock, ProductStatusTypes.Delivered, ProductStatusTypes.Deleted]
+    enum: [ProductStatusTypes.InStock, ProductStatusTypes.Delivered, ProductStatusTypes.Producing, ProductStatusTypes.Deleted]
   })
+  @Property()
   status: ProductStatus;
 
   @CreateDateColumn()
+  @Property()
   createdAt: Date;
 
   @UpdateDateColumn()
+  @Property()
   updatedAt: Date;
+
+  @OneToOne(() => ProductType, productType => productType.products)
+  @JoinColumn({name: 'id_type'})
+  @Property()
+  productType: ProductType;
+
+  @OneToMany(() => ProductionStep, productionStep => productionStep.product)
+  @Property()
+  productionSteps: ProductionStep[];
 }

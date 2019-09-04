@@ -50,9 +50,9 @@
       </FlexboxLayout>
     </ScrollView>
   </GridLayout>
-  <ScrollView tkMainContent class="main-container">
-    <FlexboxLayout flexDirection="column">
+  <GridLayout rows="*" tkMainContent class="main-container">
+    <FlexboxLayout row="0" flexDirection="column">
       <page-router-outlet></page-router-outlet>
     </FlexboxLayout>
-  </ScrollView>
+  </GridLayout>
 </RadSideDrawer>

@@ -6,7 +6,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatProgressBarModule,
-  MatSnackBarModule, MatToolbarModule, MatMenuModule, MatDividerModule
+  MatSnackBarModule, MatToolbarModule, MatMenuModule, MatDividerModule, MatProgressSpinnerModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CompareValidatorDirective } from './validators/compare-validator/compare-validator.directive';
@@ -26,7 +26,8 @@ import { CompareValidatorDirective } from './validators/compare-validator/compar
     MatSnackBarModule,
     MatToolbarModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     CommonModule,
@@ -40,7 +41,8 @@ import { CompareValidatorDirective } from './validators/compare-validator/compar
     MatSnackBarModule,
     MatToolbarModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule {

@@ -11,6 +11,9 @@ import { LoginServiceCommon } from './login/service/login.service.common';
 import { UserEpic } from '../store/user/user.epic';
 import { UserActions } from '../store/user/user.actions';
 import { UserService } from './user/service/user.service';
+import { ProductEpic } from '../store/product/product.epic';
+import { ProductActions } from '../store/product/product.actions';
+import { ProductService } from './product/service/product.service';
 
 @NgModule({
   declarations: [],
@@ -40,7 +43,10 @@ import { UserService } from './user/service/user.service';
     AuthenticationEpic,
     UserService,
     UserEpic,
-    UserActions
+    UserActions,
+    ProductService,
+    ProductEpic,
+    ProductActions
   ]
 })
 export class CoreModule { }
