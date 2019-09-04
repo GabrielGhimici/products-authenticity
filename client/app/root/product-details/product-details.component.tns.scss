@@ -45,6 +45,9 @@
 }
 .error-container {
   margin: $small-spacing / 2 $small-spacing;
+  .text {
+    color: $pa-grey;
+  }
   .spacing-bottom {
     margin-bottom: $small-spacing;
   }

@@ -38,7 +38,6 @@ export class SearchProductComponent implements OnInit {
   }
 
   gotToProductPage() {
-    console.log(this.identifier);
     if (this.identifier) {
       this.router.navigate(['main', 'product-details', this.identifier]);
     }
