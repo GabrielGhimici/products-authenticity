@@ -9,7 +9,7 @@ import * as session from 'express-session';
 config();
 
 @ServerSettings({
-  httpPort: 3000,
+  httpPort: process.env.PORT || 3000,
   rootDir: Path.resolve(__dirname),
   mount: {
     '/api': '${rootDir}/api/controllers/*.js',
