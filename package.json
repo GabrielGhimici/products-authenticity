@@ -2,6 +2,7 @@
   "name": "products-authenticity",
   "version": "0.0.1",
   "scripts": {
+    "start": "node ./dist/server/index.js",
     "build:android": "tns build android",
     "build:ios": "tns build ios",
     "build:mobile": "tns build",
@@ -19,8 +20,6 @@
     "lint-server": "tslint -c ./tslint.json -p ./server",
     "lint-client:fix": "ng lint --fix",
     "lint-server:fix": "tslint -c ./tslint.json -p ./server --fix",
-    "postinstall": "npm run build",
-    "start": "node ./dist/server/index.js",
     "e2e": "ng e2e"
   },
   "private": true,
