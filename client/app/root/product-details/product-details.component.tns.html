@@ -67,7 +67,7 @@
                        [flexDirection]="'row'"
                        [alignItems]="'center'"
                        [justifyContent]="'flex-start'">
-          <Label [text]="'TIMELINE:'" class="label"></Label>
+          <timeline [stepList]="product.productionSteps ? product.productionSteps : []"></timeline>
         </FlexboxLayout>
       </StackLayout>
     </ScrollView>

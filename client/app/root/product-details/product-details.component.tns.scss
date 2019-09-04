@@ -6,13 +6,18 @@
 }
 
 .search-product-container {
-  margin: $small-spacing / 2 $small-spacing;
   .card {
     background-color: lighten($pa-ultra-light-grey, 5);
     border-radius: $small-spacing / 4;
-    border: 1px solid map_get($pa-green, 200);
+    border-color: map_get($pa-green, 200);
+    border-width: 1;
     padding: $small-spacing;
-    margin-bottom: $small-spacing / 2;
+    margin-top: $small-spacing / 2;
+    margin-left: $small-spacing;
+    margin-right: $small-spacing;
+    &:last-of-type {
+      margin-bottom: $small-spacing / 2;
+    }
     .row {
       margin-bottom: $small-spacing / 2;
     }

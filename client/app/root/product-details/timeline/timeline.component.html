@@ -5,7 +5,8 @@
       <div class="step-link"
            [ngClass]="{
              'no-link-soft': i === 0,
-             'finished': step.status === 'finished' && i !== 0
+             'finished': (step.status === 'finished' && i !== 0) ||
+                         (i !== 0 && stepList[i-1].status === 'finished')
            }"></div>
       <div class="step-indicator"
            (click)="toggleInfo(step.id)"

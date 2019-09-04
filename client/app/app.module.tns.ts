@@ -35,6 +35,7 @@ import { ProductDetailsComponent } from './root/product-details/product-details.
 import { ProductActions } from './store/product/product.actions';
 import { ProductEpic } from './store/product/product.epic.tns';
 import { ProductService } from './core/product/service/product.service.tns';
+import { TimelineComponent } from './root/product-details/timeline/timeline.component.tns';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ProductService } from './core/product/service/product.service.tns';
     IfAndroidDirective,
     IfIosDirective,
     SearchProductComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    TimelineComponent
   ],
   imports: [
     NgReduxModule,
