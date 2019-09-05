@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { MaxLength, Property } from '@tsed/common';
 import { ProductType } from './product-type.model';
 import { ProductionStep } from './production-step.model';
+import { Analytics } from './analytics.model';
 
 export type ValidityUnit = 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
 export class ValidityUnits {
@@ -82,4 +83,8 @@ export class Product {
   @OneToMany(() => ProductionStep, productionStep => productionStep.product)
   @Property()
   productionSteps: ProductionStep[];
+
+  @OneToMany(() => Analytics, analytics => analytics.product)
+  @Property()
+  analytics: Analytics[];
 }

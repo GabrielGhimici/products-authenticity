@@ -17,6 +17,9 @@ import { ProductService } from './product/service/product.service';
 import { TrackingService } from './tracking/service/tracking.service';
 import { TrackingActions } from '../store/tracking/tracking.actions';
 import { TrackingEpic } from '../store/tracking/tracking.epic';
+import { SearchHistoryService } from './analytics/search-history/search-history.service';
+import { SearchHistoryActions } from '../store/search-history/search-history.actions';
+import { SearchHistoryEpic } from '../store/search-history/search-history.epic';
 
 @NgModule({
   declarations: [],
@@ -52,7 +55,10 @@ import { TrackingEpic } from '../store/tracking/tracking.epic';
     ProductActions,
     TrackingService,
     TrackingActions,
-    TrackingEpic
+    TrackingEpic,
+    SearchHistoryService,
+    SearchHistoryActions,
+    SearchHistoryEpic
   ]
 })
 export class CoreModule { }

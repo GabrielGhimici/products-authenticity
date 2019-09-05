@@ -4,6 +4,7 @@ import { TypeORMService } from '@tsed/typeorm';
 import { Connection } from 'typeorm';
 import { TrackingContext, TrackingContexts, TrackingPayload } from './tracking.model';
 import { Analytics, Platforms } from '../../database/entities/analytics.model';
+import { InternalServerError } from 'ts-httpexceptions';
 
 @Service()
 export class TrackingService implements AfterRoutesInit {
@@ -27,7 +28,7 @@ export class TrackingService implements AfterRoutesInit {
     return this.connection.manager.save(analyticsEntry).then((data) => {
       return data;
     }).catch((err) => {
-      return err.message;
+      throw new InternalServerError(err.message);
     });
   }
 }

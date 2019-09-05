@@ -1,6 +1,10 @@
 <div class="root-container">
   <mat-toolbar class="toolbar">
     <div class="mat-h1 title" routerLink="/">Products authenticity</div>
+    <a routerLink="/main/search-history"
+       routerLinkActive="active">
+      SEARCH HISTORY
+    </a>
     <div class="user-details" [matMenuTriggerFor]="userMenu">
       <div class="user-placeholder" *ngIf="userLoading"></div>
       <div class="user-detail-container" *ngIf="!userLoading">

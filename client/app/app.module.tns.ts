@@ -39,6 +39,9 @@ import { TimelineComponent } from './root/product-details/timeline/timeline.comp
 import { TrackingService } from './core/tracking/service/tracking.service.tns';
 import { TrackingActions } from './store/tracking/tracking.actions';
 import { TrackingEpic } from './store/tracking/tracking.epic.tns';
+import { SearchHistoryService } from './core/analytics/search-history/search-history.service.tns';
+import { SearchHistoryActions } from './store/search-history/search-history.actions';
+import { SearchHistoryEpic } from './store/search-history/search-history.epic.tns';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,9 @@ import { TrackingEpic } from './store/tracking/tracking.epic.tns';
     TrackingService,
     TrackingActions,
     TrackingEpic,
+    SearchHistoryService,
+    SearchHistoryActions,
+    SearchHistoryEpic,
     RootEpics
   ],
   bootstrap: [AppComponent],

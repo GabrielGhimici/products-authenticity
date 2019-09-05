@@ -3,6 +3,7 @@ import { AuthenticationEpic } from '../authentication/store/authentication.epic'
 import { UserEpic } from './user/user.epic';
 import { ProductEpic } from './product/product.epic';
 import { TrackingEpic } from './tracking/tracking.epic';
+import { SearchHistoryEpic } from './search-history/search-history.epic';
 
 @Injectable()
 export class RootEpics {
@@ -10,7 +11,8 @@ export class RootEpics {
     private authEpic: AuthenticationEpic,
     private userEpic: UserEpic,
     private productEpic: ProductEpic,
-    private trackingEpic: TrackingEpic
+    private trackingEpic: TrackingEpic,
+    private searchHistoryEpic: SearchHistoryEpic
   ) {}
 
   public createEpics() {
@@ -18,7 +20,8 @@ export class RootEpics {
       this.authEpic.createEpic(),
       this.userEpic.createEpic(),
       this.productEpic.createEpic(),
-      this.trackingEpic.createEpic()
+      this.trackingEpic.createEpic(),
+      this.searchHistoryEpic.createEpic()
     ];
   }
 }

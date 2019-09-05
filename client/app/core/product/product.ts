@@ -1,5 +1,6 @@
 import { ProductType } from './product-type';
 import { ProductionStep } from './production-step';
+import { Analytics } from '../analytics/analytics';
 
 export class Product {
   id: number;
@@ -14,6 +15,7 @@ export class Product {
   updatedAt: Date;
   productType: ProductType;
   productionSteps: ProductionStep[];
+  analytics: Analytics[];
 
   constructor(source: { [key: string]: any } = {}) {
     this.id = source.hasOwnProperty('id') ? source.id : null;
@@ -29,6 +31,9 @@ export class Product {
     this.productType = source.hasOwnProperty('productType') ? new ProductType(source.productType) : null;
     this.productionSteps = source.hasOwnProperty('productionSteps')
       ? source.productionSteps.map(productionStep => new ProductionStep(productionStep))
-      : null;
+      : [];
+    this.analytics = source.hasOwnProperty('analytics')
+      ? source.analytics.map(analytics => new Analytics(analytics))
+      : [];
   }
 }
