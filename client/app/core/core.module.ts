@@ -14,6 +14,9 @@ import { UserService } from './user/service/user.service';
 import { ProductEpic } from '../store/product/product.epic';
 import { ProductActions } from '../store/product/product.actions';
 import { ProductService } from './product/service/product.service';
+import { TrackingService } from './tracking/service/tracking.service';
+import { TrackingActions } from '../store/tracking/tracking.actions';
+import { TrackingEpic } from '../store/tracking/tracking.epic';
 
 @NgModule({
   declarations: [],
@@ -46,7 +49,10 @@ import { ProductService } from './product/service/product.service';
     UserActions,
     ProductService,
     ProductEpic,
-    ProductActions
+    ProductActions,
+    TrackingService,
+    TrackingActions,
+    TrackingEpic
   ]
 })
 export class CoreModule { }

@@ -36,6 +36,9 @@ import { ProductActions } from './store/product/product.actions';
 import { ProductEpic } from './store/product/product.epic.tns';
 import { ProductService } from './core/product/service/product.service.tns';
 import { TimelineComponent } from './root/product-details/timeline/timeline.component.tns';
+import { TrackingService } from './core/tracking/service/tracking.service.tns';
+import { TrackingActions } from './store/tracking/tracking.actions';
+import { TrackingEpic } from './store/tracking/tracking.epic.tns';
 
 @NgModule({
   declarations: [
@@ -73,6 +76,9 @@ import { TimelineComponent } from './root/product-details/timeline/timeline.comp
     ProductActions,
     ProductEpic,
     ProductService,
+    TrackingService,
+    TrackingActions,
+    TrackingEpic,
     RootEpics
   ],
   bootstrap: [AppComponent],
