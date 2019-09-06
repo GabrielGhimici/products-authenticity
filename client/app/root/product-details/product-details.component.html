@@ -3,12 +3,12 @@
     <mat-spinner [color]="'primary'" [diameter]="60"></mat-spinner>
   </div>
   <div *ngIf="!loading && !errorNotFound" class="product-container">
-    <div class="title">
+    <div class="title mat-elevation-z1">
       <div class="mat-h5">Product: </div>
       <div class="mat-h3">{{product.name}}</div>
     </div>
     <div class="content">
-      <div class="left">
+      <div class="left mat-elevation-z1">
         <div class="property">
           <div class="mat-body label">
             Identifier:
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <div class="right">
+      <div class="right mat-elevation-z1">
         <timeline [stepList]="product.productionSteps ? product.productionSteps : []"></timeline>
       </div>
     </div>

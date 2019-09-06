@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { User } from '../../core/user/user';
 import { Product } from '../../core/product/product';
 import { filter, takeUntil } from 'rxjs/operators';
+import * as moment from 'moment';
 
 @Component({
   selector: 'search-history',
@@ -13,13 +14,28 @@ import { filter, takeUntil } from 'rxjs/operators';
 })
 export class SearchHistoryComponent implements OnInit, OnDestroy {
   @select(['authenticatedUser', 'user']) readonly user$: Observable<User>;
-  @select(['searchHistory', 'items']) readonly searchHistory$: Observable<Product>;
+  @select(['searchHistory', 'items']) readonly searchHistory$: Observable<Array<Product>>;
+  @select(['searchHistory', 'loading']) productLoading$: Observable<boolean>;
+  @select(['searchHistory', 'error']) productError$: Observable<any>;
+  public loading = true;
+  public searchHistory: Array<Product> = [];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(
     private searchHistoryActions: SearchHistoryActions
   ) { }
 
   ngOnInit() {
+    this.productLoading$.pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe((loading: boolean) => {
+      this.loading = loading;
+    });
+    this.searchHistory$.pipe(
+      takeUntil(this.ngUnsubscribe),
+      filter((data) => !!data)
+    ).subscribe((searchHistory: any) => {
+      this.searchHistory = searchHistory;
+    });
     this.user$.pipe(
       filter((user: User) => !!user),
       takeUntil(this.ngUnsubscribe)
@@ -31,6 +47,19 @@ export class SearchHistoryComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
+  }
+
+  formatDate(date: Date) {
+    return moment.utc(date).format('DD MMM YYYY HH:mm:ss');
+  }
+
+  formatValidity(quantity: number, unit: string) {
+    if (unit === 'all') {
+      return 'Forever';
+    } else {
+      const adjustedUnit = quantity === 1 ? unit : `${unit}s`;
+      return `${quantity} ${adjustedUnit}`;
+    }
   }
 
   @dispatch()
