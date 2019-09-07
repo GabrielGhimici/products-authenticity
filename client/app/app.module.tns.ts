@@ -42,6 +42,7 @@ import { TrackingEpic } from './store/tracking/tracking.epic.tns';
 import { SearchHistoryService } from './core/analytics/search-history/search-history.service.tns';
 import { SearchHistoryActions } from './store/search-history/search-history.actions';
 import { SearchHistoryEpic } from './store/search-history/search-history.epic.tns';
+import { SearchHistoryComponent } from './root/search-history/search-history.component.tns';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { SearchHistoryEpic } from './store/search-history/search-history.epic.tn
     IfIosDirective,
     SearchProductComponent,
     ProductDetailsComponent,
+    SearchHistoryComponent,
     TimelineComponent
   ],
   imports: [

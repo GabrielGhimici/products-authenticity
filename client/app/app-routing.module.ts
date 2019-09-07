@@ -9,15 +9,15 @@ import { ProductDetailsComponent } from './root/product-details/product-details.
 import { SearchHistoryComponent } from './root/search-history/search-history.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
-  { path: 'sign-up', component: SignupComponent},
-  { path: 'main', component: RootComponent, canActivate: [LoginGuard], children: [
+  {path: 'login', component: LoginComponent},
+  {path: 'sign-up', component: SignupComponent},
+  {path: 'main', component: RootComponent, canActivate: [LoginGuard], children: [
     {path: 'search-product', component: SearchProductComponent},
     {path: 'search-history', component: SearchHistoryComponent},
     {path: 'product-details/:identifier', component: ProductDetailsComponent},
     {path: '', redirectTo: 'search-product', pathMatch: 'full'}
   ]},
-  { path: '', redirectTo: 'main', pathMatch: 'full'}
+  {path: '', redirectTo: 'main', pathMatch: 'full'}
 ];
 
 @NgModule({

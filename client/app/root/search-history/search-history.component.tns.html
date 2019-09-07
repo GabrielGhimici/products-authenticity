@@ -1,0 +1,56 @@
+<GridLayout [rows]="'*'">
+  <ActivityIndicator [row]="0"
+                     [busy]="loading"
+                     [color]="'#86c232'"
+                     [width]="80"
+                     [height]="80"></ActivityIndicator>
+  <FlexboxLayout [row]="0"
+                 [flexDirection]="'column'"
+                 *ngIf="!loading"
+                 class="search-history-container">
+    <ScrollView>
+      <StackLayout>
+        <FlexboxLayout class="card"
+                       [flexDirection]="'row'"
+                       [alignItems]="'center'"
+                       [justifyContent]="'flex-start'">
+          <Label [text]="'Search History'" [textWrap]="true" class="content important"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout class="card no-padding"
+                       [flexDirection]="'column'">
+          <StackLayout *ngFor="let item of searchHistory; let i = index">
+            <FlexboxLayout [flexDirection]="'row'"
+                           [alignItems]="'center'"
+                           class="toggle-title">
+              <FlexboxLayout [flexDirection]="'column'" class="title-item">
+                <FlexboxLayout [flexDirection]="'column'" class="spacing-bottom">
+                  <Label [text]="'Type:'"></Label>
+                  <Label [text]="item.productType.name"></Label>
+                </FlexboxLayout>
+                <FlexboxLayout [flexDirection]="'column'">
+                  <Label [text]="'Status:'"></Label>
+                  <Label [text]="item.status"></Label>
+                </FlexboxLayout>
+              </FlexboxLayout>
+              <FlexboxLayout [flexDirection]="'column'" class="title-item">
+                <FlexboxLayout [flexDirection]="'column'" class="spacing-bottom">
+                  <Label [text]="'Production date::'"></Label>
+                  <Label [text]="formatDate(item.productionDate)"></Label>
+                </FlexboxLayout>
+                <FlexboxLayout [flexDirection]="'column'">
+                  <Label [text]="'Validity term:'"></Label>
+                  <Label [text]="formatValidity(item.validityTermQuantity, item.validityTermUnit)"></Label>
+                </FlexboxLayout>
+              </FlexboxLayout>
+              <FlexboxLayout [flexDirection]="'column'" class="toggle-button" (tap)="toggleMenu(i)">
+                <Label [text]="menuId === i && menuOpenStatus ? '&#xf106;' : '&#xf107;'" class="fas icon"></Label>
+              </FlexboxLayout>
+            </FlexboxLayout>
+            <Label [text]="'content works'" *ngIf="menuId === i && menuOpenStatus"></Label>
+            <StackLayout class="separator" *ngIf="i !== searchHistory.length - 1"></StackLayout>
+          </StackLayout>
+        </FlexboxLayout>
+      </StackLayout>
+    </ScrollView>
+  </FlexboxLayout>
+</GridLayout>
