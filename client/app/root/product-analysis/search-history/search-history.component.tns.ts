@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { dispatch, select } from '@angular-redux/store';
-import { SearchHistoryActions } from '../../store/search-history/search-history.actions';
+import { SearchHistoryActions } from '../../../store/search-history/search-history.actions';
 import { Observable, Subject } from 'rxjs';
-import { User } from '../../core/user/user';
-import { Product } from '../../core/product/product';
+import { User } from '../../../core/user/user';
+import { Product } from '../../../core/product/product';
 import { filter, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { Page } from 'tns-core-modules/ui/page';

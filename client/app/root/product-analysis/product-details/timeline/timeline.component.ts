@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ProductionStep } from '../../../core/product/production-step';
+import { ProductionStep } from '../../../../core/product/production-step';
 
 @Component({
   selector: 'timeline',

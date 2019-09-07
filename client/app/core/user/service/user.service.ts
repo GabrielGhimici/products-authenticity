@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NgRedux } from '@angular-redux/store';
+import { AppState } from '../../../store/app-state';
+import { filter, map } from 'rxjs/operators';
+import { Role } from '../role';
 
 @Injectable()
 export class UserService {
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private store: NgRedux<AppState>
   ) { }
 
   getUser() {
@@ -13,5 +18,23 @@ export class UserService {
         include: 'role,entity'
       }
     });
+  }
+
+  hasProductManagementRights() {
+    return this.store.select(['authenticatedUser', 'user', 'role']).pipe(
+      filter((role: Role) => !!role),
+      map((role: Role) => {
+        return role.id !== 1;
+      })
+    );
+  }
+
+  hasUserManagementRights() {
+    return this.store.select(['authenticatedUser', 'user', 'role']).pipe(
+      filter((role: Role) => !!role),
+      map((role: Role) => {
+        return role.id === 3 || role.id === 4;
+      })
+    );
   }
 }

@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { dispatch, select } from '@angular-redux/store';
 import { Observable, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { ProductActions } from '../../store/product/product.actions';
+import { ProductActions } from '../../../store/product/product.actions';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Product } from '../../core/product/product';
+import { Product } from '../../../core/product/product';
 import * as moment from 'moment';
 
 @Component({

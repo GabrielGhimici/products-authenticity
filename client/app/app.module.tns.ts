@@ -29,20 +29,20 @@ import { UserEpic } from './store/user/user.epic.tns';
 import { IfAndroidDirective } from './shared/directives/if-android.directive.tns';
 import { IfIosDirective } from './shared/directives/if-ios.directive.tns';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
-import { SearchProductComponent } from './root/search-product/search-product.component.tns';
+import { SearchProductComponent } from './root/product-analysis/search-product/search-product.component.tns';
 import { BarcodeScanner } from 'nativescript-barcodescanner';
-import { ProductDetailsComponent } from './root/product-details/product-details.component.tns';
+import { ProductDetailsComponent } from './root/product-analysis/product-details/product-details.component.tns';
 import { ProductActions } from './store/product/product.actions';
 import { ProductEpic } from './store/product/product.epic.tns';
 import { ProductService } from './core/product/service/product.service.tns';
-import { TimelineComponent } from './root/product-details/timeline/timeline.component.tns';
+import { TimelineComponent } from './root/product-analysis/product-details/timeline/timeline.component.tns';
 import { TrackingService } from './core/tracking/service/tracking.service.tns';
 import { TrackingActions } from './store/tracking/tracking.actions';
 import { TrackingEpic } from './store/tracking/tracking.epic.tns';
 import { SearchHistoryService } from './core/analytics/search-history/search-history.service.tns';
 import { SearchHistoryActions } from './store/search-history/search-history.actions';
 import { SearchHistoryEpic } from './store/search-history/search-history.epic.tns';
-import { SearchHistoryComponent } from './root/search-history/search-history.component.tns';
+import { SearchHistoryComponent } from './root/product-analysis/search-history/search-history.component.tns';
 
 @NgModule({
   declarations: [

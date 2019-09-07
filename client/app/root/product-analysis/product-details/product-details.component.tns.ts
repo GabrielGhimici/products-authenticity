@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { dispatch, select } from '@angular-redux/store';
 import { Observable, Subject } from 'rxjs';
-import { Product } from '../../core/product/product';
-import { ProductActions } from '../../store/product/product.actions';
+import { Product } from '../../../core/product/product';
+import { ProductActions } from '../../../store/product/product.actions';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Page } from 'tns-core-modules/ui/page';
