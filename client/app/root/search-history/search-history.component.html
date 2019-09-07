@@ -1,0 +1,40 @@
+<div class="search-history-component">
+  <div class="spinner-container" *ngIf="loading">
+    <mat-spinner [color]="'primary'" [diameter]="60"></mat-spinner>
+  </div>
+  <div class="product-container">
+    <div class="title mat-elevation-z1">
+      <div class="mat-h2">Search history</div>
+    </div>
+    <mat-accordion [displayMode]="'flat'">
+      <mat-expansion-panel *ngFor="let item of searchHistory">
+        <mat-expansion-panel-header [collapsedHeight]="'56px'">
+          <div class="title-container">
+            <div class="mat-body information">
+              {{item.name}}
+            </div>
+            <div class="mat-body information complex">
+              <div class="mat-h5">Type:</div>
+              <div class="mat-body">{{item.productType.name}}</div>
+            </div>
+            <div class="mat-body information complex">
+              <div class="mat-h5">Production date:</div>
+              <div class="mat-body">{{formatDate(item.productionDate)}}</div>
+            </div>
+            <div class="mat-body information complex">
+              <div class="mat-h5">Status:</div>
+              <div class="mat-body">{{item.status}}</div>
+            </div>
+            <div class="mat-body information complex">
+              <div class="mat-h5"> Validity term:</div>
+              <div class="mat-body">{{formatValidity(item.validityTermQuantity, item.validityTermUnit)}}</div>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+        <div class="content">
+          <div class="element" *ngFor="let detail of item.analytics">{{detail | json}}</div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

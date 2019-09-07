@@ -6,7 +6,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatProgressBarModule,
-  MatSnackBarModule, MatToolbarModule, MatMenuModule, MatDividerModule, MatProgressSpinnerModule
+  MatSnackBarModule, MatToolbarModule, MatMenuModule, MatDividerModule, MatProgressSpinnerModule, MatExpansionModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CompareValidatorDirective } from './validators/compare-validator/compare-validator.directive';
@@ -27,6 +27,7 @@ import { CompareValidatorDirective } from './validators/compare-validator/compar
     MatToolbarModule,
     MatMenuModule,
     MatDividerModule,
+    MatExpansionModule,
     MatProgressSpinnerModule
   ],
   exports: [
@@ -42,6 +43,7 @@ import { CompareValidatorDirective } from './validators/compare-validator/compar
     MatToolbarModule,
     MatMenuModule,
     MatDividerModule,
+    MatExpansionModule,
     MatProgressSpinnerModule
   ]
 })

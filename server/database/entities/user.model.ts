@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { MaxLength, Property } from '@tsed/common';
 import { Role } from './role.model';
 import { EntityModel } from './entity.model';
+import { Analytics } from './analytics.model';
 
 export type UserStatus = 'enabled' | 'disabled' | 'deleted';
 export class UserStatusTypes {
@@ -80,4 +81,8 @@ export class User {
   @JoinColumn({name: 'parent_entity_id'})
   @Property()
   parentEntity: EntityModel;
+
+  @OneToMany(() => Analytics, analytics => analytics.user)
+  @Property()
+  analytics: Analytics[];
 }

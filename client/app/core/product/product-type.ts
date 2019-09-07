@@ -18,9 +18,9 @@ export class ProductType {
     this.status = source.hasOwnProperty('status') ? source.status : null;
     this.createdAt = source.hasOwnProperty('createdAt') ? source.createdAt : null;
     this.updatedAt = source.hasOwnProperty('updatedAt') ? source.updatedAt : null;
-    this.products = source.hasOwnProperty('products') ? source.products.map(product => new Product(product)) : null;
+    this.products = source.hasOwnProperty('products') ? source.products.map(product => new Product(product)) : [];
     this.defaultProductionSteps = source.hasOwnProperty('defaultProductionSteps')
       ? source.defaultProductionSteps.map(productionStep => new DefaultProductionStep(productionStep))
-      : null;
+      : [];
   }
 }

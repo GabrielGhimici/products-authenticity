@@ -1,13 +1,19 @@
 <div class="root-container">
   <mat-toolbar class="toolbar">
     <div class="mat-h1 title" routerLink="/">Products authenticity</div>
-    <div class="user-details" [matMenuTriggerFor]="userMenu">
-      <div class="user-placeholder" *ngIf="userLoading"></div>
-      <div class="user-detail-container" *ngIf="!userLoading">
-        <div class="mat-body-strong no-spacing-bottom">{{user.firstName}} {{user.lastName}}</div>
-        <div class="mat-caption no-spacing-bottom">{{user.username}}</div>
+    <div class="right-container">
+      <a routerLink="/main/search-history"
+         routerLinkActive="active">
+        Search History
+      </a>
+      <div class="user-details" [matMenuTriggerFor]="userMenu">
+        <div class="user-placeholder" *ngIf="userLoading"></div>
+        <div class="user-detail-container" *ngIf="!userLoading">
+          <div class="mat-body-strong no-spacing-bottom">{{user.firstName}} {{user.lastName}}</div>
+          <div class="mat-caption no-spacing-bottom">{{user.username}}</div>
+        </div>
+        <mat-icon [color]="'primary'" class="user-badge">account_circle</mat-icon>
       </div>
-      <mat-icon [color]="'primary'" class="user-badge">account_circle</mat-icon>
     </div>
   </mat-toolbar>
   <mat-menu #userMenu="matMenu" [xPosition]="'before'">

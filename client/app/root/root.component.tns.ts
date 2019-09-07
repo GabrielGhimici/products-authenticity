@@ -7,6 +7,7 @@ import { UserActions } from '../store/user/user.actions';
 import { takeUntil } from 'rxjs/operators';
 import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'root',
@@ -26,7 +27,8 @@ export class RootComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private authenticationActions: AuthenticationActions,
     private userActions: UserActions,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -64,6 +66,11 @@ export class RootComponent implements OnInit, OnDestroy, AfterViewInit {
   onDrawerClosed(event) {
     console.log(event.eventName);
     this.showProfile = false;
+  }
+
+  goToHistory() {
+    this.drawer.closeDrawer();
+    this.router.navigate(['main', 'search-history']);
   }
 
   @dispatch()

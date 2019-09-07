@@ -36,6 +36,13 @@ import { ProductActions } from './store/product/product.actions';
 import { ProductEpic } from './store/product/product.epic.tns';
 import { ProductService } from './core/product/service/product.service.tns';
 import { TimelineComponent } from './root/product-details/timeline/timeline.component.tns';
+import { TrackingService } from './core/tracking/service/tracking.service.tns';
+import { TrackingActions } from './store/tracking/tracking.actions';
+import { TrackingEpic } from './store/tracking/tracking.epic.tns';
+import { SearchHistoryService } from './core/analytics/search-history/search-history.service.tns';
+import { SearchHistoryActions } from './store/search-history/search-history.actions';
+import { SearchHistoryEpic } from './store/search-history/search-history.epic.tns';
+import { SearchHistoryComponent } from './root/search-history/search-history.component.tns';
 
 @NgModule({
   declarations: [
@@ -47,6 +54,7 @@ import { TimelineComponent } from './root/product-details/timeline/timeline.comp
     IfIosDirective,
     SearchProductComponent,
     ProductDetailsComponent,
+    SearchHistoryComponent,
     TimelineComponent
   ],
   imports: [
@@ -73,6 +81,12 @@ import { TimelineComponent } from './root/product-details/timeline/timeline.comp
     ProductActions,
     ProductEpic,
     ProductService,
+    TrackingService,
+    TrackingActions,
+    TrackingEpic,
+    SearchHistoryService,
+    SearchHistoryActions,
+    SearchHistoryEpic,
     RootEpics
   ],
   bootstrap: [AppComponent],

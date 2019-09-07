@@ -21,6 +21,7 @@ import { CoreModule } from './core/core.module';
 import { SearchProductComponent } from './root/search-product/search-product.component';
 import { ProductDetailsComponent } from './root/product-details/product-details.component';
 import { TimelineComponent } from './root/product-details/timeline/timeline.component';
+import { SearchHistoryComponent } from './root/search-history/search-history.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TimelineComponent } from './root/product-details/timeline/timeline.comp
     RootComponent,
     SearchProductComponent,
     ProductDetailsComponent,
-    TimelineComponent
+    TimelineComponent,
+    SearchHistoryComponent
   ],
   imports: [
     NgReduxModule,

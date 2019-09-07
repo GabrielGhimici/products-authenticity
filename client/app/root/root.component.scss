@@ -13,41 +13,81 @@
       margin-bottom: 0;
       color: map_get($pa-green, 500);
     }
-    .user-details {
+    .right-container {
       display: flex;
       align-items: center;
-      background-color: transparentize($pa-ultra-light-grey, 0.95);
-      cursor: pointer;
-      user-select: none;
-      padding: $small-spacing / 2;
-      &:hover {
-        background-color: transparentize($pa-ultra-light-grey, 0.90);
+      a {
+        line-height: calc(#{$toolbar-height} - #{$small-spacing} + 2px);
+        height: calc(#{$toolbar-height} - #{$small-spacing} + 2px);
+        color: darken($pa-ultra-light-grey, 10);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        margin: calc(#{$small-spacing / 2} + 1px);
+        padding: 0 $small-spacing / 2;
+        border-radius: $small-spacing / 4;
+
+        &.active-tab,
+        &.active {
+          background-color: transparentize($pa-ultra-light-grey, 0.95);
+          display: inline-block;
+
+          &:hover {
+            background-color: transparentize($pa-ultra-light-grey, 0.90);
+            color: $pa-ultra-light-grey;
+          }
+        }
+
+        &:hover {
+          color: $pa-ultra-light-grey;
+          background-color: transparentize($pa-ultra-light-grey, 0.90);
+        }
       }
-      .user-badge {
-        width: $large-spacing;
-        height: $large-spacing;
-        font-size: $large-spacing;
-        margin-left: $small-spacing / 2;
-      }
-      .user-placeholder {
-        width: 150px;
-        height: 24px;
-        background-color: $pa-light-grey;
-      }
-      .user-detail-container {
+
+      .user-details {
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        .mat-body-strong {
-          line-height: 18px;
-          color: $pa-ultra-light-grey
+        align-items: center;
+        background-color: transparentize($pa-ultra-light-grey, 0.95);
+        cursor: pointer;
+        user-select: none;
+        padding: $small-spacing / 2;
+        margin-left: $small-spacing / 2;
+
+        &:hover {
+          background-color: transparentize($pa-ultra-light-grey, 0.90);
         }
-        .mat-caption {
-          line-height: 16px;
-          color: map_get($pa-green, 600);
+
+        .user-badge {
+          width: $large-spacing;
+          height: $large-spacing;
+          font-size: $large-spacing;
+          margin-left: $small-spacing / 2;
         }
-        .no-spacing-bottom {
-          margin-bottom: 0;
+
+        .user-placeholder {
+          width: 150px;
+          height: 24px;
+          background-color: $pa-light-grey;
+        }
+
+        .user-detail-container {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+
+          .mat-body-strong {
+            line-height: 18px;
+            color: $pa-ultra-light-grey
+          }
+
+          .mat-caption {
+            line-height: 16px;
+            color: map_get($pa-green, 600);
+          }
+
+          .no-spacing-bottom {
+            margin-bottom: 0;
+          }
         }
       }
     }
