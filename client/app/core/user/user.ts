@@ -1,4 +1,5 @@
 import { Role } from './role';
+import { Entity } from '../entity/entity';
 
 export class User {
   id: number;
@@ -13,7 +14,7 @@ export class User {
   createdAt: Date;
   updatedAt: Date;
   role?: Role;
-  parentEntity?: any;
+  parentEntity?: Entity;
   constructor(source: {[key: string]: any} = {}) {
     this.id = source.hasOwnProperty('id') ? source.id : null;
     this.firstName = source.hasOwnProperty('firstName') ? source.firstName : null;
@@ -27,6 +28,6 @@ export class User {
     this.createdAt = source.hasOwnProperty('createdAt') ? source.createdAt : null;
     this.updatedAt = source.hasOwnProperty('updatedAt') ? source.updatedAt : null;
     this.role = source.hasOwnProperty('role') ? new Role(source.role) : null;
-    this.parentEntity = source.hasOwnProperty('parentEntity') ? source.parentEntity : null;
+    this.parentEntity = source.hasOwnProperty('parentEntity') && source.parentEntity ? new Entity(source.parentEntity) : null;
   }
 }

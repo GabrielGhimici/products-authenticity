@@ -15,9 +15,29 @@ export class UserService {
   getUser() {
     return this.http.get('/api/user/profile', {
       params: {
-        include: 'role,entity'
+        include: 'role,parentEntity'
       }
     });
+  }
+
+  getUsers() {
+    return this.http.get('/api/user/all', {
+      params: {
+        include: 'role,parentEntity'
+      }
+    });
+  }
+
+  addUserToEntity(userId: number, entityId: number) {
+    return this.http.get(`/api/user/${userId}/add-to/${entityId}`);
+  }
+
+  updateUserRole(userId: number, roleId: number) {
+    return this.http.get(`/api/user/${userId}/switch-role-to/${roleId}`);
+  }
+
+  removeUserFromEntity(userId: number) {
+    return this.http.get(`/api/user/${userId}/remove-from-entity`);
   }
 
   hasProductManagementRights() {

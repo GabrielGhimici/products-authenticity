@@ -1,9 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { dispatch, select } from '@angular-redux/store';
+import { dispatch, NgRedux, select } from '@angular-redux/store';
+import { UserActions } from '../store/user/user.actions';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../core/user/user';
 import { takeUntil } from 'rxjs/operators';
 import { AuthenticationActions } from '../authentication/store/authentication.actions';
+import { AppState } from '../store/app-state';
+import { DataSourceActions } from '../store/data-source/data-source.actions';
+import { DATA_SOURCES } from '../store/data-source/data-source.data';
 
 @Component({
   selector: 'root',
@@ -20,10 +24,18 @@ export class RootComponent implements OnInit, OnDestroy {
   public manageProductActive: boolean;
 
   constructor(
-    private authenticationActions: AuthenticationActions
+    private authenticationActions: AuthenticationActions,
+    private userActions: UserActions,
+    private dataSourceActions: DataSourceActions,
+    private store: NgRedux<AppState>
   ) { }
 
   ngOnInit() {
+    this.store.dispatch(this.dataSourceActions.loadData(DATA_SOURCES.ENTITY));
+    this.store.dispatch(this.dataSourceActions.loadData(DATA_SOURCES.ROLE));
+    if (!this.user) {
+      this.loadUser();
+    }
     this.user$.pipe(
       takeUntil(this.ngUnsubscribe)
     ).subscribe((user: User) => {
@@ -48,6 +60,11 @@ export class RootComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
+  }
+
+  @dispatch()
+  loadUser() {
+    return this.userActions.loadUser();
   }
 
   @dispatch()

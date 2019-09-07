@@ -1,4 +1,4 @@
-import { Controller, Get, PathParams, QueryParams, Use } from '@tsed/common';
+import { Controller, Get, PathParams, QueryParams, UseBefore } from '@tsed/common';
 import { ProductService } from '../product/product.service';
 import { AuthMiddleware } from '../../middlewares/auth.middleware';
 import { QueryParameters } from '../query-params.model';
@@ -10,7 +10,7 @@ export class ProductController {
   ) {}
 
   @Get('/identifier/:identifier')
-  @Use(AuthMiddleware)
+  @UseBefore(AuthMiddleware)
   public getProductByIdentifier(
     @PathParams('identifier') identifier: string,
     @QueryParams() queryParams: QueryParameters

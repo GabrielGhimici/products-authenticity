@@ -2,7 +2,7 @@
   <div class="spinner-container" *ngIf="loading">
     <mat-spinner [color]="'primary'" [diameter]="60"></mat-spinner>
   </div>
-  <div class="product-container">
+  <div *ngIf="!loading" class="product-container">
     <div class="title mat-elevation-z1">
       <div class="mat-h2">Search history</div>
     </div>
