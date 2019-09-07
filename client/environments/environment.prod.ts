@@ -1,3 +1,6 @@
 export const environment = {
-  production: true
+  production: true,
+  apiHost: 'products-authenticity.herokuapp.com',
+  apiPort: '',
+  apiScheme: 'https'
 };
