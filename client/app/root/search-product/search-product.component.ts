@@ -83,7 +83,7 @@ export class SearchProductComponent implements OnInit, OnDestroy {
   }
 
   private processImage(file: File) {
-    QrScanner.WORKER_PATH = 'assets/js/qr-scanner-worker.min.js';
+    QrScanner.WORKER_PATH = 'assets/js-files/qr-scanner-worker.min.js';
     QrScanner.scanImage(file)
       .then((result) => {
         this.productCode = result;
