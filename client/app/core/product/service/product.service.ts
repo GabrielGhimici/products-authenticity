@@ -14,4 +14,20 @@ export class ProductService {
       }
     });
   }
+
+  getProductById(id: number) {
+    return this.http.get(`/api/product/${id}`, {
+      params: {
+        include: 'productType,productionSteps,productionSteps.defaultProductionStep'
+      }
+    });
+  }
+
+  getProductListForOrganization() {
+    return this.http.get(`/api/product/organization`, {
+      params: {
+        include: 'productType,productionSteps,productionSteps.defaultProductionStep'
+      }
+    });
+  }
 }

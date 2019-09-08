@@ -6,6 +6,7 @@ import { productReducer } from './product/product.reducer';
 import { searchHistoryReducer } from './search-history/search-history.reducer';
 import { userManagementReducer } from './user-management/user-management.reducer';
 import { dataSourceReducer } from './data-source/data-source.reducer';
+import { productManagementReducer } from './product-management/product-management.reducer';
 
 export const rootReducer = combineReducers({
   router: routerReducer,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   productData: productReducer,
   searchHistory: searchHistoryReducer,
   userManagement: userManagementReducer,
-  dataSource: dataSourceReducer
+  dataSource: dataSourceReducer,
+  productManagement: productManagementReducer
 });

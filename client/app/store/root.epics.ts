@@ -7,6 +7,7 @@ import { SearchHistoryEpic } from './search-history/search-history.epic';
 import { UserManagementEpic } from './user-management/user-management.epic';
 import { DataSourceEpic } from './data-source/data-source.epic';
 import { DATA_SOURCES } from './data-source/data-source.data';
+import { ProductManagementEpic } from './product-management/product-management.epic';
 
 @Injectable()
 export class RootEpics {
@@ -18,6 +19,7 @@ export class RootEpics {
     private searchHistoryEpic: SearchHistoryEpic,
     private userManagementEpic: UserManagementEpic,
     private dataSourceEpic: DataSourceEpic,
+    private productManagementEpic: ProductManagementEpic
   ) {}
 
   public createEpics() {
@@ -29,7 +31,8 @@ export class RootEpics {
       this.searchHistoryEpic.createEpic(),
       this.userManagementEpic.createEpic(),
       this.dataSourceEpic.createEpic(DATA_SOURCES.ENTITY),
-      this.dataSourceEpic.createEpic(DATA_SOURCES.ROLE)
+      this.dataSourceEpic.createEpic(DATA_SOURCES.ROLE),
+      this.productManagementEpic.createEpic()
     ];
   }
 }

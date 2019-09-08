@@ -25,6 +25,8 @@ import { UserManagementEpic } from '../store/user-management/user-management.epi
 import { DataSourceService } from './data-source/data-source.service';
 import { DataSourceActions } from '../store/data-source/data-source.actions';
 import { DataSourceEpic } from '../store/data-source/data-source.epic';
+import { ProductManagementActions } from '../store/product-management/product-management.actions';
+import { ProductManagementEpic } from '../store/product-management/product-management.epic';
 
 @NgModule({
   declarations: [],
@@ -60,6 +62,8 @@ import { DataSourceEpic } from '../store/data-source/data-source.epic';
     ProductService,
     ProductEpic,
     ProductActions,
+    ProductManagementActions,
+    ProductManagementEpic,
     TrackingService,
     TrackingActions,
     TrackingEpic,
@@ -68,7 +72,7 @@ import { DataSourceEpic } from '../store/data-source/data-source.epic';
     SearchHistoryEpic,
     DataSourceService,
     DataSourceActions,
-    DataSourceEpic
+    DataSourceEpic,
   ]
 })
 export class CoreModule { }

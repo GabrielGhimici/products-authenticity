@@ -37,6 +37,12 @@ export class Product {
   name: string;
 
   @Column({
+    name: 'id_owner'
+  })
+  @Property()
+  ownerId: number;
+
+  @Column({
     name: 'public_identifier',
     unique: true
   })
