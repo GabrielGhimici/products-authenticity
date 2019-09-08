@@ -7,6 +7,7 @@ import { Product } from '../../../core/product/product';
 import { filter, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { Page } from 'tns-core-modules/ui/page';
+import { Analytics } from '../../../core/analytics/analytics';
 
 @Component({
   selector: 'search-history',
@@ -24,6 +25,8 @@ export class SearchHistoryComponent implements OnInit, OnDestroy {
   public menuOpenStatus = false;
   public menuId = -1;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private dayLabels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
   constructor(
     private searchHistoryActions: SearchHistoryActions,
     private page: Page
@@ -74,6 +77,15 @@ export class SearchHistoryComponent implements OnInit, OnDestroy {
       this.menuOpenStatus = !this.menuOpenStatus;
     }
     this.menuId = index;
+  }
+
+  getMessage(detail: Analytics, productName: string) {
+    let msg = 'Searched for';
+    msg = `${msg} ${productName} -`;
+    msg = `${msg} ${this.dayLabels[moment(detail.date).day()]},`;
+    msg = `${msg} ${moment(detail.date).format('DD MMMM YYYY')}`;
+    msg = `${msg} at ${moment(detail.date).format('HH:mm:ss')}`;
+    return msg;
   }
 
   @dispatch()

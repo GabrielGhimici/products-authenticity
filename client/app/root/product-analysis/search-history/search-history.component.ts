@@ -6,6 +6,7 @@ import { User } from '../../../core/user/user';
 import { Product } from '../../../core/product/product';
 import { filter, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
+import { Analytics } from '../../../core/analytics/analytics';
 
 @Component({
   selector: 'search-history',
@@ -20,6 +21,7 @@ export class SearchHistoryComponent implements OnInit, OnDestroy {
   public loading = true;
   public searchHistory: Array<Product> = [];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private dayLabels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   constructor(
     private searchHistoryActions: SearchHistoryActions
   ) { }
@@ -60,6 +62,15 @@ export class SearchHistoryComponent implements OnInit, OnDestroy {
       const adjustedUnit = quantity === 1 ? unit : `${unit}s`;
       return `${quantity} ${adjustedUnit}`;
     }
+  }
+
+  getMessage(detail: Analytics, productName: string) {
+    let msg = 'Searched for';
+    msg = `${msg} ${productName} -`;
+    msg = `${msg} ${this.dayLabels[moment(detail.date).day()]},`;
+    msg = `${msg} ${moment(detail.date).format('DD MMMM YYYY')}`;
+    msg = `${msg} at ${moment(detail.date).format('HH:mm:ss')}`;
+    return msg;
   }
 
   @dispatch()

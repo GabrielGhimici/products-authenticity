@@ -16,38 +16,48 @@
                        [justifyContent]="'flex-start'">
           <Label [text]="'Search History'" [textWrap]="true" class="content important"></Label>
         </FlexboxLayout>
-        <FlexboxLayout class="card no-padding"
-                       [flexDirection]="'column'">
-          <StackLayout *ngFor="let item of searchHistory; let i = index">
+        <FlexboxLayout [flexDirection]="'column'">
+          <StackLayout *ngFor="let item of searchHistory; let i = index"
+                       class="card no-padding">
+            <Label [text]="item?.name"
+                   [textWrap]="true"
+                   [textAlignment]="'center'"
+                   class="product-name"></Label>
             <FlexboxLayout [flexDirection]="'row'"
                            [alignItems]="'center'"
-                           class="toggle-title">
+                           class="toggle-title"
+                           (tap)="toggleMenu(i)">
               <FlexboxLayout [flexDirection]="'column'" class="title-item">
                 <FlexboxLayout [flexDirection]="'column'" class="spacing-bottom">
                   <Label [text]="'Type:'"></Label>
-                  <Label [text]="item.productType.name"></Label>
+                  <Label [text]="item?.productType.name"></Label>
                 </FlexboxLayout>
                 <FlexboxLayout [flexDirection]="'column'">
                   <Label [text]="'Status:'"></Label>
-                  <Label [text]="item.status"></Label>
+                  <Label [text]="item?.status"></Label>
                 </FlexboxLayout>
               </FlexboxLayout>
               <FlexboxLayout [flexDirection]="'column'" class="title-item">
                 <FlexboxLayout [flexDirection]="'column'" class="spacing-bottom">
                   <Label [text]="'Production date::'"></Label>
-                  <Label [text]="formatDate(item.productionDate)"></Label>
+                  <Label [text]="formatDate(item?.productionDate)"></Label>
                 </FlexboxLayout>
                 <FlexboxLayout [flexDirection]="'column'">
                   <Label [text]="'Validity term:'"></Label>
-                  <Label [text]="formatValidity(item.validityTermQuantity, item.validityTermUnit)"></Label>
+                  <Label [text]="formatValidity(item?.validityTermQuantity, item?.validityTermUnit)"></Label>
                 </FlexboxLayout>
               </FlexboxLayout>
-              <FlexboxLayout [flexDirection]="'column'" class="toggle-button" (tap)="toggleMenu(i)">
+              <FlexboxLayout [flexDirection]="'column'" class="toggle-button">
                 <Label [text]="menuId === i && menuOpenStatus ? '&#xf106;' : '&#xf107;'" class="fas icon"></Label>
               </FlexboxLayout>
             </FlexboxLayout>
-            <Label [text]="'content works'" *ngIf="menuId === i && menuOpenStatus"></Label>
-            <StackLayout class="separator" *ngIf="i !== searchHistory.length - 1"></StackLayout>
+            <StackLayout *ngIf="menuId === i && menuOpenStatus" class="toggle-body">
+              <Label [text]="getMessage(detail, item?.name)"
+                     [textWrap]="true"
+                     *ngFor="let detail of item?.analytics, let j=index"
+                     [ngClass]="{'no-spacing-bottom': j === (item?.analytics?.length - 1)}"
+                     class="toggle-body-content"></Label>
+            </StackLayout>
           </StackLayout>
         </FlexboxLayout>
       </StackLayout>

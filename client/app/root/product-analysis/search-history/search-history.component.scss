@@ -83,6 +83,12 @@
       .element {
         width: calc(50% - #{$small-spacing/2});
         padding: $small-spacing / 4;
+        .element-content {
+          border: 1px solid map_get($pa-green, 300);
+          padding: $small-spacing / 2;
+          border-radius: $small-spacing / 4;
+          user-select: none;
+        }
       }
     }
   }
