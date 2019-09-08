@@ -90,7 +90,15 @@ export class ManageUsersComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.data = this.users.filter((user: User) => {
+      const filter = filterValue.trim().toLowerCase();
+      return user.id.toString().includes(filter) ||
+             user.firstName.includes(filter) ||
+             user.lastName.includes(filter) ||
+             user.email.includes(filter) ||
+             user.role.name.includes(filter) ||
+             (user.parentEntity && user.parentEntity.name.includes(filter));
+    });
   }
 
   getName(id: number, context: Array<Entity> | Array<Role>) {

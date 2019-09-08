@@ -6,6 +6,11 @@
     <div class="title mat-elevation-z1">
       <div class="mat-h2">Search history</div>
     </div>
+    <div class="not-found-container mat-elevation-z1" *ngIf="searchHistory && searchHistory.length === 0">
+      <div class="mat-h5 not-found">
+        No searches has been performed
+      </div>
+    </div>
     <mat-accordion [displayMode]="'flat'">
       <mat-expansion-panel *ngFor="let item of searchHistory">
         <mat-expansion-panel-header [collapsedHeight]="'56px'">

@@ -10,7 +10,7 @@ export class ProductService {
   getProductByIdentifier(identifier: string) {
     return this.http.get(`/api/product/identifier/${identifier}`, {
       params: {
-        include: 'productType,productionSteps,productionSteps.defaultProductionStep'
+        include: 'owner,productType,productionSteps,productionSteps.defaultProductionStep'
       }
     });
   }
@@ -18,7 +18,7 @@ export class ProductService {
   getProductById(id: number) {
     return this.http.get(`/api/product/${id}`, {
       params: {
-        include: 'productType,productionSteps,productionSteps.defaultProductionStep'
+        include: 'owner,productType,productionSteps,productionSteps.defaultProductionStep'
       }
     });
   }
@@ -26,7 +26,7 @@ export class ProductService {
   getProductListForOrganization() {
     return this.http.get(`/api/product/organization`, {
       params: {
-        include: 'productType,productionSteps,productionSteps.defaultProductionStep'
+        include: 'owner,productType,productionSteps,productionSteps.defaultProductionStep'
       }
     });
   }

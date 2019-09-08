@@ -1,6 +1,7 @@
 import { MaxLength, Property } from '@tsed/common';
 import { PrimaryGeneratedColumn, Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { User } from './user.model';
+import { Product } from './product.model';
 
 export type EntityType = 'seller' | 'provider';
 export class EntityTypes {
@@ -56,4 +57,7 @@ export class EntityModel {
 
   @OneToMany(() => User, user => user.parentEntity)
   users: User[];
+
+  @OneToMany(() => Product, product => product.owner)
+  products: Product[];
 }

@@ -10,6 +10,7 @@ import { User } from '../../database/entities/user.model';
 @Service()
 export class ProductService implements AfterRoutesInit {
   private readonly allIncludeValues = [
+    'owner',
     'productType',
     'productType.defaultProductionSteps',
     'productType.products',

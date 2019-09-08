@@ -35,6 +35,20 @@
     }
   }
 
+  .not-found-container {
+    width: 100%;
+    height: 10 * $large-spacing;
+    display: flex;
+    background-color: lighten($pa-ultra-light-grey, 5);
+    border-radius: $small-spacing / 4;
+    border: 1px solid map_get($pa-green, 300);
+    .not-found {
+      margin: auto;
+      color: $pa-light-grey;
+      font-style: italic;
+    }
+  }
+
   /deep/ .mat-expansion-panel {
     background-color: lighten($pa-ultra-light-grey, 5);
     color: $pa-dark-grey;
