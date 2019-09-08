@@ -12,6 +12,7 @@ export const INITIAL_STATE: DataSourceData = {
 export let dataSourceReducer = combineReducers({
   [DATA_SOURCES.ENTITY]: createDataSourceReducer(DATA_SOURCES.ENTITY),
   [DATA_SOURCES.ROLE]: createDataSourceReducer(DATA_SOURCES.ROLE),
+  [DATA_SOURCES.PRODUCT_TYPE]: createDataSourceReducer(DATA_SOURCES.PRODUCT_TYPE),
 });
 
 export function createDataSourceReducer(type: string) {

@@ -23,6 +23,12 @@ export class TimelineComponent implements OnInit, OnChanges {
         this.additionalInfo[step.id] = {};
         this.additionalInfo[step.id].displayInfo = step.status === 'producing' || step.status === 'waiting_goods';
       });
+      const openedInfo = Object.keys(this.additionalInfo).reduce((acc, key) => {
+        return acc || this.additionalInfo[key].displayInfo;
+      }, false);
+      if (!openedInfo && changes.stepList.currentValue.length) {
+        this.additionalInfo[changes.stepList.currentValue[0].id].displayInfo = true;
+      }
     }
   }
 

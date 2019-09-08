@@ -22,6 +22,15 @@ export function productManagementReducer(state: ProductManagementData = INITIAL_
         }
       };
     }
+    case ProductManagementActions.SAVE_PRODUCT_START: {
+      return {
+        ...state,
+        ...{
+          saving: true,
+          error: null
+        }
+      };
+    }
     case ProductManagementActions.LOAD_PRODUCT_SUCCEEDED: {
       return {
         ...state,
@@ -37,6 +46,24 @@ export function productManagementReducer(state: ProductManagementData = INITIAL_
         ...{
           loading: false,
           productList: action.payload.products
+        }
+      };
+    }
+    case ProductManagementActions.SAVE_PRODUCT_SUCCEEDED: {
+      return {
+        ...state,
+        ...{
+          saving: false,
+          product: action.payload.product
+        }
+      };
+    }
+    case ProductManagementActions.SAVE_PRODUCT_FAILED: {
+      return {
+        ...state,
+        ...{
+          saving: false,
+          error: action.error
         }
       };
     }

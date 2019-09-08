@@ -23,7 +23,6 @@ const routes: Routes = [
     {path: 'product-details/:identifier', component: ProductDetailsComponent},
     {path: 'product-list', component: ProductListComponent, canActivate:[ProductManagementGuard]},
     {path: 'view-product/:id', component: ViewProductComponent, canActivate:[ProductManagementGuard]},
-    {path: 'manage-product/:id', component: ManageProductComponent, canActivate:[ProductManagementGuard]},
     {path: 'add-product', component: ManageProductComponent, canActivate:[ProductManagementGuard]},
     {path: 'manage-users', component: ManageUsersComponent, canActivate:[ManageUsersGuard]},
     {path: '', redirectTo: 'search-product', pathMatch: 'full'}

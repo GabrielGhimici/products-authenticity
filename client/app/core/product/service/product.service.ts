@@ -18,9 +18,13 @@ export class ProductService {
   getProductById(id: number) {
     return this.http.get(`/api/product/${id}`, {
       params: {
-        include: 'owner,productType,productionSteps,productionSteps.defaultProductionStep'
+        include: 'analytics,owner,productType,productionSteps,productionSteps.defaultProductionStep'
       }
     });
+  }
+
+  saveProduct(product) {
+    return this.http.post(`/api/product`, product);
   }
 
   getProductListForOrganization() {

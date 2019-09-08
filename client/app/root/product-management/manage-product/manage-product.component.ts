@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { dispatch, select } from '@angular-redux/store';
 import { Observable, Subject } from 'rxjs';
-import { Product } from '../../../core/product/product';
 import { ProductManagementActions } from '../../../store/product-management/product-management.actions';
 import { takeUntil } from 'rxjs/operators';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Entity } from '../../../core/entity/entity';
+import { ProductType } from '../../../core/product/product-type';
+import { User } from '../../../core/user/user';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'manage-product',
@@ -12,33 +14,87 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./manage-product.component.scss']
 })
 export class ManageProductComponent implements OnInit, OnDestroy {
-  @select(['productManagement', 'product']) readonly product$: Observable<Product>;
-  @select(['productManagement', 'loading']) readonly productManagementLoading$: Observable<boolean>;
-  public product: Product = null;
-  public productManagementLoading = true;
+  @select(['productManagement', 'saving']) readonly saving$: Observable<boolean>;
+  @select(['productManagement', 'error']) readonly savingError$: Observable<boolean>;
+  @select(['dataSource', 'entity', 'items']) readonly entities$: Observable<Array<Entity>>;
+  @select(['dataSource', 'productType', 'items']) readonly productTypes$: Observable<Array<ProductType>>;
+  @select(['authenticatedUser', 'user']) user$: Observable<User>;
+  public saving = false;
+  public entities: Array<Entity> = [];
+  public productTypes: Array<ProductType> = [];
+  public user: User;
+  public validityTerms = [{
+    key: 'hour',
+    label: 'Hour'
+  }, {
+    key: 'day',
+    label: 'Day'
+  }, {
+    key: 'month',
+    label: 'Month'
+  }, {
+    key: 'year',
+    label: 'Year'
+  }, {
+    key: 'all',
+    label: 'Forever'
+  }];
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   constructor(
     private productManagementActions: ProductManagementActions,
-    private route: ActivatedRoute
+    private matSnackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((map: ParamMap) => {
-      if (map.has('id')) {
-        const id = map.get('id');
-        this.loadProduct(+id);
+    this.saving$.pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe((saving) => {
+      this.saving = saving;
+    });
+    this.entities$.pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe((entities) => {
+      this.entities = entities;
+    });
+    this.productTypes$.pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe((types) => {
+      this.productTypes = types;
+    });
+    this.user$.pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe((user) => {
+      this.user = user;
+    });
+    this.savingError$
+      .pipe(
+        takeUntil(this.ngUnsubscribe)
+      ).subscribe((data) => {
+        if (data !== null) {
+          this.matSnackBar.open(
+            'There was an error in product save process.',
+            '',
+            {
+              duration: 2000,
+              horizontalPosition: 'right',
+            }
+          );
+        }
+    });
+  }
+
+  add(formValue, formValidity: boolean) {
+    if (formValidity) {
+      console.log(formValue, formValidity);
+      if (formValue.validityTermUnit === 'all') {
+        formValue.validityTermQuantity = null;
       }
-    });
-    this.product$.pipe(
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe((prod) => {
-      this.product = prod;
-    });
-    this.productManagementLoading$.pipe(
-      takeUntil(this.ngUnsubscribe)
-    ).subscribe((loading) => {
-      this.productManagementLoading = loading;
-    });
+      if (this.user.roleId !== 4) {
+        formValue.parentEntity = this.user.parentEntityId;
+      }
+      console.log(formValue, formValidity);
+      this.saveProduct(formValue);
+    }
   }
 
   ngOnDestroy(): void {
@@ -47,8 +103,7 @@ export class ManageProductComponent implements OnInit, OnDestroy {
   }
 
   @dispatch()
-  loadProduct(id: number) {
-    return this.productManagementActions.loadProduct(id);
+  saveProduct(product) {
+    return this.productManagementActions.saveProduct(product);
   }
-
 }

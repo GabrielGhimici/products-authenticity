@@ -32,6 +32,7 @@ export class RootEpics {
       this.userManagementEpic.createEpic(),
       this.dataSourceEpic.createEpic(DATA_SOURCES.ENTITY),
       this.dataSourceEpic.createEpic(DATA_SOURCES.ROLE),
+      this.dataSourceEpic.createEpic(DATA_SOURCES.PRODUCT_TYPE),
       this.productManagementEpic.createEpic()
     ];
   }

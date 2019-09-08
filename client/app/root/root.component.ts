@@ -33,6 +33,7 @@ export class RootComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.store.dispatch(this.dataSourceActions.loadData(DATA_SOURCES.ENTITY));
     this.store.dispatch(this.dataSourceActions.loadData(DATA_SOURCES.ROLE));
+    this.store.dispatch(this.dataSourceActions.loadData(DATA_SOURCES.PRODUCT_TYPE));
     if (!this.user) {
       this.loadUser();
     }

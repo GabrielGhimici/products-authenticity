@@ -5,6 +5,7 @@ import { DATA_SOURCES } from '../../store/data-source/data-source.data';
 import { map } from 'rxjs/operators';
 import { Role } from '../user/role';
 import { Entity } from '../entity/entity';
+import { ProductType } from '../product/product-type';
 
 @Injectable()
 export class DataSourceService {
@@ -33,6 +34,16 @@ export class DataSourceService {
               data = [];
             }
             return data.map((el) => new Role(el));
+          })
+        );
+      }
+      case DATA_SOURCES.PRODUCT_TYPE: {
+        return this.http.get('/api/product/types').pipe(
+          map((data: Array<any>) => {
+            if (!data) {
+              data = [];
+            }
+            return data.map((el) => new ProductType(el));
           })
         );
       }

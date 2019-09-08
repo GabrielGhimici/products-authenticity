@@ -5,6 +5,7 @@ import * as cookieParser from 'cookie-parser';
 import * as Path from 'path';
 import * as Express from 'express';
 import * as session from 'express-session';
+const fs = require('fs');
 
 config();
 
@@ -53,6 +54,11 @@ export class Server extends ServerLoader {
         }
       }));
     this.use(Express.static(`${__dirname}/../products-authenticity`));
+
+    if (!fs.existsSync(`${__dirname}/qr-codes`)) {
+      fs.mkdirSync(`${__dirname}/qr-codes`);
+      console.log('CREATED: ', `${__dirname}/qr-codes`);
+    }
     return null;
   }
 }

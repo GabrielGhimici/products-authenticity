@@ -6,5 +6,6 @@ export interface DataSourceData {
 
 export const DATA_SOURCES = {
   ENTITY: 'entity',
-  ROLE: 'role'
+  ROLE: 'role',
+  PRODUCT_TYPE: 'productType'
 };

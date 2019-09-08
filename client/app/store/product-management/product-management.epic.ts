@@ -6,17 +6,21 @@ import { PayloadAction } from '../payload-action';
 import { Product } from '../../core/product/product';
 import { of } from 'rxjs';
 import { ProductManagementActions } from './product-management.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ProductManagementEpic {
   constructor(
     private productManagementActions: ProductManagementActions,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {}
 
   public createEpic() {
     return combineEpics(
       this.loadProduct(),
+      this.saveProduct(),
+      this.redirect(),
       this.loadProductList()
     );
   }
@@ -37,6 +41,22 @@ export class ProductManagementEpic {
       );
   }
 
+  private saveProduct() {
+    return (action$) => action$
+      .pipe(
+        ofType(ProductManagementActions.SAVE_PRODUCT_START),
+        switchMap((action: PayloadAction) => {
+          return this.productService.saveProduct(action.payload.product).pipe(
+            map((result: any) => {
+              const product = new Product(result);
+              return this.productManagementActions.saveProductSucceeded(product);
+            }),
+            catchError((error: any) => of(this.productManagementActions.saveProductFailed(error)))
+          );
+        })
+      );
+  }
+
   private loadProductList() {
     return (action$) => action$
       .pipe(
@@ -50,6 +70,18 @@ export class ProductManagementEpic {
             catchError((error: any) => of(this.productManagementActions.loadProductListFailed(error)))
           );
         })
+      );
+  }
+
+  private redirect() {
+    return (action$) => action$
+      .pipe(
+        ofType(ProductManagementActions.SAVE_PRODUCT_SUCCEEDED),
+        map(() => {
+          this.router.navigate(['main', 'product-list']);
+          return {type: 'REDIRECT_SUCCESS'};
+        }),
+        catchError(() => of({type: 'REDIRECT_ERROR'}))
       );
   }
 }

@@ -1,6 +1,50 @@
-<p>manage-product works!</p>
-<a routerLink="/main/product-list"
-   routerLinkActive="active">
-  Product list
-</a>
-{{product | json}}
+<div class="add-product-container">
+  <div class="title mat-elevation-z1">
+    <div class="mat-h3">Add product</div>
+  </div>
+  <div class="content mat-elevation-z1">
+    <div class="progress-container">
+      <mat-progress-bar [color]="'primary'" [mode]="'indeterminate'" *ngIf="saving"></mat-progress-bar>
+    </div>
+    <form #addProduct="ngForm" class="add-product-form" (ngSubmit)="add(addProduct.value, addProduct.valid)">
+      <mat-form-field appearance="outline">
+        <mat-label>Product name</mat-label>
+        <input matInput ngControl ngModel name='name' placeholder="Product name" type="text" required>
+        <mat-error *ngIf="addProduct.controls.name?.errors?.required">Product name field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Product type</mat-label>
+        <mat-select ngControl ngModel name='productType' required>
+          <mat-option *ngFor="let type of productTypes" [value]="type.id">
+            {{type.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="addProduct.controls.productType?.errors?.required">Product type field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" *ngIf="user?.roleId === 4">
+        <mat-label>Parent entity</mat-label>
+        <mat-select ngControl ngModel name='parentEntity' required>
+          <mat-option *ngFor="let entity of entities" [value]="entity.id">
+            {{entity.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="addProduct.controls.parentEntity?.errors?.required">Parent entity field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Validity term unit</mat-label>
+        <mat-select ngControl ngModel name='validityTermUnit' required>
+          <mat-option *ngFor="let term of validityTerms" [value]="term.key">
+            {{term.label}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="addProduct.controls.validityTermUnit?.errors?.required">Validity term unit field is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" *ngIf="addProduct.value.validityTermUnit && addProduct.value.validityTermUnit !== 'all'">
+        <mat-label>Validity term quantity</mat-label>
+        <input matInput ngControl ngModel name='validityTermQuantity' placeholder="Validity term quantity" type="number" required>
+        <mat-error *ngIf="addProduct.controls.validityTermQuantity?.errors?.required">Validity term quantity field is required</mat-error>
+      </mat-form-field>
+      <button mat-flat-button [color]="'primary'" class="action-button">Add product</button>
+    </form>
+  </div>
+</div>

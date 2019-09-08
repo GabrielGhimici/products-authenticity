@@ -5,6 +5,9 @@
   <div *ngIf="!productManagementLoading" class="product-container">
     <div class="title mat-elevation-z1">
       <div class="mat-h3">Product list</div>
+      <button mat-flat-button [color]="'primary'"
+              routerLink="/main/add-product"
+              *ngIf="[3, 4].indexOf((user$ | async).roleId) !== -1">Add product</button>
     </div>
     <div class="content mat-elevation-z1">
       <div class="filters">

@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ProductManagementActions } from '../../../store/product-management/product-management.actions';
 import { MatTableDataSource } from '@angular/material';
 import * as moment from 'moment';
+import { User } from '../../../core/user/user';
 
 @Component({
   selector: 'product-list',
@@ -15,6 +16,7 @@ import * as moment from 'moment';
 export class ProductListComponent implements OnInit, OnDestroy {
   @select(['productManagement', 'productList']) readonly productList$: Observable<Array<Product>>;
   @select(['productManagement', 'loading']) readonly productManagementLoading$: Observable<boolean>;
+  @select(['authenticatedUser', 'user']) user$: Observable<User>;
   public productList: Array<Product> = [];
   public productManagementLoading = true;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
