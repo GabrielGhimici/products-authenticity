@@ -34,6 +34,12 @@
         .spacing-bottom {
           margin-bottom: $small-spacing / 2;
         }
+        .elem-label {
+          color: lighten($pa-light-grey, 10);
+          text-transform: uppercase;
+          font-size: 11;
+          font-weight: bold;
+        }
       }
       .toggle-button {
         width: $large-spacing;
@@ -53,7 +59,7 @@
         padding: $small-spacing / 2;
         border-radius: $small-spacing / 4;
         margin-bottom: $small-spacing;
-        .no-spacing-bottom {
+        &.no-spacing-bottom {
           margin-bottom: 0;
         }
       }

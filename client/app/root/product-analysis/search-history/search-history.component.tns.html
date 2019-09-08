@@ -29,21 +29,21 @@
                            (tap)="toggleMenu(i)">
               <FlexboxLayout [flexDirection]="'column'" class="title-item">
                 <FlexboxLayout [flexDirection]="'column'" class="spacing-bottom">
-                  <Label [text]="'Type:'"></Label>
+                  <Label [text]="'Type:'" class="elem-label"></Label>
                   <Label [text]="item?.productType.name"></Label>
                 </FlexboxLayout>
                 <FlexboxLayout [flexDirection]="'column'">
-                  <Label [text]="'Status:'"></Label>
+                  <Label [text]="'Status:'" class="elem-label"></Label>
                   <Label [text]="item?.status"></Label>
                 </FlexboxLayout>
               </FlexboxLayout>
               <FlexboxLayout [flexDirection]="'column'" class="title-item">
                 <FlexboxLayout [flexDirection]="'column'" class="spacing-bottom">
-                  <Label [text]="'Production date::'"></Label>
+                  <Label [text]="'Production date:'" class="elem-label"></Label>
                   <Label [text]="formatDate(item?.productionDate)"></Label>
                 </FlexboxLayout>
                 <FlexboxLayout [flexDirection]="'column'">
-                  <Label [text]="'Validity term:'"></Label>
+                  <Label [text]="'Validity term:'" class="elem-label"></Label>
                   <Label [text]="formatValidity(item?.validityTermQuantity, item?.validityTermUnit)"></Label>
                 </FlexboxLayout>
               </FlexboxLayout>
