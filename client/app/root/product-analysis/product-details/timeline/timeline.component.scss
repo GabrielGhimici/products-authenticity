@@ -19,16 +19,55 @@
         border-radius: 50%;
         padding: $small-spacing / 4;
         background-color: $pa-ultra-light-grey;
-        border: 1px solid darken($pa-ultra-light-grey, 12);
+        border: 1px solid darken($pa-ultra-light-grey, 15);
         cursor: pointer;
 
+        &:hover,
+        &.details-active {
+          border-color: darken($pa-ultra-light-grey, 35);
+          &.finished {
+            border-color: map_get($pa-green, 600);
+          }
+
+          &.in-progress {
+            border-color: map_get($pa-green, 800);
+          }
+          mat-icon {
+            &.inactive {
+              color: darken($pa-ultra-light-grey, 35)
+            }
+            &.finished {
+              color: map_get($pa-green, 700)
+            }
+            &.running {
+              color: white;
+            }
+          }
+        }
+
+        mat-icon {
+          width: $large-spacing;
+          height: $large-spacing;
+          line-height: $large-spacing;
+          text-align: center;
+          &.inactive {
+            color: darken($pa-ultra-light-grey, 25)
+          }
+          &.finished {
+            color: map_get($pa-green, 600)
+          }
+          &.running {
+            color: lighten($pa-ultra-light-grey, 25);
+          }
+        }
+
         &.finished {
-          background-color: map_get($pa-green, 200);
+          background-color: map_get($pa-green, 100);
           border: 1px solid map_get($pa-green, 500);
         }
 
         &.in-progress {
-          background-color: map_get($pa-green, 400);
+          background-color: map_get($pa-green, 300);
           border: 1px solid map_get($pa-green, 700);
         }
       }
@@ -56,12 +95,88 @@
       min-height: calc(#{3 * $large-spacing} + #{$small-spacing / 4});
       width: calc(95% - #{$large-spacing} - 2 * #{$small-spacing / 4} - 2px);
       padding: $small-spacing / 2 $small-spacing / 2 $small-spacing / 2 $small-spacing;
+      .step-description-summary {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .summary-elem {
+          padding: $small-spacing;
+          display: flex;
+          flex-direction: column;
+          margin-left: $default-spacing;
+          .mat-h5 {
+            margin-bottom: 0;
+            color: lighten($pa-light-grey, 10);
+            text-transform: uppercase;
+            font-weight: 500;
+          }
+        }
+      }
       .step-description-content {
         position: relative;
         border: 1px solid $pa-light-grey;
         border-radius: $small-spacing / 4;
-        width: calc(100% - #{$small-spacing});
-        padding: $small-spacing / 2;
+        width: calc(100% - 2 * #{$small-spacing});
+        padding: $small-spacing;
+        display: flex;
+        flex-direction: column;
+        .header {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: $small-spacing / 2;
+          .mat-body {
+            margin: auto 0;
+            color: lighten($pa-light-grey, 15);
+            text-transform: uppercase;
+          }
+          mat-icon {
+            color: $pa-light-grey;
+            font-size: $small-spacing;
+            line-height: $default-spacing;
+            text-align: center;
+            width: $default-spacing;
+            height: $default-spacing;
+            cursor: pointer;
+          }
+        }
+        mat-divider {
+          margin: $small-spacing / 4 0;
+        }
+        .meta-information {
+          display: flex;
+          align-items: center;
+          .meta-elem {
+            padding: $small-spacing / 4 $small-spacing $small-spacing / 4  0;
+            display: flex;
+            flex-direction: column;
+            .mat-h5 {
+              margin-bottom: 0;
+              color: lighten($pa-light-grey, 10);
+              text-transform: uppercase;
+              font-weight: 500;
+            }
+          }
+        }
+        .production-details {
+          display: flex;
+          flex-direction: column;
+          .events-title {
+            padding: $small-spacing / 4 0;
+            color: lighten($pa-light-grey, 15);
+            text-transform: uppercase;
+          }
+          .no-data {
+            display: flex;
+            height: $large-spacing * 1.5;
+            width: 100%;
+            .mat-h6 {
+              margin: auto;
+              font-style: italic;
+              color: $pa-light-grey;
+            }
+          }
+        }
         &:before {
           position: absolute;
           content:'';
