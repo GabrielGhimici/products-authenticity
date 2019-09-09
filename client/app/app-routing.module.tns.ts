@@ -5,9 +5,9 @@ import { LoginComponent } from './authentication/login/login.component';
 import { SignupComponent } from './authentication/signup/signup.component';
 import { RootComponent } from './root/root.component';
 import { LoginGuard } from './core/login/login.guard.tns';
-import { SearchProductComponent } from './root/search-product/search-product.component.tns';
-import { ProductDetailsComponent } from './root/product-details/product-details.component.tns';
-import { SearchHistoryComponent } from './root/search-history/search-history.component.tns';
+import { SearchProductComponent } from './root/product-analysis/search-product/search-product.component.tns';
+import { ProductDetailsComponent } from './root/product-analysis/product-details/product-details.component.tns';
+import { SearchHistoryComponent } from './root/product-analysis/search-history/search-history.component.tns';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},

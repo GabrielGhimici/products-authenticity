@@ -3,6 +3,7 @@ import { MaxLength, Property } from '@tsed/common';
 import { ProductType } from './product-type.model';
 import { ProductionStep } from './production-step.model';
 import { Analytics } from './analytics.model';
+import { EntityModel } from './entity.model';
 
 export type ValidityUnit = 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
 export class ValidityUnits {
@@ -35,6 +36,12 @@ export class Product {
   @Column()
   @MaxLength(100)
   name: string;
+
+  @Column({
+    name: 'id_owner'
+  })
+  @Property()
+  ownerId: number;
 
   @Column({
     name: 'public_identifier',
@@ -79,6 +86,11 @@ export class Product {
   @JoinColumn({name: 'id_type'})
   @Property()
   productType: ProductType;
+
+  @OneToOne(() => EntityModel, entity => entity.products)
+  @JoinColumn({name: 'id_owner'})
+  @Property()
+  owner: EntityModel;
 
   @OneToMany(() => ProductionStep, productionStep => productionStep.product)
   @Property()

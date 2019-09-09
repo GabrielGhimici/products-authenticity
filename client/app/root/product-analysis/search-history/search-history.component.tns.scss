@@ -1,0 +1,77 @@
+@import '../../../../styles/palette';
+@import '../../../../styles/native-variables';
+
+/deep/ .page-style {
+  background-color: darken($pa-ultra-light-grey, 5);
+}
+
+.search-history-container {
+  .card {
+    background-color: lighten($pa-ultra-light-grey, 5);
+    border-radius: $small-spacing / 4;
+    border-color: map_get($pa-green, 200);
+    border-width: 1;
+    padding: $small-spacing / 2;
+    margin-top: $small-spacing / 2;
+    margin-left: $small-spacing;
+    margin-right: $small-spacing;
+    &.no-padding {
+      padding: 0;
+    }
+    &:last-of-type {
+      margin-bottom: $small-spacing / 2;
+    }
+    .product-name {
+      padding: $small-spacing / 2;
+      border-bottom-color: darken($pa-ultra-light-grey, 5);
+      border-bottom-width: 1;
+    }
+    .toggle-title {
+      padding: $small-spacing / 2;
+      .title-item {
+        margin-right: $small-spacing / 2;
+        flex: 1;
+        .spacing-bottom {
+          margin-bottom: $small-spacing / 2;
+        }
+        .elem-label {
+          color: lighten($pa-light-grey, 10);
+          text-transform: uppercase;
+          font-size: 11;
+          font-weight: bold;
+        }
+      }
+      .toggle-button {
+        width: $large-spacing;
+        height: $large-spacing;
+        .icon {
+          margin: auto;
+          font-size: $default-spacing;
+          color: $pa-light-grey;
+        }
+      }
+    }
+    .toggle-body {
+      padding: $small-spacing / 2;
+      .toggle-body-content {
+        border-color: map_get($pa-green, 300);
+        border-width: 1;
+        padding: $small-spacing / 2;
+        border-radius: $small-spacing / 4;
+        margin-bottom: $small-spacing;
+        &.no-spacing-bottom {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .content {
+      color: $pa-grey;
+      margin-left: $small-spacing / 2;
+      font-size: 14;
+      &.important {
+        font-weight: 600;
+        font-size: 16;
+      }
+    }
+  }
+}

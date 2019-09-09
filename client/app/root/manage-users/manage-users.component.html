@@ -1,0 +1,118 @@
+<div class="manage-users-container">
+  <div class="spinner-container" *ngIf="usersLoading || entitiesLoading || rolesLoading">
+    <mat-spinner [color]="'primary'" [diameter]="60"></mat-spinner>
+  </div>
+  <div *ngIf="!usersLoading && !entitiesLoading && !rolesLoading" class="product-container">
+    <div class="title mat-elevation-z1">
+      <div class="mat-h3">Manage users</div>
+    </div>
+    <div class="content mat-elevation-z1">
+      <div class="filters">
+        <mat-form-field [appearance]="'outline'">
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+      <table mat-table [dataSource]="dataSource">
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef class="id"> Id. </th>
+          <td mat-cell *matCellDef="let user" class="id"> {{user.id}} </td>
+        </ng-container>
+
+        <!-- First name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef class="limited-width"> First name </th>
+          <td mat-cell *matCellDef="let user" class="limited-width"> {{user.firstName}} </td>
+        </ng-container>
+
+        <!-- Last name Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef class="limited-width"> Last name </th>
+          <td mat-cell *matCellDef="let user" class="limited-width"> {{user.lastName}} </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef class="limited-width"> Email </th>
+          <td mat-cell *matCellDef="let user" class="limited-width"> {{user.email}} </td>
+        </ng-container>
+
+        <!-- Role Column -->
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef class="limited-width"> Role </th>
+          <td mat-cell *matCellDef="let user" class="limited-width"> {{getName(user.roleId, roles)}} </td>
+        </ng-container>
+
+        <!-- Parent entity Column -->
+        <ng-container matColumnDef="parentEntity">
+          <th mat-header-cell *matHeaderCellDef class="limited-width"> Parent organization </th>
+          <td mat-cell *matCellDef="let user" class="limited-width"> {{getName(user.parentEntityId, entities)}} </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="custom-column-header"> Actions </th>
+          <td mat-cell *matCellDef="let user" class="custom-column">
+            <div class="actions-container">
+              <button mat-icon-button
+                      [color]="'primary'"
+                      matTooltip="Add user in organization"
+                      *ngIf="!user.parentEntityId && (!currentUserRole || currentUserRole !== 4)"
+                      (click)="addUserTo(user.id, parentEntityId)">
+                <mat-icon>add_circle</mat-icon>
+              </button>
+              <button mat-icon-button
+                      [color]="'primary'"
+                      matTooltip="Add user in organization"
+                      *ngIf="!user.parentEntityId && currentUserRole && currentUserRole === 4"
+                      [matMenuTriggerFor]="entityMenu">
+                <mat-icon>add_circle</mat-icon>
+              </button>
+              <button mat-icon-button
+                      [color]="'primary'"
+                      matTooltip="Remove user from organization"
+                      *ngIf="user.parentEntityId"
+                      (click)="removeFromEntity(user.id)">
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+              <button mat-icon-button
+                      [color]="'primary'"
+                      matTooltip="{{user.role.id === 4 ? 'A god user\'s role can\'t be changed' : 'Change user role'}}"
+                      [disabled]="user.role.id === 4"
+                      [matMenuTriggerFor]="roleMenu">
+                <mat-icon>gavel</mat-icon>
+              </button>
+              <mat-menu #roleMenu="matMenu" [xPosition]="'after'">
+                <button mat-menu-item
+                        *ngFor="let role of roles"
+                        [disabled]="!user.parentEntityId && (role.id === 2 || role.id === 3)"
+                        (click)="switchRole(user.id, role.id)">
+                  {{role.name}}
+                </button>
+              </mat-menu>
+              <mat-menu #entityMenu="matMenu" [xPosition]="'after'">
+                <button mat-menu-item
+                        *ngFor="let entity of entities"
+                        (click)="addUserTo(user.id, entity.id)">
+                  {{entity.name}}
+                </button>
+              </mat-menu>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <div class="not-found-container" *ngIf="dataSource.data.length === 0">
+        <div class="mat-h5 not-found">
+          There are no users to display
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

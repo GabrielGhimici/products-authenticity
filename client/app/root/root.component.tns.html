@@ -33,7 +33,7 @@
               <Label text="{{user?.blockChainAccount ? user?.blockChainAccount : '-'}}" class="profile-info"></Label>
             </FlexboxLayout>
           </FlexboxLayout>
-          <FlexboxLayout flexDirection="row" alignItems="center" class="drawer-button profile-details separator">
+          <FlexboxLayout flexDirection="row" alignItems="center" class="drawer-button profile-details separator" *ngIf="user?.role.id !== 1">
             <Label text="&#xf66f;" class="fas button-icon"></Label>
             <FlexboxLayout flexDirection="column" alignItems="flex-start">
               <Label text="Parent Entity: " class="profile-label"></Label>

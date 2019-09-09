@@ -1,0 +1,68 @@
+<div class="timeline-container">
+  <div class="step-item"
+       *ngFor="let step of stepList;let i=index">
+    <div class="timeline-element">
+      <div class="step-link"
+           [ngClass]="{
+             'no-link-soft': i === 0,
+             'finished': (step.status === 'finished' && i !== 0) ||
+                         (i !== 0 && stepList[i-1].status === 'finished')
+           }"></div>
+      <div class="step-indicator"
+           (click)="toggleInfo(step.id)"
+           [ngClass]="{
+             'details-active': additionalInfo[step.id]['displayInfo'],
+             'finished': step.status === 'finished',
+             'in-progress': step.status === 'producing' || step.status === 'waiting_goods'
+           }">
+        <mat-icon *ngIf="step.status === 'inactive'" class="inactive">update</mat-icon>
+        <mat-icon *ngIf="step.status === 'finished'" class="finished">done_outline</mat-icon>
+        <mat-icon *ngIf="step.status === 'producing' || step.status === 'waiting_goods'" class="running">build</mat-icon>
+      </div>
+      <div class="step-link"
+           [ngClass]="{
+             'no-link-soft': i === stepList.length - 1,
+             'finished': step.status === 'finished' && i !== stepList.length - 1
+           }"></div>
+    </div>
+    <div class="step-description">
+      <div class="step-description-summary" *ngIf="!additionalInfo[step.id]['displayInfo']">
+        <div class="summary-elem">
+          <div class="mat-h5">Step name</div>
+          <div class="mat-body">{{step?.defaultProductionStep?.name}}</div>
+        </div>
+        <div class="summary-elem">
+          <div class="mat-h5">Step status</div>
+          <div class="mat-body">{{step?.status}}</div>
+        </div>
+      </div>
+      <div class="step-description-content" *ngIf="additionalInfo[step.id]['displayInfo']">
+        <div class="header">
+          <div class="mat-body">Step details</div>
+          <mat-icon (click)="toggleInfo(step.id)">close</mat-icon>
+        </div>
+        <div class="meta-information">
+          <div class="meta-elem">
+            <div class="mat-h5">Step name</div>
+            <div class="mat-body">{{step?.defaultProductionStep?.name}}</div>
+          </div>
+          <div class="meta-elem">
+            <div class="mat-h5">Step status</div>
+            <div class="mat-body">{{step?.status}}</div>
+          </div>
+          <div class="meta-elem">
+            <div class="mat-h5">Certification status</div>
+            <div class="mat-body">N/A</div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="production-details">
+          <div class="mat-body events-title">Production events:</div>
+          <div class="no-data">
+            <div class="mat-h6">No events triggered yet</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

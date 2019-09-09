@@ -17,4 +17,28 @@ export class ProductService {
       }
     });
   }
+
+  getProductById(id: number) {
+    return this.http.get(`${this.httpConfig.getApiConfig()}/api/product/${id}`, {
+      headers: this.httpConfig.getAuthorizationConfig(),
+      params: {
+        include: 'analytics,owner,productType,productionSteps,productionSteps.defaultProductionStep'
+      }
+    });
+  }
+
+  saveProduct(product) {
+    return this.http.post(`${this.httpConfig.getApiConfig()}/api/product`, product, {
+      headers: this.httpConfig.getAuthorizationConfig(),
+    });
+  }
+
+  getProductListForOrganization() {
+    return this.http.get(`${this.httpConfig.getApiConfig()}/api/product/organization`, {
+      headers: this.httpConfig.getAuthorizationConfig(),
+      params: {
+        include: 'owner,productType,productionSteps,productionSteps.defaultProductionStep'
+      }
+    });
+  }
 }

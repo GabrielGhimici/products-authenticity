@@ -1,0 +1,77 @@
+<div class="view-product-container">
+  <div class="spinner-container" *ngIf="productManagementLoading">
+    <mat-spinner [color]="'primary'" [diameter]="60"></mat-spinner>
+  </div>
+  <div *ngIf="!productManagementLoading && !errorNotFound" class="product-container">
+    <div class="title mat-elevation-z1">
+      <div class="go-back" routerLink="/main/product-list">
+        <mat-icon [color]="'primary'">arrow_back</mat-icon>
+      </div>
+      <div class="mat-h5">Product: </div>
+      <div class="mat-h3">{{product?.name}}</div>
+    </div>
+    <div class="content">
+      <div class="left mat-elevation-z1">
+        <div class="property">
+          <div class="mat-body label">
+            Identifier:
+          </div>
+          <div class="mat-body information">
+            {{product?.publicIdentifier}}
+          </div>
+        </div>
+        <div class="property">
+          <div class="mat-body label">
+            Type:
+          </div>
+          <div class="mat-body information complex">
+            <div>{{product?.productType.name}}</div>
+            <div class="meta">{{product?.productType.description ? product?.productType.description : '-'}}</div>
+          </div>
+        </div>
+        <div class="property">
+          <div class="mat-body label">
+            Production date:
+          </div>
+          <div class="mat-body information">
+            {{formatDate(product?.productionDate)}}
+          </div>
+        </div>
+        <div class="property">
+          <div class="mat-body label">
+            Status:
+          </div>
+          <div class="mat-body information">
+            {{product?.status}}
+          </div>
+        </div>
+        <div class="property">
+          <div class="mat-body label">
+            Validity term:
+          </div>
+          <div class="mat-body information">
+            {{formatValidity(product?.validityTermQuantity, product?.validityTermUnit)}}
+          </div>
+        </div>
+      </div>
+      <div class="right mat-elevation-z1">
+        <mat-tab-group dynamicHeight [disableRipple]="true" (selectedIndexChange)="changedTab($event)">
+          <mat-tab label="Production progress">
+            <div class="progress-container">
+              <timeline [stepList]="product?.productionSteps ? product?.productionSteps : []"></timeline>
+            </div>
+          </mat-tab>
+          <mat-tab label="Analytics">
+            <div #areaChart class="chart"></div>
+            <div #detailedChart class="chart"></div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!productManagementLoading && errorNotFound" class="error-container">
+    <div class="mat-h3 message">Looks like the product you looking for, doesn't exists.</div>
+    <img src="/assets/not_found.svg" alt="Not found" class="error-illustration">
+    <button mat-flat-button [color]="'primary'" routerLink="../../search-product">Go to product search</button>
+  </div>
+</div>

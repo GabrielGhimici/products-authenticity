@@ -1,0 +1,94 @@
+<FlexboxLayout [flexDirection]="'column'">
+  <FlexboxLayout [flexDirection]="'row'"
+                 class="step-item" *ngFor="let step of stepList;let i=index">
+    <FlexboxLayout [flexDirection]="'column'"
+                   [alignItems]="'center'"
+                   class="timeline-element">
+      <FlexboxLayout class="step-link"
+                     [ngClass]="{
+                       'no-link-soft': i === 0,
+                       'finished': (step.status === 'finished' && i !== 0) ||
+                                   (i !== 0 && stepList[i-1].status === 'finished')
+                     }"></FlexboxLayout>
+      <Label [text]="step.status === 'inactive'
+                      ? '&#xf1da;'
+                      : step.status === 'finished'
+                        ? '&#xf00c;'
+                        : '&#xf7d9;'"
+             class="fas step-indicator"
+             (tap)="toggleInfo(step.id)"
+             [ngClass]="{
+               'details-active': additionalInfo[step.id]['displayInfo'],
+               'finished': step.status === 'finished',
+               'in-progress': step.status === 'producing' || step.status === 'waiting_goods'
+             }"></Label>
+      <FlexboxLayout class="step-link"
+                     [ngClass]="{
+                       'no-link-soft': i === stepList.length - 1,
+                       'finished': step.status === 'finished' && i !== stepList.length - 1
+                     }"></FlexboxLayout>
+    </FlexboxLayout>
+    <FlexboxLayout [flexDirection]="'column'"
+                   class="step-description">
+      <FlexboxLayout [flexDirection]="'row'"
+                     [alignItems]="'center'"
+                     *ngIf="!additionalInfo[step.id]['displayInfo']"
+                     class="step-description-summary">
+        <FlexboxLayout [flexDirection]="'column'"
+                       class="summary-elem">
+          <Label [text]="'Step name'" [textWrap]="true" class="elem-label"></Label>
+          <Label [text]="step?.defaultProductionStep?.name" [textWrap]="true"></Label>
+        </FlexboxLayout>
+        <FlexboxLayout [flexDirection]="'column'"
+                       class="summary-elem">
+          <Label [text]="'Step status'" [textWrap]="true" class="elem-label"></Label>
+          <Label [text]="step?.status" [textWrap]="true"></Label>
+        </FlexboxLayout>
+      </FlexboxLayout>
+      <FlexboxLayout [flexDirection]="'column'"
+                     *ngIf="additionalInfo[step.id]['displayInfo']"
+                     class="step-description-content">
+        <Label [text]="'Step details'"
+               [textWrap]="true"
+               [textAlignment]="'center'"
+               class="section-title"></Label>
+        <FlexboxLayout [flexDirection]="'column'"
+                       class="meta-information">
+          <FlexboxLayout [flexDirection]="'row'"
+                         [alignItems]="'center'"
+                         class="meta-elem">
+            <Label [text]="'Step name'" [textWrap]="true" class="elem-label"></Label>
+            <Label [text]="step?.defaultProductionStep?.name" [textWrap]="true"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout [flexDirection]="'row'"
+                         [justifyContent]="'space-between'"
+                         [alignItems]="'center'"
+                         class="meta-elem">
+            <Label [text]="'Step status'" [textWrap]="true" class="elem-label"></Label>
+            <Label [text]="step?.status" [textWrap]="true"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout [flexDirection]="'row'"
+                         [justifyContent]="'space-between'"
+                         [alignItems]="'center'"
+                         class="meta-elem">
+            <Label [text]="'Certification status'" [textWrap]="true" class="elem-label"></Label>
+            <Label [text]="'N/A'" [textWrap]="true"></Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+        <FlexboxLayout class="separator"></FlexboxLayout>
+        <Label [text]="'Production events'"
+               [textWrap]="true"
+               [textAlignment]="'center'"
+               class="section-title"></Label>
+        <FlexboxLayout [flexDirection]="'row'"
+                       [alignItems]="'center'"
+                       [justifyContent]="'center'"
+                       class="no-data">
+          <Label [text]="'No events triggered yet'"
+                 [textWrap]="true"
+                 class="no-data-label"></Label>
+        </FlexboxLayout>
+      </FlexboxLayout>
+    </FlexboxLayout>
+  </FlexboxLayout>
+</FlexboxLayout>

@@ -1,0 +1,90 @@
+@import '../../../styles/palette';
+@import '../../../styles/variables';
+
+.manage-users-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  .spinner-container {
+    margin: auto;
+  }
+  .product-container {
+    padding: $small-spacing;
+    height: calc(100% - #{2 * $small-spacing});
+    width: calc(100% - #{2 * $small-spacing});
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    .title {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      background-color: lighten($pa-ultra-light-grey, 5);
+      border-radius: $small-spacing / 4;
+      border: 1px solid map_get($pa-green, 300);
+      padding: $small-spacing;
+      margin-bottom: $small-spacing / 2;
+      .mat-h3 {
+        color: $pa-dark-grey;
+        margin-left: $small-spacing / 2;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
+    .content {
+      background-color: lighten($pa-ultra-light-grey, 5);
+      border-radius: $small-spacing / 4;
+      border: 1px solid map_get($pa-green, 300);
+      padding: $small-spacing;
+      display: flex;
+      flex-direction: column;
+      .filters {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      /deep/ .mat-table {
+        background: lighten($pa-ultra-light-grey, 5);
+        /deep/ .mat-header-row {
+          background-color: $pa-ultra-light-grey;
+          /deep/ .mat-header-cell {
+            border-top: 1px solid darken($pa-ultra-light-grey, 10);
+            border-bottom-color: darken($pa-ultra-light-grey, 10);
+            color: $pa-light-grey;
+            font-weight: 500;
+          }
+        }
+      }
+      .actions-container {
+        display: flex;
+        flex-direction: row;
+      }
+      .custom-column-header {
+        padding-left: $small-spacing;
+        width: $large-spacing * 3;
+      }
+      .id {
+        width: 3 * $large-spacing;
+      }
+      .limited-width {
+        width: 16%;
+      }
+      .custom-column {
+        width: $large-spacing * 3;
+      }
+      .not-found-container {
+        width: 100%;
+        height: 10 * $large-spacing;
+        display: flex;
+        .not-found {
+          margin: auto;
+          color: $pa-light-grey;
+          font-style: italic;
+        }
+      }
+    }
+  }
+}

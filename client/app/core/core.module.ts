@@ -20,6 +20,13 @@ import { TrackingEpic } from '../store/tracking/tracking.epic';
 import { SearchHistoryService } from './analytics/search-history/search-history.service';
 import { SearchHistoryActions } from '../store/search-history/search-history.actions';
 import { SearchHistoryEpic } from '../store/search-history/search-history.epic';
+import { UserManagementActions } from '../store/user-management/user-management.actions';
+import { UserManagementEpic } from '../store/user-management/user-management.epic';
+import { DataSourceService } from './data-source/data-source.service';
+import { DataSourceActions } from '../store/data-source/data-source.actions';
+import { DataSourceEpic } from '../store/data-source/data-source.epic';
+import { ProductManagementActions } from '../store/product-management/product-management.actions';
+import { ProductManagementEpic } from '../store/product-management/product-management.epic';
 
 @NgModule({
   declarations: [],
@@ -50,15 +57,22 @@ import { SearchHistoryEpic } from '../store/search-history/search-history.epic';
     UserService,
     UserEpic,
     UserActions,
+    UserManagementActions,
+    UserManagementEpic,
     ProductService,
     ProductEpic,
     ProductActions,
+    ProductManagementActions,
+    ProductManagementEpic,
     TrackingService,
     TrackingActions,
     TrackingEpic,
     SearchHistoryService,
     SearchHistoryActions,
-    SearchHistoryEpic
+    SearchHistoryEpic,
+    DataSourceService,
+    DataSourceActions,
+    DataSourceEpic,
   ]
 })
 export class CoreModule { }

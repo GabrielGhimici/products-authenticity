@@ -18,10 +18,16 @@ import { SignupComponent } from './authentication/signup/signup.component';
 import { RootComponent } from './root/root.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-import { SearchProductComponent } from './root/search-product/search-product.component';
-import { ProductDetailsComponent } from './root/product-details/product-details.component';
-import { TimelineComponent } from './root/product-details/timeline/timeline.component';
-import { SearchHistoryComponent } from './root/search-history/search-history.component';
+import { SearchProductComponent } from './root/product-analysis/search-product/search-product.component';
+import { ProductDetailsComponent } from './root/product-analysis/product-details/product-details.component';
+import { TimelineComponent } from './root/product-analysis/product-details/timeline/timeline.component';
+import { SearchHistoryComponent } from './root/product-analysis/search-history/search-history.component';
+import { ProductListComponent } from './root/product-management/product-list/product-list.component';
+import { ManageProductComponent } from './root/product-management/manage-product/manage-product.component';
+import { ViewProductComponent } from './root/product-management/view-product/view-product.component';
+import { ProductManagementGuard } from './root/product-management/product-management.guard';
+import { ManageUsersComponent } from './root/manage-users/manage-users.component';
+import { ManageUsersGuard } from './root/manage-users/manage-users.guard';
 
 @NgModule({
   declarations: [
@@ -32,7 +38,11 @@ import { SearchHistoryComponent } from './root/search-history/search-history.com
     SearchProductComponent,
     ProductDetailsComponent,
     TimelineComponent,
-    SearchHistoryComponent
+    SearchHistoryComponent,
+    ProductListComponent,
+    ManageProductComponent,
+    ViewProductComponent,
+    ManageUsersComponent
   ],
   imports: [
     NgReduxModule,
@@ -45,7 +55,9 @@ import { SearchHistoryComponent } from './root/search-history/search-history.com
   ],
   providers: [
     NgReduxRouter,
-    RootEpics
+    RootEpics,
+    ProductManagementGuard,
+    ManageUsersGuard
   ],
   bootstrap: [AppComponent]
 })

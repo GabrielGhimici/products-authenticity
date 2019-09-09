@@ -12,6 +12,9 @@
     .title {
       margin-bottom: 0;
       color: map_get($pa-green, 500);
+      cursor: pointer;
+      user-select: none;
+      outline: none;
     }
     .right-container {
       display: flex;

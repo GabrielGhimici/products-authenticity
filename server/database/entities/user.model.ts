@@ -50,7 +50,7 @@ export class User {
     nullable: true
   })
   @Property()
-  parentEntityId: number;
+  parentEntityId: number | null;
 
   @Column({name: 'blockchain_account'})
   @MaxLength(250)

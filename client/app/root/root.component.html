@@ -2,15 +2,23 @@
   <mat-toolbar class="toolbar">
     <div class="mat-h1 title" routerLink="/">Products authenticity</div>
     <div class="right-container">
+      <a routerLink="/main/manage-users"
+         routerLinkActive="active" *ngIf="user?.role.id === 3 || user?.role.id === 4">
+        Manage users
+      </a>
+      <a routerLink="/main/product-list"
+         routerLinkActive="active" [ngClass]="{'active-tab': manageProductActive}" *ngIf="user?.role.id !== 1">
+        Product management
+      </a>
       <a routerLink="/main/search-history"
          routerLinkActive="active">
-        Search History
+        Search history
       </a>
       <div class="user-details" [matMenuTriggerFor]="userMenu">
         <div class="user-placeholder" *ngIf="userLoading"></div>
         <div class="user-detail-container" *ngIf="!userLoading">
-          <div class="mat-body-strong no-spacing-bottom">{{user.firstName}} {{user.lastName}}</div>
-          <div class="mat-caption no-spacing-bottom">{{user.username}}</div>
+          <div class="mat-body-strong no-spacing-bottom">{{user?.firstName}} {{user?.lastName}}</div>
+          <div class="mat-caption no-spacing-bottom">{{user?.username}}</div>
         </div>
         <mat-icon [color]="'primary'" class="user-badge">account_circle</mat-icon>
       </div>
@@ -31,7 +39,7 @@
         <div class="mat-body">{{user?.blockChainAccount ? user?.blockChainAccount : '-'}}</div>
       </div>
     </div>
-    <div mat-menu-item [disableRipple]="true" class="menu-item disable-click">
+    <div mat-menu-item [disableRipple]="true" class="menu-item disable-click" *ngIf="user?.role.id !== 1">
       <mat-icon>account_balance</mat-icon>
       <div class="menu-item-details">
         <div class="mat-caption">Parent entity:</div>
