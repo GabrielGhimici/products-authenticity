@@ -67,4 +67,10 @@ export class UserController {
   ): Promise<User> {
     return this.userService.createUser(user);
   }
+
+  @Post('/sign-up-1')
+  public createProfileW3(
+  ) {
+    return this.userService.createUserW3();
+  }
 }

@@ -8,20 +8,51 @@ import { Conflict, InternalServerError } from 'ts-httpexceptions';
 import { QueryParameters } from '../query-params.model';
 import { Role } from '../../database/entities/role.model';
 import { cloneDeep } from 'lodash';
+import { Web3ProviderService } from '../../generic/web3-provider.service';
+import { UserData } from '../../database/entities/user-data.model';
+// import { UserData } from '../../database/entities/user-data.model';
+const tx = require('ethereumjs-tx').Transaction;
 
 @Service()
 export class UserService implements AfterRoutesInit {
   private readonly allIncludeValues = ['role', 'parentEntity'];
   public connection: Connection;
+  private readonly ethQuantity = 50;
   constructor(
     private typeORMService: TypeORMService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private web3Provider: Web3ProviderService
   ) {}
 
   $afterRoutesInit(): void | Promise<any> {
     this.connection = this.typeORMService.get();
+    // this.setMasterAccountPass();
     return null;
   }
+
+/*
+  private setMasterAccountPass() {
+    this.connection.manager.findOne(User, {email: 'master.account@gmail.com'})
+      .then((user: User) => {
+        this.connection.manager.findOne(UserData, {userId: user.id}).then((userData: UserData) => {
+          const account = this.web3Provider.connection.eth.accounts.create();
+          if (user.blockChainAccount !== account.address) {
+            user.blockChainAccount = account.address;
+            this.connection.manager.save(user);
+          }
+          if (!userData) {
+            const data = new UserData();
+            data.userId = user.id;
+            data.unlockData = account.privateKey;
+            this.connection.manager.save(data);
+          } else {
+            userData.unlockData = account.privateKey;
+            this.connection.manager.save(userData);
+          }
+        });
+      });
+  }
+*/
 
   public getProfile(profileId: number, queryParams: QueryParameters): Promise<User> {
     const includeValue: string = queryParams ? queryParams.include : '';
@@ -65,16 +96,79 @@ export class UserService implements AfterRoutesInit {
       });
   }
 
+  private getMasterAccount() {
+    return  this.connection.manager.findOne(User, {email: 'master.account@gmail.com'})
+      .then((user: User) => {
+        return this.connection.manager.findOne(UserData, {userId: user.id}).then((userData: UserData) => {
+          return {
+            id: user.id,
+            account: user.blockChainAccount,
+            key: userData.unlockData
+          };
+        });
+      });
+  }
+
+  public createUserW3() {
+    this.web3Provider.connection.eth.getAccounts().then(acc => {
+      console.log(acc);
+    });
+    this.web3Provider.connection.eth.getTransactionCount('0xd37a661aC767a23c170cCAD7babD7332669e8abD', (_, txCount) => {
+      console.log(txCount);
+    });
+
+    this.web3Provider.connection.eth.getBalance('0xd37a661aC767a23c170cCAD7babD7332669e8abD', (_, wei) => {
+      console.log(this.web3Provider.connection.utils.fromWei(wei, 'ether'));
+    });
+    return [];
+  }
+
   public createUser(user: User): Promise<User> {
     const saltedPassword = this.authenticationService.sha512(user.password, this.authenticationService.getSalt());
     user.password = saltedPassword.passwordHash;
     user.salt = saltedPassword.salt;
     user.roleId = 1;
-    user.blockChainAccount = '';
+    const account = this.web3Provider.connection.eth.accounts.create();
+    user.blockChainAccount = account.address;
     return this.connection.manager.save(user).then((createdUser: User) => {
       delete createdUser.password;
       delete createdUser.salt;
-      return createdUser;
+      const data = new UserData();
+      data.userId = user.id;
+      data.unlockData = account.privateKey.substring(2);
+      return this.connection.manager.save(data).then(() => {
+        return this.getMasterAccount().then((acc: {id: number, account: string, key: string}) => {
+          const web3 = this.web3Provider.connection;
+          web3.eth.getTransactionCount(acc.account, (_, txCount) => {
+            const txConfig = {
+              nonce: web3.utils.toHex(txCount),
+              to: account.address,
+              value: web3.utils.toHex(web3.utils.toWei(`${this.ethQuantity}`, 'ether')),
+              gasLimit: web3.utils.toHex(21000),
+              gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei'))
+            };
+            const currentTransaction = new tx(txConfig);
+            currentTransaction.sign(Buffer.from(acc.key,'hex'));
+
+            const serializedTransaction = currentTransaction.serialize();
+            const rawTransaction = '0x' + serializedTransaction.toString('hex');
+            // tslint:disable-next-line:no-shadowed-variable
+            web3.eth.sendSignedTransaction(rawTransaction, (_, txHash) => {
+              console.log('txHash:', txHash);
+            });
+            // tslint:disable-next-line:no-shadowed-variable
+            this.web3Provider.connection.eth.getBalance(account.address, (_, wei) => {
+              console.log(
+                'User',
+                account.address,
+                ' ether balance: ',
+                this.web3Provider.connection.utils.fromWei(wei, 'ether')
+              );
+            });
+          });
+          return createdUser;
+        });
+      });
     }).catch(err => {
       console.log(err);
       if (err.code === 'ER_DUP_ENTRY') {

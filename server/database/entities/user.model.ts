@@ -3,6 +3,7 @@ import { MaxLength, Property } from '@tsed/common';
 import { Role } from './role.model';
 import { EntityModel } from './entity.model';
 import { Analytics } from './analytics.model';
+import { UserData } from './user-data.model';
 
 export type UserStatus = 'enabled' | 'disabled' | 'deleted';
 export class UserStatusTypes {
@@ -85,4 +86,9 @@ export class User {
   @OneToMany(() => Analytics, analytics => analytics.user)
   @Property()
   analytics: Analytics[];
+
+  @OneToMany(() => UserData, userData => userData.user)
+  @Property()
+  userData: UserData;
+
 }
