@@ -13,9 +13,10 @@ export class ProductController {
   @Post('/')
   @UseBefore(AuthMiddleware)
   public saveProduct(
+    @Request() req,
     @BodyParams() product: ProductData
   ) {
-    return this.productService.saveProduct(product);
+    return this.productService.saveProduct(req.session.user.id, product);
   }
 
   @Get('/organization')

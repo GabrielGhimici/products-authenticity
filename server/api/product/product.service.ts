@@ -11,9 +11,12 @@ import { ProductData } from './product.data';
 import { DefaultProductionStep } from '../../database/entities/default-production-step.model';
 import { ProductionStep } from '../../database/entities/production-step.model';
 import * as Path from 'path';
+import { Web3ProviderService } from '../../generic/web3-provider.service';
+import { Contract } from '../../database/entities/contract.model';
 const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 const QRCode = require('qrcode');
+const tx = require('ethereumjs-tx').Transaction;
 
 @Service()
 export class ProductService implements AfterRoutesInit {
@@ -29,7 +32,8 @@ export class ProductService implements AfterRoutesInit {
   public connection: Connection;
 
   constructor(
-    private typeORMService: TypeORMService
+    private typeORMService: TypeORMService,
+    private web3Provider: Web3ProviderService
   ) {}
 
   $afterRoutesInit(): void | Promise<any> {
@@ -117,7 +121,7 @@ export class ProductService implements AfterRoutesInit {
     return this.connection.manager.find(Product, {ownerId: user.parentEntityId});
   }
 
-  public saveProduct(product: ProductData) {
+  public saveProduct(userId: number, product: ProductData) {
     const publicIdentifier = uuidv4();
     const actualProduct = new Product();
     actualProduct.name = product.name;
@@ -127,7 +131,6 @@ export class ProductService implements AfterRoutesInit {
     actualProduct.validityTermQuantity = product.validityTermQuantity;
     actualProduct.publicIdentifier = publicIdentifier;
     actualProduct.productionDate = new Date();
-    console.log(actualProduct);
     return this.connection.manager.save(actualProduct).then((savedProduct: Product) => {
       return this.connection.manager.find(DefaultProductionStep, {productTypeId: savedProduct.productTypeId})
         .then((steps: Array<DefaultProductionStep>) => {
@@ -138,7 +141,6 @@ export class ProductService implements AfterRoutesInit {
             return this.connection.manager.save(stepToSave);
           });
           return Promise.all(saveSteps).then((savedSteps: Array<ProductionStep>) => {
-            console.log(savedSteps);
             const qrCodesDir = Path.resolve(__dirname, '..', '..', 'qr-codes');
             if (!fs.existsSync(`${qrCodesDir}/${savedProduct.id}`)) {
               fs.mkdirSync(`${qrCodesDir}/${savedProduct.id}`);
@@ -153,7 +155,32 @@ export class ProductService implements AfterRoutesInit {
                 console.log('PRODUCTION', err);
               }
             });
-            return savedProduct;
+            const web3 = this.web3Provider.connection;
+            return this.connection.manager.findOne(Contract, {name: 'manage_products_migration'})
+              .then((contract: Contract) => {
+                const ethContract = new web3.eth.Contract(JSON.parse(contract.abi), contract.address);
+                const ids = savedSteps.map((step: ProductionStep) => step.id);
+                return this.connection.manager.findOne(User, {where: {id: userId}, relations: ['userData']}).then((user: User) => {
+                  web3.eth.getTransactionCount(user.blockChainAccount, (_, txCount) => {
+                    const txConfig = {
+                      nonce: web3.utils.toHex(txCount),
+                      to: contract.address,
+                      gasLimit: web3.utils.toHex(1640000),
+                      gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei')),
+                      data: ethContract.methods.addProduct(savedProduct.id, ids, Date.now()).encodeABI()
+                    };
+                    const currentTransaction = new tx(txConfig);
+                    currentTransaction.sign(Buffer.from(user.userData.unlockData,'hex'));
+
+                    const serializedTransaction = currentTransaction.serialize();
+                    const rawTransaction = '0x' + serializedTransaction.toString('hex');
+                    web3.eth.sendSignedTransaction(rawTransaction, (err, txHash) => {
+                      console.log('err', err, 'txHash:', txHash);
+                    });
+                  });
+                  return savedProduct;
+                });
+              });
           });
         });
     });

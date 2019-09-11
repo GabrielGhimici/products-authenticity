@@ -87,7 +87,7 @@ export class User {
   @Property()
   analytics: Analytics[];
 
-  @OneToMany(() => UserData, userData => userData.user)
+  @OneToOne(() => UserData, userData => userData.user)
   @Property()
   userData: UserData;
 
