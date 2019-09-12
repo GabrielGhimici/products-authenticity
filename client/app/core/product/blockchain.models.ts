@@ -1,22 +1,3 @@
-import { Required } from '@tsed/common';
-import { ValidityUnit } from '../../database/entities/product.model';
-
-export class ProductData {
-  @Required()
-  name: string;
-
-  @Required()
-  parentEntity: number;
-
-  @Required()
-  productType: number;
-
-  validityTermQuantity: number;
-
-  @Required()
-  validityTermUnit: ValidityUnit;
-}
-
 export type BlockchainState = 0 | 1 | 2;
 export class BlockchainStates {
   static readonly Producing: BlockchainState = 0;
@@ -56,27 +37,34 @@ export class BlockchainStepStatusTypes {
 }
 
 export class BlockchainProduct {
-  constructor(
-    public id: number,
-    public valid: boolean,
-    public state: BlockchainState,
-  ) {}
+  public id: number;
+  public valid: boolean;
+  public state: BlockchainState;
+  constructor(source: { [key: string]: any } = {}) {
+    this.id = source.hasOwnProperty('id') ? source.id : null;
+    this.valid = source.hasOwnProperty('valid') ? source.valid : null;
+    this.state = source.hasOwnProperty('state') ? source.state : null;
+  }
 }
 
 export class BlockchainStep {
-  constructor(
-    public id: number,
-    public status: BlockchainStepStatus,
-    public details: Array<BlockchainProductionDetail>
-  ) {}
+  public id: number;
+  public status: BlockchainStepStatus;
+  public details: Array<BlockchainProductionDetail>;
+  constructor(source: { [key: string]: any } = {}) {
+    this.id = source.hasOwnProperty('id') ? source.id : null;
+    this.status = source.hasOwnProperty('status') ? source.status : null;
+    this.details = source.hasOwnProperty('details') ? source.details.map(detail => new BlockchainProductionDetail(detail)) : [];
+  }
 }
 
 export class BlockchainProductionDetail {
-  constructor(
-    public message: string,
-    public data: Date,
-    public additionalId?: number
-  ) {}
+  public message: string;
+  public data: Date;
+  public additionalId?: number;
+  constructor(source: { [key: string]: any } = {}) {
+    this.message = source.hasOwnProperty('message') ? source.message : null;
+    this.data = source.hasOwnProperty('data') ? source.data : null;
+    this.additionalId = source.hasOwnProperty('additionalId') ? source.additionalId : null;
+  }
 }
-
-

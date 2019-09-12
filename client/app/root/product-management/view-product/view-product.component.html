@@ -4,11 +4,27 @@
   </div>
   <div *ngIf="!productManagementLoading && !errorNotFound" class="product-container">
     <div class="title mat-elevation-z1">
-      <div class="go-back" routerLink="/main/product-list">
-        <mat-icon [color]="'primary'">arrow_back</mat-icon>
+      <div class="left-container">
+        <div class="go-back" routerLink="/main/product-list">
+          <mat-icon [color]="'primary'">arrow_back</mat-icon>
+        </div>
+        <div class="mat-h5">Product: </div>
+        <div class="mat-h3">{{product?.name}}</div>
       </div>
-      <div class="mat-h5">Product: </div>
-      <div class="mat-h3">{{product?.name}}</div>
+      <div class="right-container" *ngIf="product?.blockchainStatus">
+        <mat-icon *ngIf="product?.blockchainStatus?.valid" class="safe"
+                  matTooltip="The product origin is certified. You are safe to buy it.">
+          verified_user
+        </mat-icon>
+        <mat-icon *ngIf="!product?.blockchainStatus?.valid && product?.blockchainStatus?.state === 2" class="queue"
+                  matTooltip="We don't have yet information about product's origin.">
+          queue
+        </mat-icon>
+        <mat-icon *ngIf="!product?.blockchainStatus?.valid && product?.blockchainStatus?.state !== 2" class="error"
+                  matTooltip="The product origin couldn't be verified. We don't recommend to buy it.">
+          remove_shopping_cart
+        </mat-icon>
+      </div>
     </div>
     <div class="content">
       <div class="left mat-elevation-z1">
@@ -42,7 +58,7 @@
             Status:
           </div>
           <div class="mat-body information">
-            {{product?.status}}
+            {{formatProductStatus(product?.status)}}
           </div>
         </div>
         <div class="property">
@@ -52,6 +68,12 @@
           <div class="mat-body information">
             {{formatValidity(product?.validityTermQuantity, product?.validityTermUnit)}}
           </div>
+        </div>
+        <div class="property">
+          <div class="mat-body label">
+            QR code:
+          </div>
+          <img [src]="'/qr-code/' + product?.id + '/identifier.png'" [width]="138" [height]="138"/>
         </div>
       </div>
       <div class="right mat-elevation-z1">
@@ -72,6 +94,6 @@
   <div *ngIf="!productManagementLoading && errorNotFound" class="error-container">
     <div class="mat-h3 message">Looks like the product you looking for, doesn't exists.</div>
     <img src="/assets/not_found.svg" alt="Not found" class="error-illustration">
-    <button mat-flat-button [color]="'primary'" routerLink="../../search-product">Go to product search</button>
+    <button mat-flat-button [color]="'primary'" routerLink="/main/product-list">Go to product list</button>
   </div>
 </div>

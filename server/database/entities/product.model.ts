@@ -4,6 +4,7 @@ import { ProductType } from './product-type.model';
 import { ProductionStep } from './production-step.model';
 import { Analytics } from './analytics.model';
 import { EntityModel } from './entity.model';
+import { BlockchainProduct } from '../../api/product/product.data';
 
 export type ValidityUnit = 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
 export class ValidityUnits {
@@ -51,6 +52,9 @@ export class Product {
   @MaxLength(100)
   publicIdentifier: string;
 
+  @Property()
+  blockchainStatus: BlockchainProduct;
+
   @Column({name: 'production_date'})
   @Property()
   productionDate: Date;
@@ -69,7 +73,8 @@ export class Product {
 
   @Column({
     type: 'enum',
-    enum: [ProductStatusTypes.InStock, ProductStatusTypes.Delivered, ProductStatusTypes.Producing, ProductStatusTypes.Deleted]
+    enum: [ProductStatusTypes.InStock, ProductStatusTypes.Delivered, ProductStatusTypes.Producing, ProductStatusTypes.Deleted],
+    default: ProductStatusTypes.Producing
   })
   @Property()
   status: ProductStatus;

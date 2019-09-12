@@ -2,6 +2,7 @@ import { Property } from '@tsed/common';
 import { PrimaryGeneratedColumn, Entity, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from 'typeorm';
 import { Product } from './product.model';
 import { DefaultProductionStep } from './default-production-step.model';
+import { BlockchainStep } from '../../api/product/product.data';
 
 export type StepStatus = 'inactive' | 'waiting_goods' | 'producing' | 'finished' | 'deleted';
 
@@ -22,6 +23,9 @@ export class ProductionStep {
   @Column({name: 'id_product'})
   @Property()
   productId: number;
+
+  @Property()
+  blockchainStatus: BlockchainStep;
 
   @Column({name: 'id_default_step'})
   @Property()

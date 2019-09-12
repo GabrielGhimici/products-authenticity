@@ -18,6 +18,28 @@
           <Label [text]="product?.name" [textWrap]="true" class="content important"></Label>
         </FlexboxLayout>
         <FlexboxLayout class="card"
+                       [flexDirection]="'column'"
+                       [alignItems]="'center'">
+          <FlexboxLayout [flexDirection]="'row'"
+                         [alignItems]="'center'"
+                         *ngIf="product?.blockchainStatus?.valid">
+            <Label [text]="'&#xf505;'" class="fas safe icon"></Label>
+            <Label [text]="'The product origin is certified. You are safe to buy it.'" [textWrap]="true" class="content info"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout [flexDirection]="'row'"
+                         [alignItems]="'center'"
+                         *ngIf="!product?.blockchainStatus?.valid && product?.blockchainStatus?.state === 2">
+            <Label [text]="'&#xf085;'" class="fas queue icon"></Label>
+            <Label [text]="'We don\'t have yet information about the origin of the product.'" [textWrap]="true" class="content info"></Label>
+          </FlexboxLayout>
+          <FlexboxLayout [flexDirection]="'row'"
+                         [alignItems]="'center'"
+                         *ngIf="!product?.blockchainStatus?.valid && product?.blockchainStatus?.state !== 2">
+            <Label [text]="'&#xf00d;'" class="fas error icon"></Label>
+            <Label [text]="'The product origin could not be verified. We don\'t recommend to buy it.'" [textWrap]="true" class="content info"></Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+        <FlexboxLayout class="card"
                        [flexDirection]="'column'">
           <GridLayout [columns]="'3*,7*'" class="row">
             <Label [col]="0"
@@ -51,7 +73,7 @@
                    [text]="'Status:'"
                    [textWrap]="true" class="label"></Label>
             <Label [col]="1"
-                   [text]="product?.status"
+                   [text]="formatProductStatus(product?.status)"
                    [textWrap]="true" class="content"></Label>
           </GridLayout>
           <GridLayout [columns]="'3*,7*'" class="row">
@@ -77,7 +99,7 @@
                  [justifyContent]="'center'"
                  *ngIf="!loading && errorNotFound"
                  class="error-container">
-    <Label [text]="'Looks like the product you looking for, doesn\'t exists.'"
+    <Label [text]="'Looks like the product you looking for, does not exists.'"
            [textAlignment]="'center'"
            [textWrap]="true"
            class="text spacing-bottom"></Label>

@@ -3,6 +3,7 @@ import { ProductService } from '../product/product.service';
 import { AuthMiddleware } from '../../middlewares/auth.middleware';
 import { QueryParameters } from '../query-params.model';
 import { ProductData } from '../product/product.data';
+import { Product } from '../../database/entities/product.model';
 
 @Controller('/product')
 export class ProductController {
@@ -13,9 +14,10 @@ export class ProductController {
   @Post('/')
   @UseBefore(AuthMiddleware)
   public saveProduct(
+    @Request() req,
     @BodyParams() product: ProductData
   ) {
-    return this.productService.saveProduct(product);
+    return this.productService.saveProduct(req.session.user.id, product);
   }
 
   @Get('/organization')
@@ -50,7 +52,7 @@ export class ProductController {
   public getProductById(
     @PathParams('id') id: number,
     @QueryParams() queryParams: QueryParameters
-  ) {
+  ): Promise<Product> {
     return this.productService.getProductById(id, queryParams);
   }
 

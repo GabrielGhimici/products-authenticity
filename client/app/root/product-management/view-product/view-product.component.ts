@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { dispatch, select } from '@angular-redux/store';
 import { Observable, Subject } from 'rxjs';
-import { Product } from '../../../core/product/product';
+import { Product, ProductStatus, ProductStatusTypes } from '../../../core/product/product';
 import { ProductManagementActions } from '../../../store/product-management/product-management.actions';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -158,6 +158,19 @@ export class ViewProductComponent implements OnInit, OnDestroy {
     } else {
       const adjustedUnit = quantity === 1 ? unit : `${unit}s`;
       return `${quantity} ${adjustedUnit}`;
+    }
+  }
+
+  formatProductStatus(status: ProductStatus) {
+    switch (status) {
+      case ProductStatusTypes.Delivered:
+        return 'Delivered';
+      case ProductStatusTypes.Producing:
+        return 'Producing';
+      case ProductStatusTypes.InStock:
+        return 'In stock';
+      default:
+        return status;
     }
   }
 

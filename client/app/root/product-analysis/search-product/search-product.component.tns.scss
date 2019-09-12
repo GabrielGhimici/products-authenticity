@@ -6,16 +6,19 @@
 }
 
 .search-product-container {
-  margin: $default-spacing;
   .search-illustration {
-    margin-bottom: $default-spacing;
+    margin: $default-spacing;
   }
   .information {
+    margin-left: $default-spacing;
+    margin-right: $default-spacing;
     font-size: 16;
     color: $pa-grey;
     text-align: center;
   }
   .form {
+    margin-left: $default-spacing;
+    margin-right: $default-spacing;
     margin-top: $x-small-spacing / 2;
     .input-border {
       border-width: 2;
@@ -26,6 +29,8 @@
     }
   }
   .additional-information {
+    margin-left: $default-spacing;
+    margin-right: $default-spacing;
     font-size: 16;
     color: $pa-grey;
     text-align: center;

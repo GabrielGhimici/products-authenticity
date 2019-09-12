@@ -33,7 +33,7 @@
         </div>
         <div class="summary-elem">
           <div class="mat-h5">Step status</div>
-          <div class="mat-body">{{step?.status}}</div>
+          <div class="mat-body">{{formatStepStatus(step?.status)}}</div>
         </div>
       </div>
       <div class="step-description-content" *ngIf="additionalInfo[step.id]['displayInfo']">
@@ -48,17 +48,32 @@
           </div>
           <div class="meta-elem">
             <div class="mat-h5">Step status</div>
-            <div class="mat-body">{{step?.status}}</div>
+            <div class="mat-body">{{formatStepStatus(step?.status)}}</div>
           </div>
           <div class="meta-elem">
             <div class="mat-h5">Certification status</div>
-            <div class="mat-body">N/A</div>
+            <div class="mat-body">
+              {{step?.blockchainStatus ? formatStatus(step?.blockchainStatus?.status) : 'N/A'}}
+            </div>
           </div>
         </div>
         <mat-divider></mat-divider>
         <div class="production-details">
           <div class="mat-body events-title">Production events:</div>
-          <div class="no-data">
+          <div class="events"
+               *ngIf="step?.blockchainStatus && step?.blockchainStatus?.details && step?.blockchainStatus?.details?.length > 0">
+            <div class="event" *ngFor="let detail of step?.blockchainStatus?.details">
+              <div class="mat-h5 date">
+                {{formatDate(detail.data)}}
+              </div>
+              <div class="mat-h5 separator">-</div>
+              <div class="mat-h5">
+                {{detail.message}}
+              </div>
+            </div>
+          </div>
+          <div class="no-data"
+               *ngIf="!step?.blockchainStatus || !step?.blockchainStatus?.details || step?.blockchainStatus?.details?.length === 0">
             <div class="mat-h6">No events triggered yet</div>
           </div>
         </div>

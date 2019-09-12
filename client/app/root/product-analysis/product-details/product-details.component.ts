@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { ProductActions } from '../../../store/product/product.actions';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Product } from '../../../core/product/product';
+import { Product, ProductStatus, ProductStatusTypes } from '../../../core/product/product';
 import * as moment from 'moment';
 
 @Component({
@@ -20,10 +20,12 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public product: Product;
   public errorNotFound = false;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+
   constructor(
     private productActions: ProductActions,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe((map: ParamMap) => {
@@ -62,6 +64,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     } else {
       const adjustedUnit = quantity === 1 ? unit : `${unit}s`;
       return `${quantity} ${adjustedUnit}`;
+    }
+  }
+
+  formatProductStatus(status: ProductStatus) {
+    switch (status) {
+      case ProductStatusTypes.Delivered:
+        return 'Delivered';
+      case ProductStatusTypes.Producing:
+        return 'Producing';
+      case ProductStatusTypes.InStock:
+        return 'In stock';
+      default:
+        return status;
     }
   }
 
