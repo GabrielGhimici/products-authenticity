@@ -47,7 +47,30 @@ export class ProductService implements AfterRoutesInit {
 
   $afterRoutesInit(): void | Promise<any> {
     this.connection = this.typeORMService.get();
+    this.generateQRs();
     return null;
+  }
+
+  private generateQRs() {
+    this.connection.manager.find(Product).then((productList: Array<Product>) =>  {
+      productList.forEach((prod: Product) => {
+        const qrCodesDir = Path.resolve(__dirname, '..', '..', '..', 'qr-codes');
+        if (!fs.existsSync(`${qrCodesDir}/${prod.id}`)) {
+          console.log('[GENERATING QR]: ProductID = ', prod.id);
+          fs.mkdirSync(`${qrCodesDir}/${prod.id}`);
+          QRCode.toFile(`${qrCodesDir}/${prod.id}/identifier.png`, prod.publicIdentifier, {type: 'png'}, (err) => {
+            if (err) {
+              console.log('IDENTIFIER', err);
+            }
+          });
+          QRCode.toFile(`${qrCodesDir}/${prod.id}/production.png`, prod.id.toString(), {type: 'png'}, (err) => {
+            if (err) {
+              console.log('PRODUCTION', err);
+            }
+          });
+        }
+      });
+    });
   }
 
   private enrichProduct(product: Product) {
