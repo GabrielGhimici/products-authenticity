@@ -31,10 +31,27 @@
       color: $pa-dark-grey;
       margin-left: $small-spacing / 2;
       font-size: 14;
+      &.info {
+        width: 100% - ($small-spacing / 2);
+      }
       &.important {
         font-weight: 600;
         font-size: 16;
       }
+    }
+    .icon {
+      width: $default-spacing;
+      height: $default-spacing;
+      text-align: center;
+    }
+    .safe {
+      color: map_get($pa-green, 600);
+    }
+    .queue {
+      color: #FFA500;
+    }
+    .error {
+      color: #B22222;
     }
     .meta {
       margin-left: $small-spacing / 2;

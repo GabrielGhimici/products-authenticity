@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { dispatch, select } from '@angular-redux/store';
 import { Observable, Subject } from 'rxjs';
-import { Product } from '../../../core/product/product';
+import { Product, ProductStatus, ProductStatusTypes } from '../../../core/product/product';
 import { ProductActions } from '../../../store/product/product.actions';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -73,6 +73,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     } else {
       const adjustedUnit = quantity === 1 ? unit : `${unit}s`;
       return `${quantity} ${adjustedUnit}`;
+    }
+  }
+
+  formatProductStatus(status: ProductStatus) {
+    switch (status) {
+      case ProductStatusTypes.Delivered:
+        return 'Delivered';
+      case ProductStatusTypes.Producing:
+        return 'Producing';
+      case ProductStatusTypes.InStock:
+        return 'In stock';
+      default:
+        return status;
     }
   }
 

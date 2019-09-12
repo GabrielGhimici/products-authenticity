@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ProductionStep } from '../../../../core/product/production-step';
+import { ProductionStep, StepStatus, StepStatusTypes } from '../../../../core/product/production-step';
 import { BlockchainStepStatus, BlockchainStepStatusTypes } from '../../../../core/product/blockchain.models';
 import * as moment from 'moment';
 
@@ -48,6 +48,23 @@ export class TimelineComponent implements OnInit, OnChanges {
         return 'Indefinite';
       default:
         return 'N/A';
+    }
+  }
+
+  formatStepStatus(step: StepStatus) {
+    switch (step) {
+      case StepStatusTypes.Inactive:
+        return 'Inactive';
+      case StepStatusTypes.WaitingGoods:
+        return 'Waiting goods';
+      case StepStatusTypes.Producing:
+        return 'Producing';
+      case StepStatusTypes.Finished:
+        return 'Finished';
+      case StepStatusTypes.Deleted:
+        return 'Deleted';
+      default:
+        return step;
     }
   }
 

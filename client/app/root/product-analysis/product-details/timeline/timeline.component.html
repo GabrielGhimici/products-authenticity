@@ -33,7 +33,7 @@
         </div>
         <div class="summary-elem">
           <div class="mat-h5">Step status</div>
-          <div class="mat-body">{{step?.status}}</div>
+          <div class="mat-body">{{formatStepStatus(step?.status)}}</div>
         </div>
       </div>
       <div class="step-description-content" *ngIf="additionalInfo[step.id]['displayInfo']">
@@ -48,7 +48,7 @@
           </div>
           <div class="meta-elem">
             <div class="mat-h5">Step status</div>
-            <div class="mat-body">{{step?.status}}</div>
+            <div class="mat-body">{{formatStepStatus(step?.status)}}</div>
           </div>
           <div class="meta-elem">
             <div class="mat-h5">Certification status</div>

@@ -4,6 +4,14 @@ import { Analytics } from '../analytics/analytics';
 import { Entity } from '../entity/entity';
 import { BlockchainProduct } from './blockchain.models';
 
+export type ProductStatus = 'in-stock' | 'delivered' | 'producing' | 'deleted';
+export class ProductStatusTypes {
+  static readonly InStock: ProductStatus = 'in-stock';
+  static readonly Delivered: ProductStatus = 'delivered';
+  static readonly Producing: ProductStatus = 'producing';
+  static readonly Deleted: ProductStatus = 'deleted';
+}
+
 export class Product {
   id: number;
   productTypeId: number;
@@ -12,7 +20,7 @@ export class Product {
   productionDate: Date;
   validityTermQuantity: number;
   validityTermUnit: string;
-  status: string;
+  status: ProductStatus;
   createdAt: Date;
   updatedAt: Date;
   productType: ProductType;

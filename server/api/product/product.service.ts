@@ -3,7 +3,7 @@ import { AfterRoutesInit } from '@tsed/common';
 import { TypeORMService } from '@tsed/typeorm';
 import { Connection } from 'typeorm';
 import { QueryParameters } from '../query-params.model';
-import { Product } from '../../database/entities/product.model';
+import { Product, ProductStatusTypes } from '../../database/entities/product.model';
 import { Forbidden, InternalServerError, NotFound, Unauthorized } from 'ts-httpexceptions';
 import { User } from '../../database/entities/user.model';
 import { ProductType } from '../../database/entities/product-type.model';
@@ -218,6 +218,7 @@ export class ProductService implements AfterRoutesInit {
     actualProduct.validityTermUnit = product.validityTermUnit;
     actualProduct.validityTermQuantity = product.validityTermQuantity;
     actualProduct.publicIdentifier = publicIdentifier;
+    actualProduct.status = ProductStatusTypes.Producing;
     actualProduct.productionDate = new Date();
     return this.connection.manager.save(actualProduct).then((savedProduct: Product) => {
       return this.connection.manager.find(DefaultProductionStep, {productTypeId: savedProduct.productTypeId})

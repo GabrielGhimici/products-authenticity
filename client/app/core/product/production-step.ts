@@ -2,12 +2,21 @@ import { Product } from './product';
 import { DefaultProductionStep } from './default-production-step';
 import { BlockchainStep } from './blockchain.models';
 
+export type StepStatus = 'inactive' | 'waiting_goods' | 'producing' | 'finished' | 'deleted';
+
+export class StepStatusTypes {
+  static readonly Inactive: StepStatus = 'inactive';
+  static readonly WaitingGoods: StepStatus = 'waiting_goods';
+  static readonly Producing: StepStatus = 'producing';
+  static readonly Finished: StepStatus = 'finished';
+  static readonly Deleted: StepStatus = 'deleted';
+}
 
 export class ProductionStep {
   id: number;
   productId: number;
   defaultProductionStepId: number;
-  status: string;
+  status: StepStatus;
   createdAt: Date;
   updatedAt: Date;
   product: Product;

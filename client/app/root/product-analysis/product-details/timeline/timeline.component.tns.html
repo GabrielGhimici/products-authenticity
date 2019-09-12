@@ -42,7 +42,7 @@
         <FlexboxLayout [flexDirection]="'column'"
                        class="summary-elem">
           <Label [text]="'Step status'" [textWrap]="true" class="elem-label"></Label>
-          <Label [text]="step?.status" [textWrap]="true"></Label>
+          <Label [text]="formatStepStatus(step?.status)" [textWrap]="true"></Label>
         </FlexboxLayout>
       </FlexboxLayout>
       <FlexboxLayout [flexDirection]="'column'"
@@ -65,7 +65,7 @@
                          [alignItems]="'center'"
                          class="meta-elem">
             <Label [text]="'Step status'" [textWrap]="true" class="elem-label"></Label>
-            <Label [text]="step?.status" [textWrap]="true"></Label>
+            <Label [text]="formatStepStatus(step?.status)" [textWrap]="true"></Label>
           </FlexboxLayout>
           <FlexboxLayout [flexDirection]="'row'"
                          [justifyContent]="'space-between'"
@@ -80,10 +80,18 @@
                [textWrap]="true"
                [textAlignment]="'center'"
                class="section-title"></Label>
+        <StackLayout  *ngIf="step?.blockchainStatus && step?.blockchainStatus?.details && step?.blockchainStatus?.details?.length > 0">
+          <Label class="event"
+                 [text]="formatDate(detail.data) + ' - ' + detail.message"
+                 [textWrap]="true"
+                 *ngFor="let detail of step?.blockchainStatus?.details">
+          </Label>
+        </StackLayout>
         <FlexboxLayout [flexDirection]="'row'"
                        [alignItems]="'center'"
                        [justifyContent]="'center'"
-                       class="no-data">
+                       class="no-data"
+                       *ngIf="!step?.blockchainStatus || !step?.blockchainStatus?.details || step?.blockchainStatus?.details?.length === 0">
           <Label [text]="'No events triggered yet'"
                  [textWrap]="true"
                  class="no-data-label"></Label>

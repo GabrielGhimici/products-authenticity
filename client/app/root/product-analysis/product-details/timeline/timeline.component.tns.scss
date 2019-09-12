@@ -95,6 +95,9 @@
         background-color: $pa-light-grey;
         margin: $small-spacing / 4;
       }
+      .event {
+        padding: $small-spacing / 4 0;
+      }
       .no-data {
         height: $large-spacing * 1.5;
         .no-data-label {

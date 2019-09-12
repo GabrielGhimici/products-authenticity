@@ -16,7 +16,11 @@
                   matTooltip="The product origin is certified. You are safe to buy it.">
           verified_user
         </mat-icon>
-        <mat-icon *ngIf="!product?.blockchainStatus?.valid" class="error"
+        <mat-icon *ngIf="!product?.blockchainStatus?.valid && product?.blockchainStatus?.state === 2" class="queue"
+                  matTooltip="We don't have yet information about product's origin.">
+          queue
+        </mat-icon>
+        <mat-icon *ngIf="!product?.blockchainStatus?.valid && product?.blockchainStatus?.state !== 2" class="error"
                   matTooltip="The product origin couldn't be verified. We don't recommend to buy it.">
           remove_shopping_cart
         </mat-icon>
@@ -54,7 +58,7 @@
             Status:
           </div>
           <div class="mat-body information">
-            {{product.status}}
+            {{formatProductStatus(product.status)}}
           </div>
         </div>
         <div class="property">
