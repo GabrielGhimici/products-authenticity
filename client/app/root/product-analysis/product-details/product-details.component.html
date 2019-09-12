@@ -4,8 +4,23 @@
   </div>
   <div *ngIf="!loading && !errorNotFound" class="product-container">
     <div class="title mat-elevation-z1">
-      <div class="mat-h5">Product: </div>
-      <div class="mat-h3">{{product.name}}</div>
+      <div class="left-container">
+        <div class="go-back" routerLink="/main">
+          <mat-icon [color]="'primary'">arrow_back</mat-icon>
+        </div>
+        <div class="mat-h5">Product: </div>
+        <div class="mat-h3">{{product?.name}}</div>
+      </div>
+      <div class="right-container" *ngIf="product?.blockchainStatus">
+        <mat-icon *ngIf="product?.blockchainStatus?.valid" class="safe"
+                  matTooltip="The product origin is certified. You are safe to buy it.">
+          verified_user
+        </mat-icon>
+        <mat-icon *ngIf="!product?.blockchainStatus?.valid" class="error"
+                  matTooltip="The product origin couldn't be verified. We don't recommend to buy it.">
+          remove_shopping_cart
+        </mat-icon>
+      </div>
     </div>
     <div class="content">
       <div class="left mat-elevation-z1">

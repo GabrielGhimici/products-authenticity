@@ -73,7 +73,8 @@ export class Product {
 
   @Column({
     type: 'enum',
-    enum: [ProductStatusTypes.InStock, ProductStatusTypes.Delivered, ProductStatusTypes.Producing, ProductStatusTypes.Deleted]
+    enum: [ProductStatusTypes.InStock, ProductStatusTypes.Delivered, ProductStatusTypes.Producing, ProductStatusTypes.Deleted],
+    default: ProductStatusTypes.Producing
   })
   @Property()
   status: ProductStatus;

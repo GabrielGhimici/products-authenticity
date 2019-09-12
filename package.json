@@ -104,7 +104,7 @@
     "redux-logger": "^3.0.6",
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
-    "@angular/compiler-cli": "8.0.0"
+    "@angular/compiler-cli": "^8.1.2"
   },
   "nativescript": {
     "id": "org.nativescript.ProductsAuthenticity",

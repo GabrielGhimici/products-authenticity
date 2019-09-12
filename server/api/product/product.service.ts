@@ -102,7 +102,19 @@ export class ProductService implements AfterRoutesInit {
                     }
                   });
                 });
-                console.log(product);
+                product.productionSteps.forEach((prodStep: ProductionStep, index: number) => {
+                  if (index === 0) {
+                    return;
+                  } else {
+                    if (
+                      prodStep.blockchainStatus &&
+                      prodStep.blockchainStatus.status !== BlockchainStepStatusTypes.Indefinite &&
+                      product.productionSteps[index - 1].blockchainStatus.status === BlockchainStepStatusTypes.Indefinite
+                    ) {
+                      product.productionSteps[index - 1].blockchainStatus.status = BlockchainStepStatusTypes.Invalid;
+                    }
+                  }
+                });
                 return product;
               });
             } else {
