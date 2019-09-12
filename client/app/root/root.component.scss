@@ -102,6 +102,10 @@
   }
 }
 
+/deep/ .mat-menu-panel {
+  max-width: fit-content !important;
+}
+
 .menu-item {
   display: flex;
   align-items: center;
