@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ProductionStep, StepStatus, StepStatusTypes } from '../../../../core/product/production-step';
 import * as moment from 'moment';
+import { BlockchainStepStatus, BlockchainStepStatusTypes } from '../../../../core/product/blockchain.models';
 
 @Component({
   selector: 'timeline',
@@ -30,6 +31,19 @@ export class TimelineComponent implements OnInit, OnChanges {
       if (!openedInfo && changes.stepList.currentValue.length) {
         this.additionalInfo[changes.stepList.currentValue[0].id].displayInfo = true;
       }
+    }
+  }
+
+  formatStatus(status: BlockchainStepStatus) {
+    switch (status) {
+      case BlockchainStepStatusTypes.Valid:
+        return 'Valid';
+      case BlockchainStepStatusTypes.Invalid:
+        return 'Invalid';
+      case BlockchainStepStatusTypes.Indefinite:
+        return 'Indefinite';
+      default:
+        return 'N/A';
     }
   }
 

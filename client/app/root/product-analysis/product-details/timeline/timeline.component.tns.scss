@@ -96,7 +96,7 @@
         margin: $small-spacing / 4;
       }
       .event {
-        padding: $small-spacing / 4 0;
+        margin: $small-spacing / 4 0;
       }
       .no-data {
         height: $large-spacing * 1.5;
@@ -108,7 +108,7 @@
       }
       .meta-information {
         .meta-elem {
-          padding: $small-spacing / 4;
+          margin: $small-spacing / 4;
           Label {
             width: 40%;
           }
