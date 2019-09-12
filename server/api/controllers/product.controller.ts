@@ -41,19 +41,21 @@ export class ProductController {
   @Get('/identifier/:identifier')
   @UseBefore(AuthMiddleware)
   public getProductByIdentifier(
+    @Request() req,
     @PathParams('identifier') identifier: string,
     @QueryParams() queryParams: QueryParameters
   ) {
-    return this.productService.getProductByIdentifier(identifier, queryParams);
+    return this.productService.getProductByIdentifier(req.session.user, identifier, queryParams);
   }
 
   @Get('/:id')
   @UseBefore(AuthMiddleware)
   public getProductById(
+    @Request() req,
     @PathParams('id') id: number,
     @QueryParams() queryParams: QueryParameters
   ): Promise<Product> {
-    return this.productService.getProductById(id, queryParams);
+    return this.productService.getProductById(req.session.user, id, queryParams);
   }
 
 }

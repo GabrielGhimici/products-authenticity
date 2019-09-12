@@ -56,10 +56,10 @@ export class UserService implements AfterRoutesInit {
                     if (!userData) {
                       const data = new UserData();
                       data.userId = user.id;
-                      data.unlockData = account.privateKey;
+                      data.unlockData = account.privateKey.substring(2);
                       this.connection.manager.save(data);
                     } else {
-                      userData.unlockData = account.privateKey;
+                      userData.unlockData = account.privateKey.substring(2);
                       this.connection.manager.save(userData);
                     }
                     this.web3Provider.connection.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC, (_, txCount) => {
@@ -146,7 +146,7 @@ export class UserService implements AfterRoutesInit {
       data.unlockData = account.privateKey.substring(2);
       return this.connection.manager.save(data).then(() => {
         const web3 = this.web3Provider.connection;
-        web3.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC, (_, txCount) => {
+        return web3.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC).then((txCount) => {
           const txConfig = {
             nonce: web3.utils.toHex(txCount),
             to: account.address,
@@ -172,29 +172,29 @@ export class UserService implements AfterRoutesInit {
               this.web3Provider.connection.utils.fromWei(wei, 'ether')
             );
           });
-        });
-        return this.connection.manager.findOne(Contract, {name: 'manage_resources_migration'})
-          .then((contract: Contract) => {
-            const ethContract = new web3.eth.Contract(JSON.parse(contract.abi), contract.address);
-            web3.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC, (_, txCount) => {
-              const txConfig = {
-                nonce: web3.utils.toHex(txCount),
-                to: contract.address,
-                gasLimit: web3.utils.toHex(81000),
-                gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei')),
-                data: ethContract.methods.addUser(account.address).encodeABI()
-              };
-              const currentTransaction = new tx(txConfig);
-              currentTransaction.sign(Buffer.from(process.env.BCK_CONTRACT_MAIN_ACC_SIGN,'hex'));
+          return this.connection.manager.findOne(Contract, {name: 'manage_resources_migration'})
+            .then((contract: Contract) => {
+              const ethContract = new web3.eth.Contract(JSON.parse(contract.abi), contract.address);
+              web3.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC).then((tx1Count) => {
+                const tx1Config = {
+                  nonce: web3.utils.toHex(tx1Count),
+                  to: contract.address,
+                  gasLimit: web3.utils.toHex(81000),
+                  gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei')),
+                  data: ethContract.methods.addUser(account.address).encodeABI()
+                };
+                const currentTransaction1 = new tx(tx1Config);
+                currentTransaction1.sign(Buffer.from(process.env.BCK_CONTRACT_MAIN_ACC_SIGN,'hex'));
 
-              const serializedTransaction = currentTransaction.serialize();
-              const rawTransaction = '0x' + serializedTransaction.toString('hex');
-              web3.eth.sendSignedTransaction(rawTransaction, (err, txHash) => {
-                console.log('err', err, 'txHash:', txHash);
+                const serializedTransaction1 = currentTransaction1.serialize();
+                const rawTransaction1 = '0x' + serializedTransaction1.toString('hex');
+                web3.eth.sendSignedTransaction(rawTransaction1, (err, txHash) => {
+                  console.log('err', err, 'txHash:', txHash);
+                });
               });
+              return createdUser;
             });
-            return createdUser;
-          });
+        });
       });
     }).catch(err => {
       console.log(err);

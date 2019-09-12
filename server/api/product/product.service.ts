@@ -73,13 +73,13 @@ export class ProductService implements AfterRoutesInit {
     });
   }
 
-  private enrichProduct(product: Product) {
+  private enrichProduct(user: User, product: Product) {
     const web3 = this.web3Provider.connection;
     return this.connection.manager.findOne(Contract, {name: 'manage_products_migration'})
       .then((contract: Contract) => {
         const ethContract = new web3.eth.Contract(JSON.parse(contract.abi), contract.address);
         if (product) {
-          const result = ethContract.methods.getProduct(product.id).call();
+          const result = ethContract.methods.getProduct(product.id).call({from: user.blockChainAccount});
           return result.then((value) => {
             const productId = Number(value.id);
             const valid = value.valid;
@@ -91,7 +91,7 @@ export class ProductService implements AfterRoutesInit {
             }
             if (product.productionSteps && product.productionSteps.length) {
               const bckStepsCalls = product.productionSteps.map((step: ProductionStep) => {
-                return ethContract.methods.getStep(product.id, step.id).call();
+                return ethContract.methods.getStep(product.id, step.id).call({from: user.blockChainAccount});
               });
               return Promise.all(bckStepsCalls).then((values: Array<any>) => {
                 product.productionSteps = product.productionSteps.map((prodStep: ProductionStep) => {
@@ -152,7 +152,7 @@ export class ProductService implements AfterRoutesInit {
       });
   }
 
-  public getProductByIdentifier(identifier: string, queryParams: QueryParameters) {
+  public getProductByIdentifier(user: User, identifier: string, queryParams: QueryParameters) {
     const includeValue: string = queryParams ? queryParams.include : '';
     const includeList: Array<string> = includeValue ? includeValue.split(',').map(el => el.replace(/\s+/g, '')) : [];
     if (includeList.length !== 0) {
@@ -162,7 +162,7 @@ export class ProductService implements AfterRoutesInit {
           if (!result) {
             throw new NotFound(`Unable to find product with identifier ${identifier}`);
           }
-          return this.enrichProduct(result);
+          return this.enrichProduct(user, result);
         });
     }
     return this.connection.manager.findOne(Product, {publicIdentifier: identifier})
@@ -170,11 +170,11 @@ export class ProductService implements AfterRoutesInit {
         if (!result) {
           throw new NotFound(`Unable to find product with identifier ${identifier}`);
         }
-        return this.enrichProduct(result);
+        return this.enrichProduct(user, result);
       });
   }
 
-  public getProductById(id: number, queryParams: QueryParameters): Promise<Product> {
+  public getProductById(user: User, id: number, queryParams: QueryParameters): Promise<Product> {
     const includeValue: string = queryParams ? queryParams.include : '';
     const includeList: Array<string> = includeValue ? includeValue.split(',').map(el => el.replace(/\s+/g, '')) : [];
     if (includeList.length !== 0) {
@@ -184,7 +184,7 @@ export class ProductService implements AfterRoutesInit {
           if (!result) {
             throw new NotFound(`Unable to find product with identifier ${id}`);
           }
-          return this.enrichProduct(result);
+          return this.enrichProduct(user, result);
         });
     }
     return this.connection.manager.findOne(Product, {id})
@@ -192,7 +192,7 @@ export class ProductService implements AfterRoutesInit {
         if (!result) {
           throw new NotFound(`Unable to find product with identifier ${id}`);
         }
-        return this.enrichProduct(result);
+        return this.enrichProduct(user, result);
       });
   }
 
