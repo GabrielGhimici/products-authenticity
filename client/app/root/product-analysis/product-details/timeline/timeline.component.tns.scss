@@ -70,7 +70,7 @@
     .step-description-summary {
       height: 3 * $large-spacing + $small-spacing / 4;
       .summary-elem {
-        padding: $small-spacing;
+        padding: $small-spacing $small-spacing / 4 $small-spacing $small-spacing / 4;
         margin-left: $default-spacing;
         .elem-label {
           color: lighten($pa-light-grey, 10);

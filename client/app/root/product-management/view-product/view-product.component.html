@@ -11,7 +11,7 @@
         <div class="mat-h5">Product: </div>
         <div class="mat-h3">{{product?.name}}</div>
       </div>
-      <div class="right-container" *ngIf="product?.blockchainStatus">
+      <div class="right-container">
         <mat-icon *ngIf="product?.blockchainStatus?.valid" class="safe"
                   matTooltip="The product origin is certified. You are safe to buy it.">
           verified_user

@@ -72,7 +72,7 @@
                          [alignItems]="'center'"
                          class="meta-elem">
             <Label [text]="'Certification status'" [textWrap]="true" class="elem-label"></Label>
-            <Label [text]="'N/A'" [textWrap]="true"></Label>
+            <Label [text]="step?.blockchainStatus ? formatStatus(step?.blockchainStatus?.status) : 'N/A'" [textWrap]="true"></Label>
           </FlexboxLayout>
         </FlexboxLayout>
         <FlexboxLayout class="separator"></FlexboxLayout>
