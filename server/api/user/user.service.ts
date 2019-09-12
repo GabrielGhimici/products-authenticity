@@ -11,7 +11,6 @@ import { cloneDeep } from 'lodash';
 import { Web3ProviderService } from '../../generic/web3-provider.service';
 import { UserData } from '../../database/entities/user-data.model';
 import { Contract } from '../../database/entities/contract.model';
-// import { UserData } from '../../database/entities/user-data.model';
 const tx = require('ethereumjs-tx').Transaction;
 
 @Service()
@@ -27,52 +26,68 @@ export class UserService implements AfterRoutesInit {
 
   $afterRoutesInit(): void | Promise<any> {
     this.connection = this.typeORMService.get();
-    // this.setMasterAccountPass();
+    this.setMasterAccountPass();
     return null;
   }
 
-/*  private setMasterAccountPass() {
+  private setMasterAccountPass() {
     this.connection.manager.findOne(User, {email: 'master.account@gmail.com'})
       .then((user: User) => {
         this.connection.manager.findOne(UserData, {userId: user.id}).then((userData: UserData) => {
-          const account = this.web3Provider.connection.eth.accounts.create();
-          if (user.blockChainAccount !== account.address) {
-            user.blockChainAccount = account.address;
-            this.connection.manager.save(user);
-          }
-          if (!userData) {
-            const data = new UserData();
-            data.userId = user.id;
-            data.unlockData = account.privateKey;
-            this.connection.manager.save(data);
-          } else {
-            userData.unlockData = account.privateKey;
-            this.connection.manager.save(userData);
-          }
           this.connection.manager.findOne(Contract, {name: 'manage_resources_migration'})
             .then((contract: Contract) => {
               const ethContract = new this.web3Provider.connection.eth.Contract(JSON.parse(contract.abi), contract.address);
-              this.web3Provider.connection.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC, (_, txCount) => {
-                const txConfig = {
-                  nonce: this.web3Provider.connection.utils.toHex(txCount),
-                  to: contract.address,
-                  gasLimit: this.web3Provider.connection.utils.toHex(81000),
-                  gasPrice: this.web3Provider.connection.utils.toHex(this.web3Provider.connection.utils.toWei('5', 'gwei')),
-                  data: ethContract.methods.addUser(account.address).encodeABI()
-                };
-                const currentTransaction = new tx(txConfig);
-                currentTransaction.sign(Buffer.from(process.env.BCK_CONTRACT_MAIN_ACC_SIGN,'hex'));
+              ethContract.methods.chekUserExistance(user.blockChainAccount).call((eerr, exists) => {
+                if (eerr) {
+                  console.error('Exists err', eerr);
+                  return;
+                }
+                ethContract.methods.chekUserIsActive(user.blockChainAccount).call((aerr, isActive) => {
+                  if (aerr) {
+                    console.error('Is active err', aerr);
+                    return;
+                  }
+                  if (!exists || !isActive || !userData) {
+                    const account = this.web3Provider.connection.eth.accounts.create();
+                    if (user.blockChainAccount !== account.address) {
+                      user.blockChainAccount = account.address;
+                      this.connection.manager.save(user);
+                    }
+                    if (!userData) {
+                      const data = new UserData();
+                      data.userId = user.id;
+                      data.unlockData = account.privateKey;
+                      this.connection.manager.save(data);
+                    } else {
+                      userData.unlockData = account.privateKey;
+                      this.connection.manager.save(userData);
+                    }
+                    this.web3Provider.connection.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC, (_, txCount) => {
+                      const txConfig = {
+                        nonce: this.web3Provider.connection.utils.toHex(txCount),
+                        to: contract.address,
+                        gasLimit: this.web3Provider.connection.utils.toHex(81000),
+                        gasPrice: this.web3Provider.connection.utils.toHex(this.web3Provider.connection.utils.toWei('5', 'gwei')),
+                        data: ethContract.methods.addUser(account.address).encodeABI()
+                      };
+                      const currentTransaction = new tx(txConfig);
+                      currentTransaction.sign(Buffer.from(process.env.BCK_CONTRACT_MAIN_ACC_SIGN,'hex'));
 
-                const serializedTransaction = currentTransaction.serialize();
-                const rawTransaction = '0x' + serializedTransaction.toString('hex');
-                this.web3Provider.connection.eth.sendSignedTransaction(rawTransaction, (err, txHash) => {
-                  console.log('err', err, 'txHash:', txHash);
+                      const serializedTransaction = currentTransaction.serialize();
+                      const rawTransaction = '0x' + serializedTransaction.toString('hex');
+                      this.web3Provider.connection.eth.sendSignedTransaction(rawTransaction, (err, txHash) => {
+                        console.log('err', err, 'txHash:', txHash);
+                      });
+                    });
+                  } else {
+                    console.log('User: ', user.blockChainAccount, 'already exists!');
+                  }
                 });
               });
             });
         });
       });
-  }*/
+  }
 
   public getProfile(profileId: number, queryParams: QueryParameters): Promise<User> {
     const includeValue: string = queryParams ? queryParams.include : '';
@@ -89,9 +104,9 @@ export class UserService implements AfterRoutesInit {
     const includeList: Array<string> = includeValue ? includeValue.split(',').map(el => el.replace(/\s+/g, '')) : [];
     if (includeList.length !== 0) {
       const relationsArr = this.allIncludeValues.filter(el => includeList.indexOf(el) >= 0);
-      return this.connection.manager.getRepository(User).find({where: {id: Not(profileId)},relations: relationsArr});
+      return this.connection.manager.getRepository(User).find({where: {id: Not(profileId)}, order: {id: 'DESC'}, relations: relationsArr});
     }
-    return this.connection.manager.find(User, {id: Not(profileId)});
+    return this.connection.manager.find(User, {where:{id: Not(profileId)}, order: {id: 'DESC'}});
   }
 
   public getRoles(): Promise<Array<Role>> {
@@ -116,58 +131,6 @@ export class UserService implements AfterRoutesInit {
       });
   }
 
-  private getMasterAccount() {
-    return  this.connection.manager.findOne(User, {email: 'master.account@gmail.com'})
-      .then((user: User) => {
-        return this.connection.manager.findOne(UserData, {userId: user.id}).then((userData: UserData) => {
-          return {
-            id: user.id,
-            account: user.blockChainAccount,
-            key: userData.unlockData
-          };
-        });
-      });
-  }
-
-  public createUserW3() {
-    this.web3Provider.connection.eth.getAccounts().then(acc => {
-      console.log(acc);
-    });
-    this.web3Provider.connection.eth.getTransactionCount('0xd37a661aC767a23c170cCAD7babD7332669e8abD', (_, txCount) => {
-      console.log(txCount);
-    });
-
-    this.web3Provider.connection.eth.getBalance('0xd37a661aC767a23c170cCAD7babD7332669e8abD', (_, wei) => {
-      console.log(this.web3Provider.connection.utils.fromWei(wei, 'ether'));
-    });
-    const web3 = this.web3Provider.connection;
-    this.connection.manager.findOne(Contract, {name: 'manage_products_migration'})
-      .then((contract: Contract) => {
-        const ethContract = new web3.eth.Contract(JSON.parse(contract.abi), contract.address);
-        web3.eth.getTransactionCount('0x8373ba218cB895E8a8b9a6851C8B2bb835B82D2E', (_, txCount) => {
-          console.log(txCount);
-          const txConfig = {
-            nonce: web3.utils.toHex(txCount),
-            to: contract.address,
-            gasLimit: web3.utils.toHex(41000),
-            gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei')),
-            // tslint:disable-next-line:max-line-length
-            data: ethContract.methods.addProduct(1234, [123, 1321, 31231], Date.now()).encodeABI()
-          };
-          const currentTransaction = new tx(txConfig);
-          currentTransaction.sign(Buffer.from('d0edef994aadf7e9ae48e374366e47173a3cfdae2b433a9e879d5f0e1c0bd0dc','hex'));
-
-          const serializedTransaction = currentTransaction.serialize();
-          const rawTransaction = '0x' + serializedTransaction.toString('hex');
-          // tslint:disable-next-line:no-shadowed-variable
-          web3.eth.sendSignedTransaction(rawTransaction, (err, txHash) => {
-            console.log('err', err, 'txHash:', txHash);
-          });
-        });
-      });
-    return [];
-  }
-
   public createUser(user: User): Promise<User> {
     const saltedPassword = this.authenticationService.sha512(user.password, this.authenticationService.getSalt());
     user.password = saltedPassword.passwordHash;
@@ -182,58 +145,56 @@ export class UserService implements AfterRoutesInit {
       data.userId = user.id;
       data.unlockData = account.privateKey.substring(2);
       return this.connection.manager.save(data).then(() => {
-        return this.getMasterAccount().then((acc: {id: number, account: string, key: string}) => {
-          const web3 = this.web3Provider.connection;
-          web3.eth.getTransactionCount(acc.account, (_, txCount) => {
-            const txConfig = {
-              nonce: web3.utils.toHex(txCount),
-              to: account.address,
-              value: web3.utils.toHex(web3.utils.toWei(`${this.ethQuantity}`, 'ether')),
-              gasLimit: web3.utils.toHex(21000),
-              gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei'))
-            };
-            const currentTransaction = new tx(txConfig);
-            currentTransaction.sign(Buffer.from(acc.key,'hex'));
+        const web3 = this.web3Provider.connection;
+        web3.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC, (_, txCount) => {
+          const txConfig = {
+            nonce: web3.utils.toHex(txCount),
+            to: account.address,
+            value: web3.utils.toHex(web3.utils.toWei(`${this.ethQuantity}`, 'ether')),
+            gasLimit: web3.utils.toHex(21000),
+            gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei'))
+          };
+          const currentTransaction = new tx(txConfig);
+          currentTransaction.sign(Buffer.from(process.env.BCK_CONTRACT_MAIN_ACC_SIGN, 'hex'));
 
-            const serializedTransaction = currentTransaction.serialize();
-            const rawTransaction = '0x' + serializedTransaction.toString('hex');
-            // tslint:disable-next-line:no-shadowed-variable
-            web3.eth.sendSignedTransaction(rawTransaction, (_, txHash) => {
-              console.log('txHash:', txHash);
-            });
-            // tslint:disable-next-line:no-shadowed-variable
-            this.web3Provider.connection.eth.getBalance(account.address, (_, wei) => {
-              console.log(
-                'User',
-                account.address,
-                ' ether balance: ',
-                this.web3Provider.connection.utils.fromWei(wei, 'ether')
-              );
-            });
+          const serializedTransaction = currentTransaction.serialize();
+          const rawTransaction = '0x' + serializedTransaction.toString('hex');
+          // tslint:disable-next-line:no-shadowed-variable
+          web3.eth.sendSignedTransaction(rawTransaction, (_, txHash) => {
+            console.log('txHash:', txHash);
           });
-          return this.connection.manager.findOne(Contract, {name: 'manage_resources_migration'})
-            .then((contract: Contract) => {
-              const ethContract = new web3.eth.Contract(JSON.parse(contract.abi), contract.address);
-              web3.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC, (_, txCount) => {
-                const txConfig = {
-                  nonce: web3.utils.toHex(txCount),
-                  to: contract.address,
-                  gasLimit: web3.utils.toHex(81000),
-                  gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei')),
-                  data: ethContract.methods.addUser(account.address).encodeABI()
-                };
-                const currentTransaction = new tx(txConfig);
-                currentTransaction.sign(Buffer.from(process.env.BCK_CONTRACT_MAIN_ACC_SIGN,'hex'));
-
-                const serializedTransaction = currentTransaction.serialize();
-                const rawTransaction = '0x' + serializedTransaction.toString('hex');
-                web3.eth.sendSignedTransaction(rawTransaction, (err, txHash) => {
-                  console.log('err', err, 'txHash:', txHash);
-                });
-              });
-              return createdUser;
-            });
+          // tslint:disable-next-line:no-shadowed-variable
+          this.web3Provider.connection.eth.getBalance(account.address, (_, wei) => {
+            console.log(
+              'User',
+              account.address,
+              ' ether balance: ',
+              this.web3Provider.connection.utils.fromWei(wei, 'ether')
+            );
+          });
         });
+        return this.connection.manager.findOne(Contract, {name: 'manage_resources_migration'})
+          .then((contract: Contract) => {
+            const ethContract = new web3.eth.Contract(JSON.parse(contract.abi), contract.address);
+            web3.eth.getTransactionCount(process.env.BCK_CONTRACT_MAIN_ACC, (_, txCount) => {
+              const txConfig = {
+                nonce: web3.utils.toHex(txCount),
+                to: contract.address,
+                gasLimit: web3.utils.toHex(81000),
+                gasPrice: web3.utils.toHex(web3.utils.toWei('5', 'gwei')),
+                data: ethContract.methods.addUser(account.address).encodeABI()
+              };
+              const currentTransaction = new tx(txConfig);
+              currentTransaction.sign(Buffer.from(process.env.BCK_CONTRACT_MAIN_ACC_SIGN,'hex'));
+
+              const serializedTransaction = currentTransaction.serialize();
+              const rawTransaction = '0x' + serializedTransaction.toString('hex');
+              web3.eth.sendSignedTransaction(rawTransaction, (err, txHash) => {
+                console.log('err', err, 'txHash:', txHash);
+              });
+            });
+            return createdUser;
+          });
       });
     }).catch(err => {
       console.log(err);

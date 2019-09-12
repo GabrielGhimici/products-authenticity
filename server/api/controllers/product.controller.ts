@@ -3,6 +3,7 @@ import { ProductService } from '../product/product.service';
 import { AuthMiddleware } from '../../middlewares/auth.middleware';
 import { QueryParameters } from '../query-params.model';
 import { ProductData } from '../product/product.data';
+import { Product } from '../../database/entities/product.model';
 
 @Controller('/product')
 export class ProductController {
@@ -51,7 +52,7 @@ export class ProductController {
   public getProductById(
     @PathParams('id') id: number,
     @QueryParams() queryParams: QueryParameters
-  ) {
+  ): Promise<Product> {
     return this.productService.getProductById(id, queryParams);
   }
 

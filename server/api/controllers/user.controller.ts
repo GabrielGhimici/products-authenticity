@@ -71,6 +71,6 @@ export class UserController {
   @Post('/sign-up-1')
   public createProfileW3(
   ) {
-    return this.userService.createUserW3();
+    return [];
   }
 }
