@@ -132,6 +132,7 @@
         .chart {
           margin-top: $small-spacing;
           height: 45vh;
+          max-height: 12 * $large-spacing;
           width: 100%;
           position: relative;
         }

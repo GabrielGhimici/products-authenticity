@@ -69,6 +69,12 @@
             {{formatValidity(product?.validityTermQuantity, product?.validityTermUnit)}}
           </div>
         </div>
+        <div class="property">
+          <div class="mat-body label">
+            QR code:
+          </div>
+          <img [src]="'/qr-code/' + product?.id + '/identifier.png'" [width]="138" [height]="138"/>
+        </div>
       </div>
       <div class="right mat-elevation-z1">
         <mat-tab-group dynamicHeight [disableRipple]="true" (selectedIndexChange)="changedTab($event)">

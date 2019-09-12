@@ -54,6 +54,7 @@ export class Server extends ServerLoader {
         }
       }));
     this.use(Express.static(`${__dirname}/../products-authenticity`));
+    this.use('/qr-code', Express.static(`${__dirname}/../qr-codes`));
 
     if (!fs.existsSync(`${__dirname}/../qr-codes`)) {
       fs.mkdirSync(`${__dirname}/../qr-codes`);

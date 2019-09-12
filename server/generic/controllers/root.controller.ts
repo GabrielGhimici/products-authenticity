@@ -5,6 +5,6 @@ import * as Path from 'path';
 export class RootController {
   @Get('*')
   public loadIndex(@Response() response) {
-    response.sendFile(Path.resolve(__dirname, '../../products-authenticity/index.html'));
+    response.sendFile(Path.resolve(__dirname, '../../../products-authenticity/index.html'));
   }
 }
