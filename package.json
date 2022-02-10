@@ -97,7 +97,7 @@
     "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "nativescript-dev-webpack": "^1.0.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "nodemon": "^1.19.1",
     "protractor": "^5.4.2",
     "redux-devtools-extension": "^2.13.8",
