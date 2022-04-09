@@ -56,7 +56,7 @@
     "express-session": "^1.16.2",
     "hammerjs": "^2.0.8",
     "highcharts": "^7.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.26",
     "mysql": "^2.17.1",
     "nativescript-angular": "^8.1.0",
