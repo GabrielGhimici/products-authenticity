@@ -44,7 +44,7 @@
     "@angular/platform-browser": "^8.1.2",
     "@angular/platform-browser-dynamic": "^8.1.2",
     "@angular/router": "^8.1.2",
-    "@tsed/common": "^5.25.1",
+    "@tsed/common": "^6.129.0",
     "@tsed/core": "^5.25.1",
     "@tsed/di": "^5.25.1",
     "@tsed/typeorm": "^5.25.1",
