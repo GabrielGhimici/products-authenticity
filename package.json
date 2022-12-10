@@ -52,7 +52,7 @@
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.0.0",
     "ethereumjs-tx": "^2.1.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.16.2",
     "hammerjs": "^2.0.8",
     "highcharts": "^7.2.0",
